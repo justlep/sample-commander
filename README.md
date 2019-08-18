@@ -2,7 +2,7 @@
 
 ![](https://samplecommander.justlep.net/img/2.0.0-main-spectrograms-enabled.png)
 
-[More Screenshots & Videos](https://github.com/justlep/sample-commander/docs/screenshots.md)
+[More Screenshots & Videos](https://justlep.github.io/sample-commander/screenshots)
 
 ## Features:
 
