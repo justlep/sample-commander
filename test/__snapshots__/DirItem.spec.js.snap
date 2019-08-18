@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DirItem can scan for folders, excluding the start path 1`] = `
+Array [
+  "__snapshots__",
+  "test-files",
+  "test-files-generated",
+  "subdir",
+]
+`;
+
+exports[`DirItem can scan for folders, including the start path 1`] = `
+Array [
+  "test",
+  "__snapshots__",
+  "test-files",
+  "test-files-generated",
+  "subdir",
+]
+`;

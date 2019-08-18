@@ -1,0 +1,55 @@
+@import './variables';
+@import './_vuedarkmode-overrides';
+@import './_bulma-customized.scss';
+@import '~buefy/src/scss/buefy';
+@import './_buefy-overrides';
+
+@import './basics';
+
+.app {
+	&__wrap {
+		display: grid;
+		width: 100vw;
+		height: 100vh;
+		grid-template-columns: 48% auto 48%;
+		grid-template-rows: 30px 34px auto 40px;
+		grid-template-areas:
+				"player player player"
+				"toolbar toolbar toolbar"
+				"main main main"
+				"filter filter filter";
+		padding: 10px 10px 0;
+	}
+
+	&__player {
+		grid-area: player;
+	}
+
+	&__filter {
+		grid-area: filter;
+		align-self: center;
+	}
+
+	&__toolbar {
+		grid-area: toolbar;
+		align-self: center;
+	}
+
+	&__header {
+		grid-area: player;
+	}
+
+	&__main {
+		grid-area: main;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	&__footer {
+		grid-area: footer;
+		align-self: end;
+		text-align: center;
+		font-size: 12px;
+		color: $color-footer;
+	}
+}

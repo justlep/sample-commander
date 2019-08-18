@@ -1,0 +1,1 @@
+ffmpeg -y -hide_banner -i 20k-sweep-48k.wav -lavfi showspectrumpic=size=800x1024:color=fire:scale=log:legend=0 raw-spectrogram-48k-nolegend.png

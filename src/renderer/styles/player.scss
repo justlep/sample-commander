@@ -1,0 +1,33 @@
+
+@import './variables';
+
+.player {
+	$bgColor: lighten($color-body, 10%);
+
+	&__area {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	&__filename {
+		display: block;
+		font-size: 12px;
+		line-height: 30px;
+		color: $color-dark-gray;
+		padding: 0 5px;
+		margin-left: 5px;
+		background: darken($bgColor, 3%);
+
+		&--nonempty {
+			color: $color-mid-gray;
+			cursor: pointer;
+
+			&:hover {
+				color: $color-light-gray;
+				background: lighten($bgColor, 5%);
+				border-radius: 4px;
+			}
+		}
+	}
+}

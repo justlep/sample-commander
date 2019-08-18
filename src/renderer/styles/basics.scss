@@ -1,0 +1,94 @@
+@import './variables';
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-size: 13px;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: $color-body;
+	font-family: $fontFamilyDefault;
+	color: $dialogTextColor;
+	// user-select: none;
+}
+
+a {
+	color: $default-link-color;
+	&:hover {
+		color: lighten($default-link-color, 10%);
+	}
+}
+
+#app {
+	margin: 0;
+}
+
+.multipane--fullheight {
+	height: 100%;
+
+	.multipane-resizer {
+		align-self: center;
+		z-index: 1 !important;
+	}
+}
+
+.multipane.layout-v .multipane-resizer {
+	margin: 0;
+	left: 0; /* reset default styling */
+	width: 15px;
+	height: 75%;
+	background: transparent;
+	z-index: 3;
+	text-align: center;
+
+	$handleColor: #354044;
+	$handleBorder: 1px solid $handleColor;
+
+	&:after {
+		content: '';
+		display: inline-block;
+		width: 5px;
+		height: 100%;
+		//border-left: $handleBorder;
+		//border-right: $handleBorder;
+		background: $handleColor;
+		border-radius: 2px;
+	}
+
+	&:hover:after {
+		background-color: lighten($handleColor, 10%) !important;
+	}
+}
+
+/* ------------- scrollbars ----------------- */
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+	width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 0;
+	background: rgba(255,255,255,0.1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border-radius: 0;
+	background: rgba(255,255,255,0.1);
+	cursor: pointer;
+
+	&:hover {
+		background: rgba(255,255,255,0.15);
+		cursor: pointer;
+	}
+}

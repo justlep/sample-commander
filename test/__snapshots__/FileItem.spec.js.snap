@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileItem can scan for audio files non-recursively 1`] = `
+Array [
+  Object {
+    "filename": "20k-sweep-11k.wav",
+    "filesize": 16584,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-192k.wav",
+    "filesize": 288072,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-22k.wav",
+    "filesize": 33122,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-44k.wav",
+    "filesize": 66200,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k-copy.wav",
+    "filesize": 72050,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k.wav",
+    "filesize": 72050,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-96k.wav",
+    "filesize": 144056,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+]
+`;
+
+exports[`FileItem can scan for audio files recursively (by default) 1`] = `
+Array [
+  Object {
+    "filename": "20k-sweep-11k.wav",
+    "filesize": 16584,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-192k.wav",
+    "filesize": 288072,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-22k.wav",
+    "filesize": 33122,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-44k.wav",
+    "filesize": 66200,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k-copy.wav",
+    "filesize": 72050,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k.wav",
+    "filesize": 72050,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-96k.wav",
+    "filesize": 144056,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k-in-subdir.mp3",
+    "filesize": 4461,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+  Object {
+    "filename": "20k-sweep-48k-in-subdir.wav",
+    "filesize": 72050,
+    "isAudioFile": true,
+    "supportsSpectrograms": true,
+  },
+]
+`;
+
+exports[`FileItem can scan for files with a custom filenamePattern (regex) 1`] = `
+Array [
+  Object {
+    "filename": "small-file.txt",
+    "filesize": 446,
+    "isAudioFile": false,
+    "supportsSpectrograms": false,
+  },
+]
+`;

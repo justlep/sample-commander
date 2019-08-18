@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`metadataProcessor can determine metadata for audio fileItems using ffprobe.exe 1`] = `
+Array [
+  Object {
+    "filename": "20k-sweep-11k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334083333333332,
+      "sampleRate": 11025,
+    },
+    "nyquistFrequency": 5512.5,
+    "size": 16584,
+  },
+  Object {
+    "filename": "20k-sweep-192k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334116666666667,
+      "sampleRate": 192000,
+    },
+    "nyquistFrequency": 96000,
+    "size": 288072,
+  },
+  Object {
+    "filename": "20k-sweep-22k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334083333333332,
+      "sampleRate": 22050,
+    },
+    "nyquistFrequency": 11025,
+    "size": 33122,
+  },
+  Object {
+    "filename": "20k-sweep-44k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334083333333332,
+      "sampleRate": 44100,
+    },
+    "nyquistFrequency": 22050,
+    "size": 66200,
+  },
+  Object {
+    "filename": "20k-sweep-48k-copy.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334033333333333,
+      "sampleRate": 48000,
+    },
+    "nyquistFrequency": 24000,
+    "size": 72050,
+  },
+  Object {
+    "filename": "20k-sweep-48k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334033333333333,
+      "sampleRate": 48000,
+    },
+    "nyquistFrequency": 24000,
+    "size": 72050,
+  },
+  Object {
+    "filename": "20k-sweep-96k.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334033333333333,
+      "sampleRate": 96000,
+    },
+    "nyquistFrequency": 48000,
+    "size": 144056,
+  },
+  Object {
+    "filename": "20k-sweep-48k-in-subdir.mp3",
+    "metadata": Object {
+      "duration": "528ms",
+      "durationInMins": 0.0088,
+      "sampleRate": 48000,
+    },
+    "nyquistFrequency": 24000,
+    "size": 4461,
+  },
+  Object {
+    "filename": "20k-sweep-48k-in-subdir.wav",
+    "metadata": Object {
+      "duration": "500ms",
+      "durationInMins": 0.008334033333333333,
+      "sampleRate": 48000,
+    },
+    "nyquistFrequency": 24000,
+    "size": 72050,
+  },
+]
+`;

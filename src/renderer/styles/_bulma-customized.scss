@@ -1,0 +1,137 @@
+
+$size-7: 12px;
+
+@import './variables.scss';
+@import '~bulma/sass/utilities/_all';
+
+
+// Colors
+
+$black:        hsl(0, 0%, 4%) !default
+$black-bis:    hsl(0, 0%, 7%) !default
+$black-ter:    hsl(0, 0%, 14%) !default
+
+$grey-darker:  hsl(0, 0%, 21%) !default
+$grey-dark:    hsl(0, 0%, 29%) !default
+$grey:         hsl(0, 0%, 48%) !default
+$grey-light:   hsl(0, 0%, 71%) !default
+$grey-lighter: hsl(0, 0%, 86%) !default
+
+$white-ter:    hsl(0, 0%, 96%) !default
+$white-bis:    hsl(0, 0%, 98%) !default
+$white:        hsl(0, 0%, 100%) !default
+
+$white: lighten($color-light-gray, 25%);
+
+$orange:       hsl(14,  100%, 53%) !default
+$yellow:       hsl(48,  100%, 67%) !default
+$green:        hsl(141, 71%,  48%) !default
+$turquoise:    hsl(171, 100%, 41%) !default
+$cyan:         hsl(204, 86%,  53%) !default
+$blue:         hsl(217, 71%,  53%) !default
+$purple:       hsl(271, 100%, 71%) !default
+$red:          hsl(348, 100%, 61%) !default
+
+// Set your colors
+$primary: #377cbb; // $color-blue
+$primary-invert: findColorInvert($primary);
+$twitter: #4099FF;
+$twitter-invert: findColorInvert($twitter);
+
+$danger: #dc3f30;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+	'white': ($white, $black),
+	'black': ($black, $white),
+	'light': ($light, $light-invert),
+	'dark': ($dark, $dark-invert),
+	'primary': ($primary, $primary-invert),
+	'info': ($info, $info-invert),
+	'success': ($success, $success-invert),
+	'warning': ($warning, $warning-invert),
+	'danger': ($danger, $danger-invert),
+	'twitter': ($twitter, $twitter-invert)
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+$body-size: 0.9rem;
+
+$modal-content-width: 900px;
+$modal-card-body-background-color: $color-dialog-bg;
+$modal-card-head-background-color: $color-dialog-bg;
+$modal-card-title-color: $dialog-title-color;
+$modal-card-head-padding: 20px 20px 10px;
+$modal-card-body-padding: 7px 20px 0;
+$modal-card-title-size: 1.4rem;
+
+$modal-card-head-border-bottom: none; // 1px solid red;
+$modal-card-foot-border-top: none; // 1px solid red;
+
+.modal-card-head {
+	flex-wrap: wrap !important;
+	user-select: none;
+	cursor: default;
+}
+
+.modal-card-body {
+	color: lighten($color-light-gray, 15%);
+}
+
+.modal-card-title {
+	font-family: $fontFamilyMonospace;
+	font-weight: bold;
+}
+
+body input[type=range].slider {
+
+	&::-webkit-slider-runnable-track {
+		height: 11px !important;
+		background-color: lighten($default-link-color, 30%);
+	}
+
+	&::-webkit-slider-thumb {
+		width: 20px;
+		height: 15px;
+		margin-top: -2px;
+		background-color: lighten($default-link-color, 20%);
+		border: 1px solid $default-link-color;
+		border-radius: 3px;
+
+		&:hover {
+			background-color: lighten($default-link-color, 30%);
+		}
+	}
+}
+
+body input[type=range].slider {
+
+	 &::-webkit-slider-runnable-track {
+		 height: 11px !important;
+		 background-color: lighten($default-link-color, 30%);
+		 border-radius: 2px;
+	 }
+
+	 &::-webkit-slider-thumb {
+		 width: 20px;
+		 height: 15px;
+		 margin-top: -2px;
+		 background-color: darken($default-link-color, 15%);
+		 border: 1px solid darken($default-link-color, 5%);
+		 border-radius: 2px;
+
+		 &:hover {
+			 background-color: darken($default-link-color, 30%);
+			 border: 1px solid darken($default-link-color, 5%);
+		 }
+	 }
+ }
+
+
+
+// Import Bulma and Buefy styles
+@import '~bulma';

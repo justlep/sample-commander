@@ -1,0 +1,41 @@
+@import './variables';
+
+label.radio {
+	padding-left: 10px;
+	color: $color-light-gray;
+}
+
+.radio, .checkbox {
+	&:hover {
+		color: lighten($color-light-gray, 15%);
+	}
+}
+
+.b-checkbox.checkbox input[type=checkbox] + .check,
+.b-radio.radio input[type=radio] + .check {
+	width: 15px;
+	height: 15px;
+	align-self: baseline;
+
+	&:before {
+		width: 7px;
+		height: 7px;
+	}
+}
+
+.help {
+	font-size: 1em;
+}
+
+.modal .label {
+	color: $color-light-gray;
+}
+
+.tag:not(body) {
+	font-size: 12px;
+}
+
+
+.b-tooltip:after {
+	font-size: 12px;
+}

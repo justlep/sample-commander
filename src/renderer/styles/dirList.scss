@@ -1,0 +1,45 @@
+@import './variables.scss';
+
+.dir {
+
+	&__list {
+	}
+
+	&__list > &__item {
+		word-break: break-all;
+	}
+
+	&__item {
+		cursor: pointer;
+		user-select: none;
+
+		a {
+			display: flex;
+
+			&:hover {
+				color: $dirHoverColor;
+			}
+		}
+		a:before {
+			content: '┕';
+			color: #4a4a4a;
+			padding-right: 4px;
+		}
+
+		&--selected a {
+			color: darken(#f90, 5%);
+		}
+		&--played a {
+			&:after {
+				color: $color-played-list-item;
+				font-weight: bold;
+				content: '*';
+				padding-left: 2px;
+			}
+		}
+
+		&:nth-child(even) {
+			background-color: darken($dialogBackgroundColor, 3%);
+		}
+	}
+}

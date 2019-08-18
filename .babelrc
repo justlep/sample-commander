@@ -1,0 +1,45 @@
+{
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/env", {
+          "targets": { "node": 8 }
+        }]
+      ],
+      "plugins": ["istanbul"]
+    },
+    "main": {
+      "presets": [
+        ["@babel/env", {
+          "targets": { "node": 8 }
+        }]
+      ]
+    },
+    "renderer": {
+      "presets": [
+        ["@babel/env", {
+          "targets": { "node": 8 }
+        }]
+      ]
+    },
+    "web": {
+      "presets": [
+        ["@babel/env", {
+          "targets": { "node": 8 }
+        }]
+      ]
+    }
+  },
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime", {
+        "absoluteRuntime": false,
+        "corejs": false,
+        "helpers": false,
+        "regenerator": false,
+        "useESModules": false
+      }
+    ]
+  ]
+}

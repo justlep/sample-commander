@@ -1,0 +1,1 @@
+@del raw-spectrogram*.png

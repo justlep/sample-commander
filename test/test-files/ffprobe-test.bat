@@ -1,0 +1,1 @@
+ffprobe -hide_banner -show_streams -select_streams a -print_format json 20k-sweep-48k.wav

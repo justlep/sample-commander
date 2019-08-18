@@ -1,0 +1,131 @@
+@import './variables';
+
+.dialog {
+
+	&__buttons {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		width: 100%;
+
+		&--spread {
+			justify-content: space-between;
+		}
+	}
+
+	&__subtitle {
+		font-family: $fontFamilyMonospace;
+		color: $dialog-title-color;
+		font-weight: bold;
+		width: 100%;
+		font-size: 14px;
+		word-break: break-all;
+		margin: 5px 0 0;
+		padding: 2px 5px;
+		border-radius: 4px;
+		background: rgba(255,255,255,0.05);
+	}
+
+	&__box {
+		background: $dialogBackgroundColor;
+		margin: 0 -10px;
+		padding: 5px 10px;
+		border-radius: 5px;
+	}
+
+	&__list {
+		padding-left: 10px;
+		font-weight: 300;
+		font-size: 0.9rem;
+
+		li {
+			padding: 2px 2px 2px 6px;
+			word-break: break-all;
+
+			&:nth-child(even) {
+				background: darken($dialogBackgroundColor, 3%);
+			}
+		}
+	}
+
+	&__table {
+		width: 100%;
+		font-size: 1rem;
+
+		th {
+			color: $color-light-gray;
+			border-bottom: 1px solid lighten($dialogBackgroundColor, 20%);
+			padding: 2px 5px 5px;
+			font-weight: 600;
+			text-align: left;
+		}
+
+		td {
+			padding: 2px 5px;
+		}
+
+		tbody td:first-child input[type="checkbox"] {
+			vertical-align: middle;
+			margin-top: -1px;
+		}
+
+		td, th {
+			&:last-child {
+				text-align: right;
+
+				.button {
+					margin-bottom: 0;
+				}
+			}
+		}
+
+		tbody tr:first-child td {
+			padding-top: 5px;
+		}
+
+		tbody tr:nth-of-type(even) {
+			background-color: darken($dialogBackgroundColor, 4%)
+		}
+
+		label {
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		.dialog--excluded label,
+		label.dialog--excluded {
+			opacity: 0.6;
+			text-decoration: line-through;
+		}
+
+		&Buttons {
+			&--brackets > * {
+				&:before { content: '[ '; opacity: 0.5; }
+				&:after { content: ' ]' ; opacity: 0.5; }
+			}
+
+			a {
+				margin-left: 7px;
+				vertical-align: middle;
+			}
+		}
+
+		&--vmiddle td {
+			vertical-align: middle;
+		}
+
+		&--hoverLines tbody > tr:hover td {
+			background-color: lighten($dialogBackgroundColor, 10%);
+			label {
+				display: block;
+			}
+		}
+	}
+
+	&__emptyNotice {
+		padding: 20px 0;
+		text-align: center;
+		font-style: italic;
+	}
+}

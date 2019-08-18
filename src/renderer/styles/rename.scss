@@ -1,0 +1,87 @@
+@import './variables';
+
+.rename {
+
+    &__formRow {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+
+        &--reset {
+            justify-content: flex-end;
+            padding: 10px 0 0;
+        }
+
+        label {
+            margin: 5px 0 4px 0;
+            font-size: 13px;
+            line-height: 13px;
+        }
+
+        small {
+            font-size: 11px;
+            line-height: 11px;
+        }
+
+        .dm-field-input__container {
+            height: auto !important;
+
+            input {
+                height: auto !important;
+                line-height: 1.8rem;
+                font-size: 1rem;
+            }
+        }
+
+        .dm-field-label--uppercase {
+            text-transform: unset;
+        }
+
+        .b-checkbox {
+            margin: 0;
+        }
+    }
+
+    &--skipped {
+        text-decoration: line-through;
+        font-weight: 100;
+        opacity: 0.5;
+    }
+
+    &__insertLink {
+        margin-left: 5px;
+
+        &:before {
+            content: '[';
+        }
+        &:after {
+            content: ']';
+        }
+    }
+
+    &__field {
+        margin-left: 10px;
+        white-space: nowrap;
+        width: auto;
+
+        &:first-child {
+            margin-left: 0;
+            width: 50% !important;
+        }
+
+        &--small {
+            flex-shrink: 1;
+            flex-grow: 1;
+
+            .dm-field-input__field {
+                width: 80px !important;
+                min-width: 0 !important;
+            }
+        }
+
+        &--replace {
+            flex-grow: 1;
+        }
+    }
+
+}

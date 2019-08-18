@@ -1,0 +1,25 @@
+@import './variables';
+
+.filter {
+	&__wrap {
+		display: flex;
+		align-items: center;
+	}
+
+	&__input {
+		width: 230px;
+		margin-right: 5px;
+
+		.dm-field-input__container {
+			height: 24px !important;
+		}
+	}
+
+	&__input--filtered .dm-field-input__container {
+		border: 1px solid $filtered-border-color !important;
+	}
+
+	&__resetBtn {
+		margin-bottom: 0 !important;
+	}
+}
