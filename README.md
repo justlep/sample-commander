@@ -1,4 +1,4 @@
-# LeP's Sample Commander
+# LeP's Sample Commander [![Build Status](https://travis-ci.org/justlep/sample-commander.svg?branch=master)](https://travis-ci.org/justlep/sample-commander) ![License](https://img.shields.io/github/license/justlep/sample-commander)
 
 ![](https://samplecommander.justlep.net/img/2.0.0-main-spectrograms-enabled.png)
 
