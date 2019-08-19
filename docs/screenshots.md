@@ -4,6 +4,10 @@
 
 * [Overview, Loading spectrograms](https://samplecommander.justlep.net/img/2.0.0-vid-spectrograms.mp4)
 * [File context menus](https://samplecommander.justlep.net/img/2.0.0-vid-file-contextmenus.mp4)  
+  going through the context menu of a right-clicked file item; opening it first in Windows Explorer, 
+  then in Total Commander (where you can see the *.SPX.png spectrogram images next to the .wav files), 
+  then opening the system-default application for audio files, and afterwards in the configured audio editor, RX in my case. 
+  Finally taking a glance at the Rename dialog and the Convert dialog.
 * [All context menus](https://samplecommander.justlep.net/img/2.0.0-vid-all-contextmenus.mp4)  
   showing context menus for Source Panel header, Target Panel header, File items, Target folders
 * [Selecting & moving files](https://samplecommander.justlep.net/img/2.0.0-vid-move-files.mp4)  
