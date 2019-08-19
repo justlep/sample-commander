@@ -5,7 +5,7 @@ All notable changes to Sample Commander will be documented in this file.
 
 * ... unrelased changes go here ...
 
-## [2.0.0] - 11<sup>th</sup> August 2019
+## [2.0.0] - 18<sup>th</sup> August 2019
 
 * completely rewritten Sample Commander v2
 
