@@ -38,8 +38,8 @@
     - Recent Target panel folders
     - **Bookmarked folders**
 - Customizable **limits** for performance safety:
-    - limits for max. loaded/displayed directories and files
-    - limits for max. concurrently processed audio files
+    - limit the max. number of loaded/displayed directories and files
+    - limit the max. number of concurrently processed audio files
 
 _* requires FFmpeg binaries, see Installation_
   
@@ -62,10 +62,11 @@ Other OS may be added in the future.
 ### Setting up FFmpeg (once only)
    
 1. Download a pre-built package (ZIP file) of `FFmpeg` binaries from a location below: 
-    - https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.1.3-win64-static.zip  
-      Sample Commander was developed & tested with this version.
-    - https://ffmpeg.zeranoe.com/builds/   
-      The page generously providing the latest prebuilt, ready-to-use FFmpeg packages.  
+    - **Recommended:** 
+      https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.1.3-win64-static.zip  
+      This is the  FFmpeg version I am using myself while running and developing Sample Commander.
+    - Alternatively: https://ffmpeg.zeranoe.com/builds/   
+      That page generously provides the latest prebuilt, ready-to-use FFmpeg packages.  
       For use with Sample Commander, choose Version = `4.1.x`, Architecture = `Windows 64-bit`, Linking = `Static`. 
 2. Extract the zip anywhere on your harddisk.
 3. Finally, open Sample Commander's  _Settings_ dialog and set the location of the extracted FFmpeg files.
