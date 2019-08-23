@@ -14,7 +14,7 @@
                         span.file__size {{ fileItem.formattedFilesize }}
                         | &nbsp;|&nbsp;
                         span.file__duration(v-if="showDuration") {{ fileItem.metadata.duration || '?' }}
-                    span.file__cdate(v-if="showCDate") {{ fileItem.formattedCDate }}
+                    span.file__mtime(v-if="showMTime") {{ fileItem.formattedMTime }}
                 .spectro(v-if="spectrogramSize && fileItem.spectrogram", 
                          :style="{backgroundImage:getSpectrogramCssBgImgUrl(fileItem), height: spectrogramSize + 'px'}")
                     .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
@@ -49,7 +49,7 @@
         computed: {
             ...get([
                 'config/simpleSelect',
-                'config/showCDate',
+                'config/showMTime',
                 'config/showDuration',
                 'config/showSampleRate',
                 'config/sourceItemWidth',

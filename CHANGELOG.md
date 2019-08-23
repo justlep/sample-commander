@@ -3,6 +3,9 @@ All notable changes to Sample Commander will be documented in this file.
 
 ## [2.0.1] - yet to be released
 
+### Changed
+* minor internal refactorings
+
 ### Fixed
 * small latency (< 1ms) during spectrogram scaling due to caching bug  
 

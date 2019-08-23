@@ -80,7 +80,6 @@ export default class FileItem {
                         let fileItem = new FileItem({
                             path: entryInfo.fullPath,
                             size: entryInfo.stats.size || 0,
-                            ctime: entryInfo.stats.ctime.getTime(),
                             mtime: entryInfo.stats.mtime.getTime(),
                             validate: !fileItems.length // validate first item to notice future breaking changes in readdirp
                         });
@@ -118,7 +117,6 @@ export default class FileItem {
                     fileItems.push(new FileItem({
                         path: filePath,
                         size: fileStat.size,
-                        ctime: fileStat.ctime,
                         mtime: fileStat.mtime
                     }));
                 }
@@ -132,11 +130,10 @@ export default class FileItem {
     /**
      * @param {string} path
      * @param {number} size
-     * @param {number} ctime
      * @param {number} mtime
      * @param {boolean} [validate] - set true to validate parameters and throw an error if invalid 
      */
-    constructor({path, size = 0, ctime, mtime, validate}) {
+    constructor({path, size = 0, mtime, validate}) {
         let resolvedPath = nodePath.resolve(path),
             idHash = nodeCrypto.createHash('sha1'),
             isAudioFile = AUDIO_FILE_EXTENSIONS_REGEX.test(resolvedPath),
@@ -145,12 +142,11 @@ export default class FileItem {
         if (validate) {
             asserts.assertNonEmptyString(path);
             asserts.assertNumberInRange(size, 0, Number.MAX_SAFE_INTEGER);
-            asserts.assertNumberInRange(ctime, 0, Number.MAX_SAFE_INTEGER);
             asserts.assertNumberInRange(mtime, 0, Number.MAX_SAFE_INTEGER);
-            // Logger.debug(path, size, ctime, mtime);
+            // Logger.debug(path, size, mtime);
         }
         
-        idHash.update(resolvedPath + '_-_-_' + size + '_-_-_' + ctime + '_' + mtime + '_-_-_');
+        idHash.update(resolvedPath + '::' + size + '::' + mtime + '::');
         
         this[NON_REACTIVE_PROPS] = {
             id: idHash.digest('hex'),
@@ -158,7 +154,7 @@ export default class FileItem {
             path: resolvedPath,
             parentDir: nodePath.join(resolvedPath, '..'),
             filesize: size,
-            formattedCDate: new Date(mtime).toLocaleString(), // moment(mtime).format('DD.MM.YYYY - hh:mm:ss (ddd)'),
+            formattedMTime: new Date(mtime).toLocaleString(), // moment(mtime).format('DD.MM.YYYY - hh:mm:ss (ddd)'),
             formattedFilesize: (size / (1024 * 1024)).toFixed(1),
             isAudioFile,
             supportsSpectrograms,
@@ -182,7 +178,7 @@ export default class FileItem {
     get path() { return this[NON_REACTIVE_PROPS].path }
     get parentDir() { return this[NON_REACTIVE_PROPS].parentDir }
     get filesize() { return this[NON_REACTIVE_PROPS].filesize }
-    get formattedCDate() { return this[NON_REACTIVE_PROPS].formattedCDate }
+    get formattedMTime() { return this[NON_REACTIVE_PROPS].formattedMTime }
     get formattedFilesize() { return this[NON_REACTIVE_PROPS].formattedFilesize }
     get supportsSpectrograms() { return this[NON_REACTIVE_PROPS].supportsSpectrograms }
     

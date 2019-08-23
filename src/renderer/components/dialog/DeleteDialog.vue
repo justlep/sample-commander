@@ -157,7 +157,7 @@
                     let spectrogramPath = audioFileItem.getSpectrogramPath();
                     try {
                         await assertFileExists(spectrogramPath);
-                        let spectroFileItem = new FileItem({path: spectrogramPath, size: 0, mtime: 0, ctime: 0}),
+                        let spectroFileItem = new FileItem({path: spectrogramPath, size: 0, mtime: 0}),
                             spectroFileItemWrapper = new ProcessableItemWrapper(spectroFileItem);
 
                         spectroFileItemWrapper[SPECTRO_PARENT_FILE_ITEM_ID_PROP] = audioFileItem.id;

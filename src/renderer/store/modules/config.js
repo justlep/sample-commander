@@ -42,7 +42,7 @@ const DEFAULT_STATE = {
     filePathTooltip: true,
     showFilesize: true,
     showTargetPanel: true,
-    showCDate: true,
+    showMTime: true,
     showDuration: true,
     showSampleRate: false,
     targetDirLimit: 300,
@@ -126,6 +126,7 @@ export default {
         },
         savePersistentConfig(state) {
             Logger.dev('Persisting config...');
+            _electronStore.clear();
             STATE_KEYS.forEach(key => {
                 let valueToSave = state[key];
                 if (_isCompatibleKeyValue(key, valueToSave)) {
