@@ -1,9 +1,10 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
-## [Unreleased]
+## [2.0.1] - yet to be released
 
-* ... unrelased changes go here ...
+### Fixed
+* small latency (< 1ms) during spectrogram scaling due to caching bug  
 
 ## [2.0.0] - 18<sup>th</sup> August 2019
 

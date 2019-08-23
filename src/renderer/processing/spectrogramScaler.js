@@ -17,7 +17,7 @@ const _sourceLinesAndWeightsCache = {};
 function _getTransformationSourceLinesAndWeights({sourceWidth, sourceHeight, sourceFrequencyRange, targetHeight, targetFrequencyRange = sourceFrequencyRange}){
     const CACHE_KEY = [sourceWidth, sourceHeight, sourceFrequencyRange, targetHeight, targetFrequencyRange].join('__');
 
-    let linesAndWeights = _sourceLinesAndWeightsCache[CACHE_KEY] || {};
+    let linesAndWeights = _sourceLinesAndWeightsCache[CACHE_KEY] || [];
 
     // using Mel scale -> https://en.wikipedia.org/wiki/Mel_scale
     // -> 2595 * log10(1 + f/700) -> f(20000) === 3816.913632624
