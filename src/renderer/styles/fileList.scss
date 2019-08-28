@@ -96,6 +96,13 @@ $item-background-hover: #888;
 			}
 		}
 
+		// see ConfigDialog.vue for range
+		@for $i from 1 through 20 {
+			.file__list--vspace#{$i} & {
+				margin-bottom: #{$i}px !important;
+			}
+		}
+
 		&--playing {
 			.file__filename {
 				color: $color-played-list-item;

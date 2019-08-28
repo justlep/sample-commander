@@ -62,6 +62,7 @@ const DEFAULT_STATE = {
     spectrogramSourceFileDurationLimitInMins: 20,
     sourcePanelWidth: '70%',
     sourceItemWidth: 3,
+    sourceItemVSpace: 0,
     minMousewheelSourceItemWidth: 1,
     metadataConcurrency: RECOMMENDED_PARALLEL_METADATA_JOBS,
     spectrogramConcurrency: RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS,

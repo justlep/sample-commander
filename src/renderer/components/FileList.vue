@@ -56,6 +56,7 @@
                 'config/showDuration',
                 'config/showSampleRate',
                 'config/sourceItemWidth',
+                'config/sourceItemVSpace',
                 'player/playedFileItemId',
                 'player/playedFileItem'
             ]),
@@ -66,8 +67,10 @@
                 'isMousewheelResizingDisabled'
             ]),
             cssListClass: function(/* state */) {
-                let w = this.sourceItemWidth;
-                return `file__list--w${w} file__list--w${w === MAX_SOURCE_ITEM_WIDTH ? 'Max' : 'NonMax'}`;
+                let w = this.sourceItemWidth,
+                    vspaceClass = 'file__list--vspace' + this.sourceItemVSpace;
+                
+                return `file__list--w${w} file__list--w${w === MAX_SOURCE_ITEM_WIDTH ? 'Max' : 'NonMax'} ${vspaceClass}`;
             },
             totalSelected() {
                 return this.selectionChangeFlag && Object.keys(this._selectedIdsMap).length;

@@ -48,6 +48,13 @@
                                 span.configDialog__limitValue {{ targetDirLimit || 'no limit' }}
                             td
                                 button.button.is-small(@click="$emitGlobal('show-maxdirs-config-dialog')") Edit...
+                        tr
+                            td Vertical space between files
+                                b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.fa.fa-info-circle
+                            td
+                                input.slider(v-model.number="sourceItemVSpace", type="range", min="0", max="20", step="1")
+                                span.configDialog__limitValue {{ sourceItemVSpace ? (sourceItemVSpace + ' px') : 'default' }}
+                            td
 
                         //- --------------------------------------------------------------------
 
@@ -161,7 +168,7 @@
 
     export default {
         data: () => ({
-            
+            isPreviewingVSpace: false
         }),
         computed: {
             ...mapGetters('config', [
@@ -185,8 +192,19 @@
                 'config/sourceFileLimit',
                 'config/canMousewheelCloseSpectrograms',
                 'config/minMousewheelSourceItemWidth',
-                'config/duplicateCheckQuickMode'
+                'config/duplicateCheckQuickMode',
+                'config/sourceItemVSpace'
             ])
+        },
+        watch: {
+            sourceItemVSpace() {
+                // auto-reduce the modal background opacity when the user fiddles with vspace 
+                let modalBackgroundElem = !this.isPreviewingVSpace && document.querySelector('.modal-background');
+                if (modalBackgroundElem) {
+                    modalBackgroundElem.style.opacity = 0.5;
+                    this.isPreviewingVSpace = true;
+                }
+            }
         },
         methods: {
             openFfmpegPageInBrowser() {
