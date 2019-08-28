@@ -127,7 +127,7 @@ export const CUSTOM_DIRS_MODE_RECENT_TARGET = 'recentTarget';
 export const CUSTOM_DIRS_MODE_DEFAULT = 'asPrevious';
 
 export const LINEAR_SPECTROGRAM_DIR_INFO_FILE_CONTENT = `Sample Commander temporary spectrogram folder.\r
-Any SPX_*.png in this folder can be safely deleted.\r
+Any file of the pattern *.SPX.png in this folder can be safely deleted.\r
 Generated: `;
 
 export const REPO_URL = 'https://github.com/justlep/sample-commander';
