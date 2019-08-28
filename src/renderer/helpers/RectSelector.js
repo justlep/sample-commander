@@ -184,19 +184,6 @@ export class RectSelector {
         this.status = RECT_STATUS.ACTIVE;
     }
     
-    get _scrollContainer() {
-        return debounce(up => {
-            let containerElem = this.status.isActive && this[NON_REACTIVE_PROPS].containerElem;
-            if (containerElem) {
-                if (up) {
-                    containerElem.scrollTop = Math.max(containerElem.scrollTop - 20, 0);
-                } else {
-                    containerElem.scrollTop += 20;
-                }
-            }
-        }, 50); 
-    }
-    
     _onMouseMove(e, isStart, useLastMousePosition) {
         e.preventDefault();
         let nrp = this[NON_REACTIVE_PROPS],
@@ -218,9 +205,9 @@ export class RectSelector {
         if (isStart) {
             nrp.startX = mouseX;
             nrp.startY = scrolledMouseY;
-        } else if (mouseY === nrp.minY) {
+        } else if (mouseY <= nrp.minY + 3) {
             this._scrollContainer(true);
-        } else if (mouseY === nrp.maxY) {
+        } else if (mouseY >= nrp.maxY - 3) {
             this._scrollContainer(false);
         }
 
@@ -246,3 +233,19 @@ export class RectSelector {
         this.markChanged();
     }
 }
+
+/**
+ * @param {boolean} [up]
+ * @this {RectSelector}
+ * @private
+ */
+RectSelector.prototype._scrollContainer = debounce(function(up) {
+    let containerElem = this.status.isActive && this[NON_REACTIVE_PROPS].containerElem;
+    if (containerElem) {
+        if (up) {
+            containerElem.scrollTop = Math.max(containerElem.scrollTop - 20, 0);
+        } else {
+            containerElem.scrollTop += 20;
+        }
+    }
+}, 30, {leading: true});
