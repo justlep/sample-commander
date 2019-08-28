@@ -63,7 +63,6 @@ const DEFAULT_STATE = {
     sourcePanelWidth: '70%',
     sourceItemWidth: 3,
     minMousewheelSourceItemWidth: 1,
-    simpleSelect: false,
     metadataConcurrency: RECOMMENDED_PARALLEL_METADATA_JOBS,
     spectrogramConcurrency: RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS,
     loadInfoOfSmallFilesFirst: false,

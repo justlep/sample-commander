@@ -52,7 +52,6 @@
         }),
         computed: {
             ...get([
-                'config/simpleSelect',
                 'config/showMTime',
                 'config/showDuration',
                 'config/showSampleRate',
@@ -214,13 +213,6 @@
                     totalDragged = draggedItems.length,
                     {dragInfoElem} = this.$refs;
                 
-                if (!isFileSelected && this.simpleSelect) {
-                    // Mimic same behavior as Windows Explorer:
-                    //  - if dragged item is not selected -> select it and deselect all others
-                    //  - if dragged item is selected -> consider it + all fellow selected items as being dragged
-                    this._selectFileItem(fileItem, true, true);
-                }
-                
                 this.dragInfoText = `${totalDragged} ${totalDragged === 1 ? 'file' : 'files'} `;
                 e.dataTransfer.setData('text/plain', draggedItems.map(it => it.path).join('\n'));
                 e.dataTransfer.setDragImage(dragInfoElem, -20, -10);
@@ -266,9 +258,6 @@
                     this._toggleSelectFileItem(fileItem);
                     return;
                 }
-                if (this.simpleSelect) {
-                    this._selectFileItem(fileItem);
-                }
                 if (!fileItem.isAudioFile) {
                     return;
                 }
@@ -308,10 +297,7 @@
             isPlayedFileItem(fileItem) {
                 return !!(fileItem && fileItem.id === this.playedFileItemId);
             },
-            _selectFileItem(item, rememberLastSelected = true, deselectAll = true) {
-                if (deselectAll) {
-                    this._deselectAll();
-                }
+            _selectFileItem(item, rememberLastSelected = true) {
                 this._selectedIdsMap[item.id] = 1;
                 if (rememberLastSelected) {
                     this._lastSelectedItem = item;
@@ -328,7 +314,7 @@
                     endIndex = Math.max(indexLast, indexClicked);
 
                 for (let i = startIndex; i <= endIndex; i++) {
-                    this._selectFileItem(this.fileItems[i], false, false)
+                    this._selectFileItem(this.fileItems[i], false);
                 }
                 this._lastSelectedItem = fileItem;
             },
@@ -336,7 +322,7 @@
                 if (this._isFileItemSelected(fileItem)) {
                     this._deselectItem(fileItem);
                 } else {
-                    this._selectFileItem(fileItem, !skipRememberLastSelected, false);
+                    this._selectFileItem(fileItem, !skipRememberLastSelected);
                 }
             },
             _isFileItemSelected(item) {

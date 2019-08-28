@@ -11,12 +11,11 @@
                 .dialog__box
                     table.dialog__table.configDialog__table: tbody
                         tr
-                            td Select files by...
+                            td Auto-disable spectrograms when <br>selecting another source folder
                             td
-                                b-radio.radio--spacy(v-model="simpleSelect", size="is-default", type="is-info", :native-value="false") Shift/Ctrl + Click
-                                    b-tooltip(label="Ctrl+Click selects/deselects single files. Shift+Click selects/deselects multiple files between the last selected and the clicked file (similar to Windows Explorer)", multilined, position="is-bottom"): em.fa.fa-info-circle
-                                b-radio.radio--spacy(v-model="simpleSelect", size="is-default", type="is-info", :native-value="true") Simple Click
-                                    b-tooltip(label="Simple Click = any click on a file will not only play it but also select it, making it hard to listen to one file without de-selecting all others.", multilined, position="is-bottom"): em.fa.fa-info-circle
+                                b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="true") Yes
+                                    b-tooltip(label="(Recommended) Prevents you from accidentally generating spectrogram files in folders you only wanted to have a quick glance at", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="false") No
                             td
                         tr
                             td [Shift]+Mousewheel can disable raster
@@ -31,13 +30,6 @@
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="true") Yes 
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="false") No, keep spectrograms enabled at minimum height
                                     b-tooltip(:label="`Prevent Ctrl+mousewheel from closing spectrograms, instead the minimum size will be ${SPECTROGRAM_SIZE_STEPPING} pixels`", multilined, position="is-top"): em.fa.fa-info-circle
-                            td
-                        tr
-                            td Auto-disable spectrograms when <br>selecting another source folder
-                            td
-                                b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="true") Yes
-                                    b-tooltip(label="(Recommended) Prevents you from accidentally generating spectrogram files in folders you only wanted to have a quick glance at", multilined, position="is-right"): em.fa.fa-info-circle
-                                b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="false") No
                             td
                         tr
                             td Limit Source files
@@ -186,7 +178,6 @@
                 'config/loadInfoOfSmallFilesFirst',
                 'config/fileManagerExecutablePath',
                 'config/editorExecutablePath',
-                'config/simpleSelect',
                 'config/targetDirLimit',
                 'config/disableSpectrogramsOnDirChange',
                 'config/spectrogramSourceFileSizeLimitInMb',

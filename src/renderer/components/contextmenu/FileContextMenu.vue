@@ -24,8 +24,7 @@
                 'config/recurseSource',
                 'config/sourcePath',
                 'config/targetPath',
-                'config/lastSourcePaths',
-                'config/simpleSelect'
+                'config/lastSourcePaths'
             ])
         },
         methods: {
@@ -131,28 +130,6 @@
                 menu.append(new MenuItem({
                     label: 'Folder in Target ' + ARROW_TARGET,
                     click: () => this.targetPath = fileFolderPath
-                }));
-
-                menu.append(new MenuItem({type: 'separator'}));
-
-                menu.append(new MenuItem({
-                    label: 'Selection mode...',
-                    enabled: !!this.lastSourcePaths.length,
-                    submenu: ((subMenu) => {
-                        subMenu.append(new MenuItem({
-                            label: '[Shift]/[Ctrl] + Click',
-                            type: 'radio',
-                            checked: !this.simpleSelect,
-                            click: () => this.simpleSelect = false
-                        }));
-                        subMenu.append(new MenuItem({
-                            label: 'Simple Click',
-                            type: 'radio',
-                            checked: !!this.simpleSelect,
-                            click: () => this.simpleSelect = true
-                        }));
-                        return subMenu;
-                    })(new Menu())
                 }));
 
                 if (canSelectAll || canDeselectAll) {

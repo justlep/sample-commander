@@ -7,6 +7,7 @@ All notable changes to Sample Commander will be documented in this file.
 * Files can now be selected by drawing a selection box around them by mouse (as in Windows Explorer, including the inversion behavior when holding the `Ctrl` key while drawing).
 
 ### Changed
+* removed "SimpleSelect" mode (selecting files by simple click without `Shift` or `Ctrl` pressed)
 * minor internal refactorings
 
 ### Fixed
