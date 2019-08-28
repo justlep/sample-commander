@@ -50,6 +50,7 @@
             ...sync([
                 'config/sourceItemWidth',
                 'spectrogramSize',
+                'isMousewheelResizingDisabled',
                 'config/ffmpegExecutablePath',
                 'config/ffprobeExecutablePath',
                 'config/editorExecutablePath',
@@ -199,6 +200,10 @@
                 this.sourceItemWidth = Math.max(this.sourceItemWidth - 1, 0);
             },
             onMousewheel(e) {
+                if (this.isMousewheelResizingDisabled) {
+                    return;
+                }
+                
                 let forSpectroSize = e.ctrlKey,
                     forItemWidth = e.shiftKey; 
                 

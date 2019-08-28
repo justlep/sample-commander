@@ -14,7 +14,7 @@
                                    :title="targetTogglerTooltip")
             //- alternative arrows for above -> 'fa-arrow-right' : 'fa-arrow-left'
         .mainPanel__content
-            .mainPanel__scrollable.mainPanel__scrollable--source(ref="scrollContainerElem")
+            .mainPanel__scrollable.mainPanel__scrollable--source(ref="scrollContainerElem", @mousedown="onMouseDown", data-rect-select)
                 .mainPanel__message(v-if="error"): b-tag(type="is-danger", closable, attached, @close="error = ''") {{ error }}
                 .mainPanel__message(v-if="noFilesMessage"): b-tag(type="is-info", attached) {{ noFilesMessage }}
                 .mainPanel__message(v-if="isSourceFileLimitExceeded"): b-tag(type="is-danger", closable, attached, @close="isSourceFileLimitExceeded = false") Stopped after limit of {{ sourceFileLimit }} files
@@ -26,7 +26,7 @@
                     br
                     dm-spinner(color="blue", size="medium")
                     span Checking for duplicates.. <br>Click to abort 
-                FileList(v-show="filteredFileItems.length", :fileItems="filteredFileItems")
+                FileList(v-show="filteredFileItems.length", :fileItems="filteredFileItems", :rect-selector="rectSelector")
     
         FileInfoLoader(:fileItems="filteredFileItems")  
             
@@ -42,6 +42,7 @@
     import {FileInfoProcessingQueue} from '@/processing/FileInfoProcessingQueue'
     import FavDirIcon from './FavDirIcon'
     import {HOTKEY_TOGGLE_TARGET_PANEL, DUPLICATE_MODE, TARGET_TOGGLER_TOOLTIP_PREFIX} from '@/constants'
+    import {RectSelector} from '@/helpers/RectSelector'
     
     const LOADER_CANCELLATION_TOKEN_FACTORY_NAME = 'source-panel-loader';
     const DUPLICATES_CANCELLATION_TOKEN_FACTORY_NAME = 'source-panel-duplicate-check';
@@ -51,7 +52,8 @@
             error: '',
             concurrentDuplicateChecks: 0,
             unfilteredFileItems: [],
-            isSourceFileLimitExceeded: false
+            isSourceFileLimitExceeded: false,
+            rectSelector: new RectSelector()
         }),
         components: {
             FileList,
@@ -165,6 +167,12 @@
                         queue: false
                     }));
                 }
+            },
+            showTargetPanel() {
+                this.rectSelector.setCancelled();
+            },
+            spectrogramSize() {
+                this.rectSelector.setCancelled();
             }
         },
         methods: {
@@ -177,6 +185,15 @@
                     // TODO try to flush electron's image cache here, too
                 }
                 this.reload();
+            },
+            onMouseDown(e) {
+                if (e.target.hasAttribute('data-rect-select')) {
+                    // start rectangle-selection via mouse if clicked inside supporting container elements
+                    this.rectSelector.activate({
+                        containerElem: this.$refs.scrollContainerElem,
+                        mouseEvent: e
+                    });
+                }
             },
             selectSourcePath() {
                 selectSingleDirectory({

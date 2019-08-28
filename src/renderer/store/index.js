@@ -15,7 +15,8 @@ const state = {
     /** @type {DragDropData} */
     dragDropData: null,    
     spectrogramSize: 0,
-    lastCustomDirsMode: CUSTOM_DIRS_MODE_FAVS
+    lastCustomDirsMode: CUSTOM_DIRS_MODE_FAVS,
+    isMousewheelResizingDisabled: false
 };
 
 export default new Vuex.Store({

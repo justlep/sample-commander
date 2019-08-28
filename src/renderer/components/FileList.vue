@@ -1,7 +1,7 @@
 <template lang="pug">
     
     div
-        ul.file__list(:class="cssListClass", @click="onListClicked", @contextmenu="onListRightclicked", @dragstart="onDragStart", @dragend="onDragEnd")
+        ul.file__list(:class="cssListClass", @click="onListClicked", @contextmenu="onListRightclicked", @dragstart="onDragStart", @dragend="onDragEnd", data-rect-select, ref="fileListElem")
             li.file__item(v-for="fileItem in fileItems",
                         draggable=true,
                         :title="fileItem.path"
@@ -20,6 +20,7 @@
                     .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
                     .spectro__clickzone
         
+        //- div RectSelector: {{ JSON.stringify(rectSelector, null, 2) }}
         .file__dragInfo(ref="dragInfoElem") {{ dragInfoText }}
     
 </template>
@@ -34,13 +35,16 @@
         HOTKEY_DESELECT_ALL, 
         IPC_SET_EXTERNALLY_DRAGGED_FILES } from '@/constants'
     import ItemCollection from '@/helpers/ItemCollection'
+    import {RectSelector, RectSelectableItem} from '@/helpers/RectSelector'
     import { scrollToElement } from '@/helpers/scrollHelper'
     
     const SPECTROGRAM_CLICKZONE_CLASS = 'spectro__clickzone';
     
     export default {
         props: {
-            fileItems: Array
+            fileItems: Array,
+            /** @type {RectSelector} */
+            rectSelector: RectSelector
         },
         data: () => ({
             selectionChangeFlag: 0,
@@ -59,7 +63,8 @@
             ...sync([
                 'draggedFileItemCollection',
                 'spectrogramSize',
-                'player/seekPercentage'
+                'player/seekPercentage',
+                'isMousewheelResizingDisabled'
             ]),
             cssListClass: function(/* state */) {
                 let w = this.sourceItemWidth;
@@ -74,14 +79,65 @@
             },
             canDeselectAll() {
                 return !!this.totalSelected;
+            },
+            selectedIdsMapForRect() {
+                let rectSelector = this.rectSelector,
+                    newIdsMap = null;
+                
+                if (rectSelector.status.isActive && rectSelector.hasSelectableItems && rectSelector.hasChanged) {
+                    newIdsMap = {};
+                    for (let it of rectSelector.selectableItems) {
+                        newIdsMap[it.itemId] = it.isSelected;
+                    }
+                }
+                return newIdsMap;
             }
         },
         watch: {
+            selectedIdsMapForRect(newSelectedIdsMap) {
+                if (newSelectedIdsMap) {
+                    this._selectedIdsMap = newSelectedIdsMap;
+                    this.selectionChangeFlag++;
+                }
+            },
             sourceItemWidth() {
                 this.focusPlayedFileItem();
             },
             spectrogramSize() {
                 this.focusPlayedFileItem();
+            },
+            'rectSelector.status'(newStatus, oldStatus) {
+                if (newStatus === oldStatus) {
+                    throw new Error('rectSelector status watcher fired without actual change, wtf');
+                }
+                let newSelectableItems = null;
+
+                if (newStatus.isActive) {
+                    newSelectableItems = Array.from(this.$refs.fileListElem.querySelectorAll('li.file__item')).map(li => {
+                        let itemId = li.getAttribute('data-itemid'),
+                            wasSelected = this._selectedIdsMap[itemId];
+
+                        return new RectSelectableItem(li, itemId, wasSelected);
+                    });
+                    
+                } else if (newStatus.isCancelled) {
+                    // restore selectedIdMap status from before selection started
+                    this.$log.dev('selection cancelled -> FileList restoring previous selection');
+                    this._selectedIdsMap = this.rectSelector.selectableItems.reduce((idMap, it) => Object.assign(idMap, {[it.itemId]: it.wasSelected}), {});
+                    this.selectionChangeFlag++;
+                    
+                }  else if (newStatus.isDone) {
+                    this.$log.dev('selection done -> FileList accepting selection');
+                    
+                } else {
+                    throw new Error('Unexpected rectSelector status: ' + newStatus);
+                }
+                
+                this.rectSelector.setSelectableItems(newSelectableItems);
+                // prevent erratic behavior of [Shift]+Click afterwards
+                this._lastSelectedItem = null; 
+                // prevent Ctrl+Mousewheel conflicts with Ctrl+rect-select 
+                this.isMousewheelResizingDisabled = newStatus.isActive;
             }
         },
         methods: {
