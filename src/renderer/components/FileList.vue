@@ -28,6 +28,7 @@
 <script>
     import {ipcRenderer} from 'electron'
     import { sync, get, call } from 'vuex-pathify'
+    import { debounce } from 'lodash'
     import { 
         KEY_CODES, 
         MAX_SOURCE_ITEM_WIDTH, 
@@ -172,14 +173,17 @@
                 this.seekPercentage = (seekFactor * 100) + '%';
                 this.$emitGlobal('player-seek-by-factor', {factor: seekFactor, filename: fileItem.filename});
             },
-            focusPlayedFileItem(delay = 100) {
-                setTimeout(() => {
-                    this.$log.dev('Re-focussing played file item');
-                    let itemId = this.playedFileItemId,
-                        elem = itemId && document.querySelector(`.file__item[data-itemid="${itemId}"]`);
+            focusPlayedFileItem() {
+                if (!this._debouncedPlayFileItem) {
+                    this._debouncedPlayFileItem = debounce(() => {
+                        this.$log.dev('Re-focussing played file item');
+                        let itemId = this.playedFileItemId,
+                            elem = itemId && document.querySelector(`.file__item[data-itemid="${itemId}"]`);
 
-                    scrollToElement({idOrElem: elem, scrollableParentElemOrId: '.mainPanel__scrollable'});
-                }, delay);
+                        scrollToElement({idOrElem: elem, scrollableParentElemOrId: '.mainPanel__scrollable'});
+                    }, 100);
+                }
+                this._debouncedPlayFileItem();
             },
             /**
              * @param {Element} [optElem]
