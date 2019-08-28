@@ -90,7 +90,6 @@ export class RectSelector {
             maxX: 0,
             minY: 0,
             maxY: 0,
-            maxHeight: 0,
             lastMouseX: 0,
             lastMouseY: 0,
             containerElem: null
@@ -165,8 +164,7 @@ export class RectSelector {
             minX = _containerRect.x,
             maxX = _containerRect.x + containerElem.clientWidth, // clientWidth excludes the scrollbar
             minY = _containerRect.y,
-            maxY = _containerRect.y + _containerRect.height,
-            maxHeight = _containerRect.height;
+            maxY = _containerRect.y + _containerRect.height;
         
         if (clickedXPosition > maxX) {
             return; // ignore click if it happened on the scrollbar
@@ -174,7 +172,6 @@ export class RectSelector {
         Object.assign(nonReactiveProps, {
             minX, minY, 
             maxX, maxY,
-            maxHeight,
             containerElem
         });
 
