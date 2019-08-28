@@ -70,7 +70,8 @@ const DEFAULT_STATE = {
     disableSpectrogramsOnDirChange: true,
     favDirs: [],
     duplicateCheckQuickMode: true,
-    linearSpectrogramDir: DEFAULT_LINEAR_SPECTROGRAM_DIR
+    linearSpectrogramDir: DEFAULT_LINEAR_SPECTROGRAM_DIR,
+    doubleClickTargetSetsSource: true
 };
 
 const STATE_KEYS = Object.keys(DEFAULT_STATE).sort();

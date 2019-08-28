@@ -17,7 +17,8 @@
         ],
         computed: sync([
             'config/sourcePath',
-            'config/targetPath'
+            'config/targetPath',
+            'config/doubleClickTargetSetsSource'
         ]),
         methods: {
             showMenu({dirItem}) {
@@ -37,6 +38,27 @@
                 menu.append(new MenuItem({
                     label: 'Create subdirectory...',
                     click: () => this.$emitGlobal('show-create-subdir-dialog', {dirItem})
+                }));
+                
+                menu.append(new MenuItem({type: 'separator'}));
+
+                menu.append(new MenuItem({
+                    label: 'Double-click mode...',
+                    submenu: ((subMenu) => {
+                        subMenu.append(new MenuItem({
+                            label: 'Double-click changes Source Panel',
+                            type: 'radio',
+                            checked: !!this.doubleClickTargetSetsSource,
+                            click: () => this.doubleClickTargetSetsSource = true
+                        }));
+                        subMenu.append(new MenuItem({
+                            label: 'Double-click changes Target Panel',
+                            type: 'radio',
+                            checked: !this.doubleClickTargetSetsSource,
+                            click: () => this.doubleClickTargetSetsSource = false
+                        }));
+                        return subMenu;
+                    })(new Menu())
                 }));
                 
                 menu.append(new MenuItem({type: 'separator'}));

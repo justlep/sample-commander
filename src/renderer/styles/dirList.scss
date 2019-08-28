@@ -2,44 +2,71 @@
 
 .dir {
 
-	&__list {
-	}
+    &__list {
+    }
 
-	&__list > &__item {
-		word-break: break-all;
-	}
+    &__list > &__item {
+        word-break: break-all;
+    }
 
-	&__item {
-		cursor: pointer;
-		user-select: none;
+    &__item {
+        cursor: pointer;
+        user-select: none;
 
-		a {
-			display: flex;
+        a {
+            display: flex;
 
-			&:hover {
-				color: $dirHoverColor;
-			}
-		}
-		a:before {
-			content: '┕';
-			color: #4a4a4a;
-			padding-right: 4px;
-		}
+            &:hover {
+                color: $dirHoverColor;
+            }
+        }
 
-		&--selected a {
-			color: darken(#f90, 5%);
-		}
-		&--played a {
-			&:after {
-				color: $color-played-list-item;
-				font-weight: bold;
-				content: '*';
-				padding-left: 2px;
-			}
-		}
+        $dirPrefixIconWidth: 17px;
+        $triangleSize: 4px;
+        $triangleMarginTop: 6px;
 
-		&:nth-child(even) {
-			background-color: darken($dialogBackgroundColor, 3%);
-		}
-	}
+        a:before {
+            display: inline-block;
+            content: '┕';
+            color: #4a4a4a;
+            width: $dirPrefixIconWidth;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        &--played a:before {
+            $triangleMarginLeft: 3px;
+            content: '';
+            display: inline-block;
+            height: 0;
+            border-top: $triangleSize solid transparent;
+            border-left: (2 * $triangleSize) solid darken($color-played-list-item, 5%);
+            border-bottom: $triangleSize solid transparent;
+            margin: $triangleMarginTop 0 0 $triangleMarginLeft;
+            width: ($dirPrefixIconWidth - $triangleMarginLeft);
+        }
+
+        &--selected a {
+            $selectedSourceItemColor: darken(#f90, 8%);
+            color: $selectedSourceItemColor;
+
+            &:after {
+                display: inline-block;
+                position: absolute;
+                left: 4px;
+
+                color: $selectedSourceItemColor;
+                font-size: 11px;
+                line-height: 11px;
+                vertical-align: top;
+                content: 's';
+                padding-top: 4px;
+                //align-self: center;
+            }
+        }
+
+        &:nth-child(even) {
+            background-color: darken($dialogBackgroundColor, 3%);
+        }
+    }
 }

@@ -11,7 +11,7 @@
                 .dialog__box
                     table.dialog__table.configDialog__table: tbody
                         tr
-                            td Auto-disable spectrograms when <br>selecting another source folder
+                            td Auto-disable spectrograms when <br>selecting a new source folder
                             td
                                 b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="true") Yes
                                     b-tooltip(label="(Recommended) Prevents you from accidentally generating spectrogram files in folders you only wanted to have a quick glance at", multilined, position="is-right"): em.fa.fa-info-circle
@@ -22,14 +22,21 @@
                             td
                                 b-radio.radio--spacy(v-model="minMousewheelSourceItemWidth", size="is-default", type="is-info", :native-value="0") Yes 
                                 b-radio.radio--spacy(v-model="minMousewheelSourceItemWidth", size="is-default", type="is-info", :native-value="1") No, keep raster at minimum item width
-                                    b-tooltip(label="(Recommended) Keeps the view 'nicely organized' all times, especially when using combined Shift+Ctrl+Mousewheel", multilined, position="is-right"): em.fa.fa-info-circle
+                                    b-tooltip(label="(Recommended) Keeps the view 'nicely organized' all times, especially when using combined Shift+Ctrl+Mousewheel", multilined, position="is-bottom"): em.fa.fa-info-circle
                             td
                         tr
-                            td [Ctrl]+Mousewheel can close spectrograms
+                            td [Ctrl]+Mousewheel can disable spectrograms
                             td
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="true") Yes 
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="false") No, keep spectrograms enabled at minimum height
                                     b-tooltip(:label="`Prevent Ctrl+mousewheel from closing spectrograms, instead the minimum size will be ${SPECTROGRAM_SIZE_STEPPING} pixels`", multilined, position="is-top"): em.fa.fa-info-circle
+                            td
+                        tr
+                            td Vertical space between files
+                                b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.fa.fa-info-circle
+                            td
+                                input.slider(v-model.number="sourceItemVSpace", type="range", min="0", max="20", step="1")
+                                span.configDialog__limitValue {{ sourceItemVSpace ? (sourceItemVSpace + ' px') : 'default' }}
                             td
                         tr
                             td Limit Source files
@@ -49,11 +56,10 @@
                             td
                                 button.button.is-small(@click="$emitGlobal('show-maxdirs-config-dialog')") Edit...
                         tr
-                            td Vertical space between files
-                                b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.fa.fa-info-circle
+                            td Double-clicked Target folders load in...
                             td
-                                input.slider(v-model.number="sourceItemVSpace", type="range", min="0", max="20", step="1")
-                                span.configDialog__limitValue {{ sourceItemVSpace ? (sourceItemVSpace + ' px') : 'default' }}
+                                b-radio.radio--spacy(v-model="doubleClickTargetSetsSource", size="is-default", type="is-info", :native-value="true") Source Panel
+                                b-radio.radio--spacy(v-model="doubleClickTargetSetsSource", size="is-default", type="is-info", :native-value="false") Target Panel
                             td
 
                         //- --------------------------------------------------------------------
@@ -193,7 +199,8 @@
                 'config/canMousewheelCloseSpectrograms',
                 'config/minMousewheelSourceItemWidth',
                 'config/duplicateCheckQuickMode',
-                'config/sourceItemVSpace'
+                'config/sourceItemVSpace',
+                'config/doubleClickTargetSetsSource'
             ])
         },
         watch: {

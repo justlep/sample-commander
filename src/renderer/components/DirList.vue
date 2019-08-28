@@ -24,10 +24,12 @@
         },
         computed: {
             ...get([
-                'draggedFileItemCollection'
+                'draggedFileItemCollection',
+                'config/doubleClickTargetSetsSource'
             ]),
             ...sync([
-                'dragDropData'
+                'dragDropData',
+                'config/sourcePath'
             ]),
             baseDepth() {
                 return (this.dirItems[0] || {depth: 0}).depth;  
@@ -49,7 +51,11 @@
             onDoubleClicked(e) {
                 let {dirItem} = this._findClosestDirItemAndIndex(null, e);
                 if (dirItem) {
-                    this.$emit('input', dirItem.path);
+                    if (this.doubleClickTargetSetsSource) {
+                        this.sourcePath = dirItem.path;
+                    } else {
+                        this.$emit('input', dirItem.path);
+                    }
                 }
             },
             /**

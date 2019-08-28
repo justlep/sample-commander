@@ -6,9 +6,12 @@ All notable changes to Sample Commander will be documented in this file.
 ### Added
 * Files can now be selected by drawing a selection box around them by mouse (as in Windows Explorer, including the inversion behavior when holding the `Ctrl` key while drawing).
 * The vertical space between files can now be customized, e.g. for easier drawing of selection boxes. 
+* Double-clicking folders in the Target Panel tree can open them either in the Source Panel or the Target Panel (configurable).
 
 ### Changed
 * removed "SimpleSelect" mode (selecting files by simple click without `Shift` or `Ctrl` pressed)
+* improved visual indicators in the Target Panel folder tree (green marker for folder containing the currently played file; tiny "S" marker if folder is currently selected in the Source Panel) 
+* default vertical space between files is now 8 pixels (was 6)
 * minor internal refactorings
 
 ### Fixed
