@@ -7,6 +7,8 @@ All notable changes to Sample Commander will be documented in this file.
 * Files can now be selected by drawing a selection box around them by mouse (as in Windows Explorer, including the inversion behavior when holding the `Ctrl` key while drawing).
 * The vertical space between files can now be customized, e.g. for easier drawing of selection boxes. 
 * Double-clicking folders in the Target Panel tree can open them either in the Source Panel or the Target Panel (configurable).
+* Added a small info box showing the number and total size of the currently selected files.
+  It is displayed at the bottom left of the Source Panel if any files are selected. 
 
 ### Changed
 * removed "SimpleSelect" mode (selecting files by simple click without `Shift` or `Ctrl` pressed)

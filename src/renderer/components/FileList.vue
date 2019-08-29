@@ -20,6 +20,9 @@
                     .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
                     .spectro__clickzone
         
+        .file__selectionSummary(v-if="selectionSummary")
+            | Selected: <b>{{ selectionSummary.totalFiles }}</b> {{ selectionSummary.totalFiles > 1 ? 'files' : 'file' }} / <b>{{ selectionSummary.prettyTotalSize }}</b>
+
         //- div RectSelector: {{ JSON.stringify(rectSelector, null, 2) }}
         .file__dragInfo(ref="dragInfoElem") {{ dragInfoText }}
     
@@ -94,6 +97,22 @@
                     }
                 }
                 return newIdsMap;
+            },
+            selectionSummary() {
+                let selectedItems = this.selectionChangeFlag && !this.rectSelector.status.isActive && this._getSelectedFileItems(),
+                    totalFiles = 0,
+                    totalSize = 0;
+                
+                if (selectedItems && selectedItems.length) {
+                    for (let fileItem of selectedItems) {
+                        totalFiles++;
+                        totalSize += fileItem.filesize;
+                    }
+                }
+                return totalFiles && {
+                    totalFiles,
+                    prettyTotalSize: totalFiles && (totalSize / (1024 * 1024)).toFixed(1) + ' MB'
+                };
             }
         },
         watch: {
