@@ -14,7 +14,7 @@
             section.modal-card-body
                 .dialog__box
                     .help__block(v-if="selectedTabMode.isShortcuts")
-                        .help__content: table.help__shortcuts: tbody
+                        .help__content: table.help__table: tbody
                             tr
                                 td [Shift] + Mousewheel
                                 td File width (i.e. the horizontal raster inside the Source panel)*
@@ -37,7 +37,13 @@
 
                         .help_footnote * [Shift] / [Ctrl] + Mousewheel can be combined for changing the horizontal and vertical layout of the Source Panel simultaneously     
                         
-                    .help__block.help__block--author(v-if="selectedTabMode.isAuthor")
+                    .help__block.help__block--systeminfo(v-if="selectedTabMode.isSystemInfo")
+                        table.help__table.help__table--systemInfo 
+                            tbody: tr(v-for="info in $options.systemInfo") 
+                                td {{ info.name }}
+                                td {{ info.value }}
+                        
+                    .help__block.help__block--about(v-if="selectedTabMode.isAbout")
                         p. 
                             Sample Commander is free, open-source software licensed under the 
                             <a role="button" @click="selectLicenseTab">GNU General Public License v3</a>,<br> 
@@ -45,7 +51,9 @@
 
                         p {{ COPYRIGHT }} &lt;<a style="user-select: all">{{ CONTACT_EMAIL }}</a>> 
 
-                        | Feedback is welcome! :-)
+                        p Feedback is welcome! :-)<br>
+                        
+                        | <b>Found a bug?</b> &nbsp; Please send a description along with your <a role="button" @click="gotoSystemInfo">System Info</a>. Thank you!
 
                         .help__hr
                         
@@ -103,12 +111,14 @@
     import FavDirIcon from '@/components/FavDirIcon'
     import GPL3License from './GPL3License'
     import { HOTKEY_DESCRIPTIONS, REPO_URL, CHANGELOG_URL, RELEASES_URL, COPYRIGHT, CONTACT_EMAIL } from '@/constants'
+    import { getSystemInfo } from '@/helpers/systemInfo'
 
     const TAB_MODES = [
-        {id: 'help-author', name: 'About Sample Commander', isAuthor: true},
+        {id: 'help-about', name: 'About Sample Commander', isAbout: true},
         {id: 'help-shortcuts', name: 'Mouse & Keyboard', isShortcuts: true},
         {id: 'help-faq', name: 'Questions & Answers', isFaq: true},
         {id: 'help-license', name: 'License', isLicense: true},
+        {id: 'help-systeminfo', name: 'System Info', isSystemInfo: true}
     ];
     
     export default {
@@ -137,10 +147,14 @@
             },
             selectLicenseTab() {
                 this.selectedModeId = TAB_MODES.find(m => m.isLicense).id;
+            },
+            gotoSystemInfo() {
+                this.selectedModeId = TAB_MODES.find(m => m.isSystemInfo).id;
             }
         },
         beforeCreate() {
             this.TAB_MODES = TAB_MODES;
+            this.$options.systemInfo = getSystemInfo();
         },
         created() {
             this.$onGlobal('close-dialog-requested', () => this.close());
@@ -180,7 +194,12 @@
             }
         }
         
-        &__shortcuts {
+        &__table {
+            &--systemInfo {
+                user-select: all;
+            }
+            
+            th,
             td {
                 padding: 1px 20px 1px 10px;
                 border-bottom: 1px solid rgba(#fff, 0.1);
@@ -192,8 +211,9 @@
                 }
             }
             
+            tr:last-child th,
             tr:last-child td {
-                border: none;
+                border: none !important;
             }
         }
 
@@ -207,7 +227,7 @@
                 padding-bottom: 1em;
             }
             
-            &--author {
+            &--about {
                 padding: 10px 10px 0;
             }
         }
