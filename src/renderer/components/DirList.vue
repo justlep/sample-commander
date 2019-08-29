@@ -20,7 +20,7 @@
             rootDepth: Number,
             isFirstItemRoot: Boolean,
             markPathSelected: String,
-            markPathPlayed: String,
+            markPathPlayed: String
         },
         computed: {
             ...get([

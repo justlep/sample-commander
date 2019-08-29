@@ -27,7 +27,7 @@ const AREA_STYLES = {
     position: 'fixed',
     overflow: 'hidden',
     top: 0,
-    zIndex: 999,
+    zIndex: 999
 };
 
 const EMPTY_ARRAY = [];

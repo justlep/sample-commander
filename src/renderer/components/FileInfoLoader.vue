@@ -74,7 +74,7 @@
                 if (newSize && !oldSize) {
                     this.refillQueue();
                 }
-            },
+            }
         },
         methods: {
             updateQueueConfig() {

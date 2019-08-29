@@ -25,7 +25,7 @@
     
     export default {
         data: () => ({
-            isIntensitySliderVisible: false,
+            isIntensitySliderVisible: false
         }),
         computed: {
             ...sync([
@@ -41,14 +41,12 @@
             resetIntensity() {
                 this.isIntensitySliderVisible = false;
                 this.spectrogramIntensity = 100;
-            },
+            }
         }
     }
     
 </script>
 
 <style lang="scss">
-    
-    
     
 </style>
