@@ -132,12 +132,12 @@
                                         span.fa.fa-external-link-alt &nbsp;
                                         | {{ linearSpectrogramDir }}
                                 span(v-else) 
-                                    p None. Temporary files will be written to the audio files' folders.
-                                    p <b>NOT recommended</b>: This setting will be slow on SD cards and <br>may shorten their lifetime.
+                                    p None selected. Temporary files will be written to the audio files' folders.
+                                    p This is <b>NOT recommended</b> as this setting will be slow on SD cards and <br>may shorten their lifetime.
                                     
                             td
                                 button.button(@click="configureLinearSpectrogramDir", style="margin-right:0") Select...
-                                button.button(@click="$store.commit('config/restoreDefaultLinearSpectrogramDir')") Use Default
+                                button.button(@click="$store.commit('config/restoreDefaultLinearSpectrogramDir')", v-if="!isUsingDefaultLinearSpectrogramDir") Use Default
                                 button.button(@click="linearSpectrogramDir = ''", v-if="linearSpectrogramDir") Use None
                                 
                         tr  
@@ -180,7 +180,8 @@
             ...mapGetters('config', [
                 'isFfmpegConfigured',
                 'fileManagerName',
-                'configFilePath'
+                'configFilePath',
+                'isUsingDefaultLinearSpectrogramDir'
             ]),
             ...sync([
                 'config/linearSpectrogramDir',

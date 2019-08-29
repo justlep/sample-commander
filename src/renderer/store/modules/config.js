@@ -183,6 +183,7 @@ export default {
         isFileManagerTotalCommander: state => (/totalcmd/i).test(state.fileManagerExecutablePath),  
         fileManagerName: (state, getters) =>  getters.isFileManagerTotalCommander ? 'Total Commander' : 'File Manager',
         totalFavDirs: (state) => state.favDirs.length,
-        configFilePath: () => _electronStore.path
+        configFilePath: () => _electronStore.path,
+        isUsingDefaultLinearSpectrogramDir: (state) => state.linearSpectrogramDir === DEFAULT_LINEAR_SPECTROGRAM_DIR
     }
 };
