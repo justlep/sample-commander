@@ -2,6 +2,16 @@
 
 ## Videos
 
+#### New in 2.1.0
+* [Drawing selection boxes by mouse to select files](https://samplecommander.justlep.net/img/2.1.0-rect-select.mp4)  
+  * The video shows the mouse being used to select multiple files by drawing a selection box around them. 
+  `Ctrl+Click` is then used to add some more single files to the selection.
+  * A tiny new **info box at the bottem left** gives a summary of number and total size of the current selection.   
+  * Also, the new setting "**Vertical space between files**" is used to add some air between the file items, 
+    so the cursor can be placed between them more easily.     
+
+#### Since 2.0.0 
+
 * [Overview, Loading spectrograms](https://samplecommander.justlep.net/img/2.0.0-vid-spectrograms.mp4)
 * [File context menus](https://samplecommander.justlep.net/img/2.0.0-vid-file-contextmenus.mp4)  
   going through the context menu of a right-clicked file item; opening it first in Windows Explorer, 
