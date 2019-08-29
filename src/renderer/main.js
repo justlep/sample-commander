@@ -4,6 +4,7 @@ import store from './store'
 import VueGlobalEvents from '@/plugins/VueGlobalEvents'
 import VueAsserts from '@/plugins/VueAsserts'
 import VueCancellationTokens from '@/plugins/VueCancellationTokens'
+import VueElectronContextMenu from '@/plugins/VueElectronContextMenu'
 import { GLOBAL_EVENTS } from './constants'
 
 import 'typeface-cousine/index.css'
@@ -50,6 +51,7 @@ Vue.use(VueDarkMode);
 Vue.use(VueGlobalEvents, { events: GLOBAL_EVENTS });
 Vue.use(VueAsserts);
 Vue.use(VueCancellationTokens);
+Vue.use(VueElectronContextMenu);
 
 import App from './App'
 
