@@ -31,6 +31,10 @@ label.radio {
 	color: $color-light-gray;
 }
 
+.modal-background {
+    transition: opacity 0.5s;
+}
+
 .tag:not(body) {
 	font-size: 12px;
 }
