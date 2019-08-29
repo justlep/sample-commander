@@ -9,6 +9,7 @@ All notable changes to Sample Commander will be documented in this file.
 * Double-clicking folders in the Target Panel tree can open them either in the Source Panel or the Target Panel (configurable).
 * Added a small info box showing the number and total size of the currently selected files.
   It is displayed at the bottom left of the Source Panel if any files are selected. 
+* The Help dialog now has a "System Info" tab with some info useful for bug reports.
 
 ### Changed
 * removed "SimpleSelect" mode (selecting files by simple click without `Shift` or `Ctrl` pressed)
