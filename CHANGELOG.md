@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
-## [2.0.1] - yet to be released
+## [2.1.0-rc1] - yet to be released
 
 ### Added
 * Files can now be selected by drawing a selection box around them by mouse (as in Windows Explorer, including the inversion behavior when holding the `Ctrl` key while drawing).

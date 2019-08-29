@@ -1,9 +1,9 @@
 {
   "name": "sample-commander",
-  "version": "2.0.1-rc8",
+  "version": "2.1.0-rc1",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/justlep/sample-commander.git"
@@ -33,7 +33,6 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "postinstall": "npm run lint:fix",
     "test": "jest --verbose"
   },
   "build": {
@@ -109,7 +108,6 @@
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.4.4",
     "@types/jest": "^24.0.13",
-    "@vue/eslint-config-standard": "^4.0.0",
     "ajv": "^6.10.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
