@@ -27,7 +27,7 @@ import Logger from '@/helpers/Logger'
  *          
  *
  * @author Lennart Pegel
- * @licence MIT 
+ * @license MIT 
  */
 export default {
     install(Vue, opts = {strict: true, events: []}) {

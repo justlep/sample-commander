@@ -9,7 +9,7 @@ import {debounce} from 'lodash'
  * 
  * @author Lennart Pegel
  * @link https://github.com/justlep/sample-commander  
- * @licence GPLv3
+ * @license GPLv3
  */
 
 const NON_REACTIVE_PROPS = Symbol();
