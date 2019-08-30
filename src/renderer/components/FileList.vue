@@ -88,15 +88,16 @@
             },
             selectedIdsMapForRect() {
                 let rectSelector = this.rectSelector,
-                    newIdsMap = null;
+                    newSelectedIdsMap = rectSelector.status.isActive && rectSelector.hasSelectableItems && rectSelector.hasChanged && {};
                 
-                if (rectSelector.status.isActive && rectSelector.hasSelectableItems && rectSelector.hasChanged) {
-                    newIdsMap = {};
+                if (newSelectedIdsMap) {
                     for (let it of rectSelector.selectableItems) {
-                        newIdsMap[it.itemId] = it.isSelected;
+                        if (it.isSelected) {
+                            newSelectedIdsMap[it.itemId] = 1;
+                        }
                     }
                 }
-                return newIdsMap;
+                return newSelectedIdsMap;
             },
             selectionSummary() {
                 let selectedItems = this.selectionChangeFlag && !this.rectSelector.status.isActive && this._getSelectedFileItems(),
