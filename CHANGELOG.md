@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
-## [2.1.1] - tbd
+## [2.1.1] - 30<sup>th</sup> August 2019
 
 ### Fixed
 * broken SelectAll/Deselect option in file contextmenu  
