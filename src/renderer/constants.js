@@ -1,10 +1,6 @@
 
 import nodeOs from 'os'
 
-export const VUE_VERSION = require('vue/package.json').version;
-export const ELECTRON_VERSION = process.versions.electron;
-export const NODE_VERSION = process.versions.node;
-
 export const IS_WINDOWS = /^win/.test(process.platform);
 export const IS_DEV = process.env.NODE_ENV === 'development';
 

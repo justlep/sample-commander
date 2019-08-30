@@ -65,7 +65,6 @@
                 'config/targetPath',
                 'files/filter',
                 'files/filterLowercase',
-                'files/sourceFileItems',
                 'config/ffprobeExecutablePath',
                 'config/disableSpectrogramsOnDirChange',
                 'config/sourceFileLimit',

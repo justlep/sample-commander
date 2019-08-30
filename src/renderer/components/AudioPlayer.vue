@@ -72,7 +72,6 @@
             }
         },
         data: () => ({
-            audio: undefined,
             currentSeconds: 0,
             durationSeconds: 0,
             innerLoop: false,

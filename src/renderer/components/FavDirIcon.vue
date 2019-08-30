@@ -9,8 +9,7 @@
     
     export default {
         props: {
-            path: String,
-            isStatic: false
+            path: String
         },
         computed: {
             ...get([
@@ -20,18 +19,15 @@
                 return this.favDirs ? this.favDirs.includes(this.path) : false;
             },
             tooltip() {
-                return this.isStatic ? 'Clicking this icon next to folders adds or removes it from the bookmarks list' :
-                       this.isFav ? 'Remove folder from bookmarks' : 'Bookmark folder';  
+                return this.isFav ? 'Remove folder from bookmarks' : 'Bookmark folder';  
             },
             cssClass() {
-                return (this.isStatic ? 'favDirIcon--static ' : '') + (this.isFav ? 'favDirIcon--active' : '');
+                return this.isFav ? 'favDirIcon--active' : '';
             }
         },
         methods: {
             toggleFav() {
-                if (!this.isStatic) {
-                    this.$store.commit('config/toggleFavDir', this.path);
-                }
+                this.$store.commit('config/toggleFavDir', this.path);
             }
         }
     }
