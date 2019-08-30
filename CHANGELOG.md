@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
+## [2.1.2] - yet to be released
+
+### Changed
+* (internal) removed unused build target
+
 ## [2.1.1] - 30<sup>th</sup> August 2019
 
 ### Fixed
