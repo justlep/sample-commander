@@ -238,7 +238,7 @@
                     .then(checkedDir => this.linearSpectrogramDir = checkedDir)
                     .catch(err => {
                         this.$log.warn('Failed to configure temporary spectrogram files folder: %s', err);
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'No folder or folder is not writable',
                             type: 'is-danger',
                             queue: false

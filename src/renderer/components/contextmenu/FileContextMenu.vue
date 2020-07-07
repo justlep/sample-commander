@@ -158,7 +158,7 @@
                 });
             },
             showEditorWarning() {
-                this.$snackbar.open({
+                this.$buefy.snackbar.open({
                     message: 'You need to select your default Audio editor first',
                     type: 'is-warning',
                     position: 'is-top',

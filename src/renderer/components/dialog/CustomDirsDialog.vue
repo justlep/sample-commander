@@ -99,7 +99,7 @@
                 });
             },
             clearList() {
-                this.$dialog.confirm({
+                this.$buefy.dialog.confirm({
                     title: `Clear ${this.currentMode.name} List`,
                     message: `${this.isRemoveEverywhereEnabled ? 'Cleared folders will be removed from the other lists, too.<br>' : ''} Do you want to continue?`,
                     confirmText: 'Yes, flush\'em',

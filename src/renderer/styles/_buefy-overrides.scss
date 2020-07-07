@@ -18,8 +18,12 @@ label.radio {
 	align-self: baseline;
 
 	&:before {
-		width: 7px;
-		height: 7px;
+		width: 11px;
+        height: 11px;
+        margin-bottom: 0;
+        margin-left: 0;
+        left: 0;
+        bottom: 0;
 	}
 }
 

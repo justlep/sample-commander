@@ -80,14 +80,14 @@
                     })
                     .then(checkedFilePath => {
                         this.editorExecutablePath = checkedFilePath;
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'Your editor is now configured & ready to use',
                             queue: false
                         });
                     })
                     .catch(err => {
                         this.$log.warn('Failed to configure audio editor executable: %s', err);
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'Failed to change Audio Editor',
                             type: 'is-danger',
                             queue: false
@@ -101,14 +101,14 @@
                     })
                     .then(checkedFilePath => {
                         this.fileManagerExecutablePath = checkedFilePath;
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'File Manager is configured & ready to use',
                             queue: false
                         });
                     })
                     .catch(err => {
                         this.$log.warn('Failed to configure file manager executable: %s', err);
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'Failed to change File Manager',
                             type: 'is-danger',
                             queue: false
@@ -122,7 +122,7 @@
                 ]).catch(() => this.showFfmpegWarning(true)); 
             },
             showFfmpegWarning(keepVisible) {
-                this.$snackbar.open({
+                this.$buefy.snackbar.open({
                     message: 'The path to FFmpeg must be configured first',
                     type: 'is-warning',
                     position: 'is-top',
@@ -157,14 +157,14 @@
                     .then(([ffmpegPath, ffprobePath]) => {
                         this.ffmpegExecutablePath = ffmpegPath;
                         this.ffprobeExecutablePath = ffprobePath;
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: 'FFmpeg is now configured',
                             type: 'is-success',
                             queue: false
                         });
                     })
                     .catch(err => {
-                        this.$toast.open({
+                        this.$buefy.toast.open({
                             message: err,
                             queue: false,
                             duration: 5000,
@@ -173,7 +173,7 @@
                     });
             },
             configureTargetDirLimit() {
-                this.$dialog.prompt({
+                this.$buefy.dialog.prompt({
                     title: 'Directory Limit',
                     message: 'Select the maximum number of directories loaded in the target panel:',
                     inputAttrs: {

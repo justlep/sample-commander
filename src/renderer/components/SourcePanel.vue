@@ -159,7 +159,7 @@
             isSourceLoaded(isLoaded) {
                 if (isLoaded) {
                     this.$emitGlobal('recalculate-duplicates');
-                    this.$nextTick(() => this.$toast.open({
+                    this.$nextTick(() => this.$buefy.toast.open({
                         message: this.tooltip,
                         position: 'is-bottom',
                         duration: 3000,
