@@ -3,8 +3,9 @@ All notable changes to Sample Commander will be documented in this file.
 
 ## [2.1.4] - yet to be released
 
-## [2.1.3] - 24<sup>th</sup> July 2020
+## [2.1.3] - 25<sup>th</sup> July 2020
 * fixed regression (broken file/directory-select dialogs)
+* fixed regression (broken 'Open in Explorer')
 
 ## [2.1.2] - 07<sup>th</sup> July 2020
 * (internal) security updates only
