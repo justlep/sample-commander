@@ -6,20 +6,21 @@ const { dialog, getCurrentWindow } = require('electron').remote;
  * @param {string} [preselectedPath] 
  * @return {Promise<any>}
  */
-export function selectSingleDirectory({title = 'Select directory', preselectedPath = undefined}) {
-    return new Promise((resolve, reject) => {
-        dialog.showOpenDialog(getCurrentWindow(), {
+export async function selectSingleDirectory({title = 'Select directory', preselectedPath = undefined}) {
+    try {
+        // https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowopendialogbrowserwindow-options
+        let {canceled, filePaths} = await dialog.showOpenDialog(getCurrentWindow(), {
             title,
             defaultPath: preselectedPath || undefined,
             properties: ['openDirectory']
-        }, dirs => {
-            if (dirs && dirs.length) {
-                resolve( dirs[0] );
-            } else {
-                reject('No directory selected');
-            }
         });
-    });
+        if (!canceled && filePaths && filePaths.length) {
+            return filePaths[0];
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+    throw 'No directory selected';
 }
 
 /**
@@ -31,27 +32,19 @@ export function selectSingleDirectory({title = 'Select directory', preselectedPa
  *          {name: 'xml', extensions: ['xml'] }
  *       ]
  */
-export function selectSingleFile({title = 'Select file', executable = false}) {
-    let filters;
-
-    if (executable && IS_WINDOWS) {
-        filters = [{
-            name: 'executables',
-            extensions: ['exe', 'bat', 'cmd']
-        }];
-    }
-    
-    return new Promise((resolve, reject) => {
-        dialog.showOpenDialog(getCurrentWindow(), {
+export async function selectSingleFile({title = 'Select file', executable = false}) {
+    try {
+        // https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowopendialogbrowserwindow-options
+        let {filePaths, canceled} = await dialog.showOpenDialog(getCurrentWindow(), {
             title,
-            filters,
+            filters: (executable && IS_WINDOWS) ? [{name: 'executables', extensions: ['exe', 'bat', 'cmd']}] : undefined,
             properties: ['openFile']
-        }, files => {
-            if (files && files.length) {
-                resolve( files[0] );
-            } else {
-                reject('No file selected');
-            }
         });
-    });
+        if (!canceled && filePaths && filePaths.length) {
+            return filePaths[0];
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+    throw 'No file selected'
 }
