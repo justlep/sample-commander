@@ -132,16 +132,21 @@
             });
             
             this.$onGlobal('show-path-in-explorer', async path => {
-                let pathToOpen = path;
+                let pathToOpen = nodePath.normalize(path);
                 try {
-                    let pathStat = await stat(path),
-                        dirSuffix = (pathStat && pathStat.isDirectory()) ? '/ ' : ''; 
+                    let pathStat = await stat(path);
                     
-                    pathToOpen = nodePath.normalize(pathToOpen + dirSuffix);
+                    if (pathStat) {
+                        if (pathStat.isDirectory()) {
+                            shell.openItem(pathToOpen);
+                        } else if (pathStat.isFile()) {
+                            shell.showItemInFolder(pathToOpen);
+                        }
+                    } 
                 } catch (err) {
                     // nothing
+                    console.warn('failed to show path %s', pathToOpen);
                 }
-                shell.showItemInFolder(pathToOpen);
             });
             
             this.$mousetrap.bind('esc', () => this.$emitGlobal('close-dialog-requested'));
