@@ -124,7 +124,7 @@
                                     
                             td
                         tr
-                            td: a(role="button") Temporary spectrograms folder
+                            td Temporary spectrograms folder
                                 b-tooltip(label="Folder for temporary files during spectrogram processing. Recommended: some folder on the fastest drive in your PC", multilined, position="is-right"): em.fa.fa-info-circle
                             td 
                                 div(v-if="linearSpectrogramDir")
