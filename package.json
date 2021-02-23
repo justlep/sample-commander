@@ -89,7 +89,7 @@
     "buefy": "^0.8.18",
     "electron-store": "^3.2.0",
     "electron-window-state": "^5.0.3",
-    "lodash": "^4.17.16",
+    "lodash": "^4.17.21",
     "mousetrap": "^1.6.3",
     "move-file": "^1.2.0",
     "readdirp": "^3.0.1",
