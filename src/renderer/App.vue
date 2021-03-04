@@ -138,7 +138,12 @@
                     
                     if (pathStat) {
                         if (pathStat.isDirectory()) {
-                            shell.openItem(pathToOpen);
+                            // shell.openPath() resolves (not rejects!) with an error message if failed
+                            // see: https://www.electronjs.org/docs/api/shell#shellopenpathpath
+                            let errorMessage = await shell.openPath(pathToOpen);
+                            if (errorMessage) {
+                                throw new Error(errorMessage);
+                            }
                         } else if (pathStat.isFile()) {
                             shell.showItemInFolder(pathToOpen);
                         }

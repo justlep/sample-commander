@@ -1,7 +1,9 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
-## [2.1.4] - yet to be released
+## [2.2.0] - 4<sup>th</sup> March 2021
+* security update (upgraded from Electron 7 to 9)
+* faster folders listings
 
 ## [2.1.3] - 25<sup>th</sup> July 2020
 * fixed regression (broken file/directory-select dialogs)

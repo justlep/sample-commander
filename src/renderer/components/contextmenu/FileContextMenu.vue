@@ -68,7 +68,7 @@
 
                     menu.append(new MenuItem({
                         label: 'Open with Default Application',
-                        click: () => remote.shell.openItem(fileItem.path)
+                        click: () => remote.shell.openPath(fileItem.path)
                     }));
 
                     if (fileItem.isAudioFile) {

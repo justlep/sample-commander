@@ -79,7 +79,10 @@ export default class FileItem {
 
                         let fileItem = new FileItem({
                             path: entryInfo.fullPath,
-                            size: entryInfo.stats.size || 0,
+                            // latest readdirp's stat will contain size as BigInt instead of Number
+                            // guess it's fair to assume though that we'll never encounter file sizes beyond MAX_SAFE_INTEGER,
+                            // so let's just brute-cast it to Number
+                            size: parseInt(entryInfo.stats.size || 0),
                             mtime: entryInfo.stats.mtime.getTime(),
                             validate: !fileItems.length // validate first item to notice future breaking changes in readdirp
                         });
