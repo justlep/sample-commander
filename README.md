@@ -3,7 +3,7 @@
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GNU GPL v3"></a>
 <a href="https://github.com/justlep/sample-commander/releases"><img alt="Latest GitHub release" src="https://img.shields.io/github/v/release/justlep/sample-commander.svg"></a>
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/justlep/sample-commander)
-[![Build Status](https://travis-ci.org/justlep/sample-commander.svg?branch=master)](https://travis-ci.org/justlep/sample-commander) 
+[![Build Status](https://api.travis-ci.com/justlep/sample-commander.svg?branch=master)](https://travis-ci.com/justlep/sample-commander) 
 
 
 ![](https://samplecommander.justlep.net/img/2.0.0-main-spectrograms-enabled.png)
