@@ -120,7 +120,7 @@ Many thanks to all developers of the libraries/components I used for building Sa
 [electron-vue](https://github.com/SimulatedGREG/electron-vue),
 [Buefy](https://buefy.org/documentation/),
 [Bulma](https://bulma.io/documentation/), 
-[VueDarkMode](https://www.vuedarkmode.com/#baseBadge),
+VueDarkMode,
 [vue-multipane](https://github.com/yansern/vue-multipane),
 [readdirp](https://github.com/paulmillr/readdirp)
 and all I forgot in the list.
