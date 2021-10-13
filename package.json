@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -121,7 +121,7 @@
     "cross-env": "^5.1.6",
     "css-loader": "^2.1.1",
     "del": "^3.0.0",
-    "electron": "~9.4.0",
+    "electron": "11.5.0",
     "electron-builder": "^20.40.2",
     "electron-debug": "^3.0.0",
     "electron-devtools-installer": "^3.1.1",
