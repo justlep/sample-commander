@@ -6,6 +6,7 @@ import {
     IS_DEV,
     IPC_GO_BACK_PRESSED } from '../renderer/constants'
 import electronWindowState from 'electron-window-state'
+import ElectronStore from 'electron-store';
 
 /**
  * Set `__static` path to static files in production
@@ -21,6 +22,8 @@ let mainWindow,
             return;
         }
 
+        ElectronStore.initRenderer();
+        
         const URL = IS_DEV ? 'http://localhost:9080' : `file://${__dirname}/index.html`;
         
         // Load the previous state with fallback to defaults
