@@ -39,7 +39,7 @@ function _createFileItemQueue(asyncFileItemProcessingFn, onProcessedDataReceived
     }, DEFAULT_CONCURRENCY);
 
     queue[STATUS_MAP_SYMBOL] = {};
-    queue.error = ((err, fileItem) => {
+    queue.error((err, fileItem) => {
         Logger.warn('Error while processing %s: %s', fileItem.toString(), err);
         _setFileItemQueueStatus(fileItem, queue, STATUS_ERROR);
     });
@@ -281,33 +281,33 @@ export class FileInfoProcessingQueue extends EventEmitter {
         
         // metadata queue status changes...
         
-        this._metadataQueue.saturated = () => _emitUnfinishedMetadata() && _toggleSpectroQueueWhileMetadataProcessing(); 
-        this._metadataQueue.unsaturated = () => _emitUnfinishedMetadata() && _toggleSpectroQueueWhileMetadataProcessing();
-        this._metadataQueue.empty = () => {
+        this._metadataQueue.saturated(() => _emitUnfinishedMetadata() && _toggleSpectroQueueWhileMetadataProcessing()); 
+        this._metadataQueue.unsaturated(() => _emitUnfinishedMetadata() && _toggleSpectroQueueWhileMetadataProcessing());
+        this._metadataQueue.empty(() => {
             Logger.dev('Metadata task queue is empty');
             _toggleSpectroQueueWhileMetadataProcessing();
             _emitUnfinishedMetadata();
-        };
-        this._metadataQueue.drain = () => {
+        });
+        this._metadataQueue.drain(() => {
             Logger.dev('Metadata task queue is drained, cache: %o', this._cachedMetadataByFileItemId);
             this._spectrogramQueue.resume();
             _emitUnfinishedMetadata();
             _clearAllFileItemQueueStatus(this._metadataQueue);
-        };
+        });
 
         // spectrogram queue status changes...
         
-        this._spectrogramQueue.saturated = _emitUnfinishedSpectrograms;
-        this._spectrogramQueue.unsaturated = _emitUnfinishedSpectrograms;
-        this._spectrogramQueue.empty = () => {
+        this._spectrogramQueue.saturated(_emitUnfinishedSpectrograms);
+        this._spectrogramQueue.unsaturated(_emitUnfinishedSpectrograms);
+        this._spectrogramQueue.empty(() => {
             Logger.dev('Spectrogram task queue is empty');
             _emitUnfinishedSpectrograms();
-        };
-        this._spectrogramQueue.drain = () => {
+        });
+        this._spectrogramQueue.drain(() => {
             _emitUnfinishedSpectrograms();
             _clearAllFileItemQueueStatus(this._spectrogramQueue);
             Logger.dev('Spectrogram task queue is drained, cache: %o', this._cachedSpectrogramByFileItemId);
-        };
+        });
 
         
         // TODO persist/re-import queues' cache data
