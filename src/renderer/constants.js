@@ -131,4 +131,4 @@ export const CHANGELOG_URL = 'https://github.com/justlep/sample-commander/blob/m
 export const RELEASES_URL = 'https://github.com/justlep/sample-commander/releases';
 export const CONTACT_EMAIL = 'SAMPLECOMMANDER@JUSTLEP.NET';
 
-export const COPYRIGHT = '© 2021 Lennart Pegel';
+export const COPYRIGHT = '© 2015 - 2022 Lennart Pegel';
