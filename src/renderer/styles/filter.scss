@@ -10,12 +10,12 @@
 		width: 230px;
 		margin-right: 5px;
 
-		.dm-field-input__container {
+		.gb-field-input__container {
 			height: 24px !important;
 		}
 	}
 
-	&__input--filtered .dm-field-input__container {
+	&__input--filtered .gb-field-input__container {
 		border: 1px solid $filtered-border-color !important;
 	}
 

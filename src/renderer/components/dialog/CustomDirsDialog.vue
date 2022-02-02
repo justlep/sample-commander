@@ -9,7 +9,7 @@
                     | Folders
                 
                 .customDirs__tabs
-                    dm-tabs(name="foo", v-model="selectedModeId", :tabs="modesForTabs", size="small")
+                    gb-tabs(name="foo", v-model="selectedTabValue", :tabs="TABS", size="small")
                 
             section.modal-card-body
                 .dialog__box
@@ -27,12 +27,12 @@
                                 a(role="button", @click="targetPath = path", :class="path === targetPath ? 'customDirs--activeDir' : ''") Target 
 
                     .dialog__emptyNotice(v-if="!pathList.length")
-                        div(v-if="currentMode.isFav") You haven't bookmarked any folders.
+                        div(v-if="selectedTab.isFav") You haven't bookmarked any folders.
                             .customDirs__bookmarksHelp
                                 | You can use the 
                                 FavDirIcon(is-static="true")
                                 | icons to add folders to the bookmarks.
-                        div(v-else) You have no {{ currentMode.name }} folders.
+                        div(v-else) You have no {{ selectedTab.label }} folders.
                                 
             footer.modal-card-foot
                 .dialog__buttons.dialog__buttons--spread
@@ -49,17 +49,17 @@
     import { sync } from 'vuex-pathify'
     import FavDirIcon from '@/components/FavDirIcon'
     import {
-        CUSTOM_DIRS_MODE_FAVS, 
-        CUSTOM_DIRS_MODE_RECENT_SOURCE, 
-        CUSTOM_DIRS_MODE_RECENT_TARGET, 
-        CUSTOM_DIRS_MODE_DEFAULT } from '@/constants';
+        CUSTOM_DIRS_TAB_VAL_FAVS, 
+        CUSTOM_DIRS_TAB_VAL_RECENT_SOURCE, 
+        CUSTOM_DIRS_TAB_VAL_RECENT_TARGET, 
+        CUSTOM_DIRS_TAB_VAL_DEFAULT } from '@/constants';
 
     export default {
         props: {
             value: String
         },
         data: () => ({
-            selectedModeId: '',
+            selectedTabValue: '',
             isRemoveEverywhereEnabled: false
         }),
         computed: {
@@ -69,38 +69,38 @@
                 'config/lastSourcePaths',
                 'config/lastTargetPaths',
                 'config/favDirs',
-                'lastCustomDirsMode'
+                'lastSelectedCustomDirsTabValue'
             ]),
-            currentMode() {
-                return this.modesForTabs.find(mode => mode.id === this.selectedModeId);
+            selectedTab() {
+                return this.TABS.find(t => t.value === this.selectedTabValue);
             },
             pathList() {
-                let mode = this.currentMode;
-                return mode.isFav ? this.favDirs : mode.isRecentSource ? this.lastSourcePaths : mode.isRecentTarget ? this.lastTargetPaths : []; 
+                let tab = this.selectedTab;
+                return tab.isFav ? this.favDirs : tab.isRecentSource ? this.lastSourcePaths : tab.isRecentTarget ? this.lastTargetPaths : []; 
             }
         },
         watch: {
-            currentMode(newMode) {
-                if (newMode && newMode.id) {
-                    this.lastCustomDirsMode = newMode.id;
+            selectedTab(newTab) {
+                if (newTab && newTab.value) {
+                    this.lastSelectedCustomDirsTabValue = newTab.value;
                 }
             }
         },
         methods: {
             removeFromList(pathToRemove) {
-                let mode = this.currentMode,
+                let tab = this.selectedTab,
                     removeEverywhere = this.isRemoveEverywhereEnabled;
                 
                 this.$store.commit('config/removePathFromList', {
                     path: pathToRemove,
-                    isFav: removeEverywhere || mode.isFav, 
-                    isRecentSource: removeEverywhere || mode.isRecentSource, 
-                    isRecentTarget: removeEverywhere || mode.isRecentTarget
+                    isFav: removeEverywhere || tab.isFav, 
+                    isRecentSource: removeEverywhere || tab.isRecentSource, 
+                    isRecentTarget: removeEverywhere || tab.isRecentTarget
                 });
             },
             clearList() {
                 this.$buefy.dialog.confirm({
-                    title: `Clear ${this.currentMode.name} List`,
+                    title: `Clear ${this.selectedTab.label} List`,
                     message: `${this.isRemoveEverywhereEnabled ? 'Cleared folders will be removed from the other lists, too.<br>' : ''} Do you want to continue?`,
                     confirmText: 'Yes, flush\'em',
                     type: 'is-danger',
@@ -112,13 +112,13 @@
                 });
             },
             selectPathOrShowOptions(path) {
-                let mode = this.currentMode;
-                if (mode.isFav) {
+                let tab = this.selectedTab;
+                if (tab.isFav) {
                     this.showContextMenu(path);
-                } else if (mode.isRecentSource) {
+                } else if (tab.isRecentSource) {
                     this.sourcePath = path;
                     this.close();
-                } else if (mode.isRecentTarget) {
+                } else if (tab.isRecentTarget) {
                     this.targetPath = path;
                     this.close();
                 }
@@ -131,14 +131,14 @@
             }
         },
         beforeCreate() {
-            this.modesForTabs = [
-                {id: CUSTOM_DIRS_MODE_RECENT_SOURCE, name: 'Recent Source', isRecentSource: true},
-                {id: CUSTOM_DIRS_MODE_RECENT_TARGET, name: 'Recent Target', isRecentTarget: true},
-                {id: CUSTOM_DIRS_MODE_FAVS, name: 'Bookmarks', isFav: true}
+            this.TABS = [
+                {value: CUSTOM_DIRS_TAB_VAL_RECENT_SOURCE, label: 'Recent Source', isRecentSource: true},
+                {value: CUSTOM_DIRS_TAB_VAL_RECENT_TARGET, label: 'Recent Target', isRecentTarget: true},
+                {value: CUSTOM_DIRS_TAB_VAL_FAVS, label: 'Bookmarks', isFav: true}
             ];
         },
         created() {
-            this.selectedModeId = this.value === CUSTOM_DIRS_MODE_DEFAULT ? this.lastCustomDirsMode : this.value;
+            this.selectedTabValue = this.value === CUSTOM_DIRS_TAB_VAL_DEFAULT ? this.lastSelectedCustomDirsTabValue : this.value;
             this.$onGlobal('close-dialog-requested', () => this.close());
         },
         components: {

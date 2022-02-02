@@ -5,7 +5,7 @@ import { make } from 'vuex-pathify'
 import files from './modules/files'
 import player from './modules/player'
 import config from './modules/config'
-import {CUSTOM_DIRS_MODE_FAVS} from '@/constants'
+import {CUSTOM_DIRS_TAB_VAL_FAVS} from '@/constants'
  
 Vue.use(Vuex);
 
@@ -15,7 +15,7 @@ const state = {
     /** @type {DragDropData} */
     dragDropData: null,    
     spectrogramSize: 0,
-    lastCustomDirsMode: CUSTOM_DIRS_MODE_FAVS,
+    lastSelectedCustomDirsTabValue: CUSTOM_DIRS_TAB_VAL_FAVS,
     isMousewheelResizingDisabled: false
 };
 

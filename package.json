@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.1",
+  "version": "2.2.2-beta",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -106,6 +106,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.4.4",
+    "@growthbunker/vuedarkmode": "^0.5.56",
     "@types/jest": "^24.0.13",
     "ajv": "^6.10.0",
     "babel-eslint": "^10.0.1",
@@ -151,7 +152,6 @@
     "vue-multipane": "^0.9.5",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10",
-    "vuedarkmode": "^0.3.23",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",

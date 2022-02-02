@@ -10,25 +10,25 @@
                 .dialog__box(@keyup.enter="start()")
                     .rename__formRow
                         .rename__field(ref="targetPatternWrapperElem")
-                            label.dm-field-label.dm-field-input__label Filename
+                            label.gb-field-label.gb-field-input__label Filename
                                 a.rename__insertLink(@click="insertFilenamePlaceholder()") Original filename
                                 a.rename__insertLink(@click="insertCounterPlaceholder()") Counter
                                 a.rename__insertLink(@click="resetTargetPattern()") Reset
-                            dm-input(v-model="targetPattern", size="mini", autocomplete=false, name="") 
-                        .rename__field.rename__field--small: dm-input(v-model="counterStart", type="number", :min=1, size="mini", autocomplete=false, label="Counter Start", name="")
-                        .rename__field.rename__field--small: dm-input(v-model="digits", type="number", :min=1, :max=10, size="mini", autocomplete=false, label="Digits", name="")
-                        .rename__field.rename__field--small: dm-input(v-model="stepping", type="number", :min=1, size="mini", autocomplete=false, label="Stepping", name="")
+                            gb-input(v-model="targetPattern", size="mini", autocomplete=false, name="") 
+                        .rename__field.rename__field--small: gb-input(v-model="counterStart", type="number", :min=1, size="mini", autocomplete=false, label="Counter Start", name="")
+                        .rename__field.rename__field--small: gb-input(v-model="digits", type="number", :min=1, :max=10, size="mini", autocomplete=false, label="Digits", name="")
+                        .rename__field.rename__field--small: gb-input(v-model="stepping", type="number", :min=1, size="mini", autocomplete=false, label="Stepping", name="")
                     .rename__formRow
                         .rename__field
-                            label.dm-field-label.dm-field-input__label Search &nbsp;  
+                            label.gb-field-label.gb-field-input__label Search &nbsp;  
                                 b-checkbox(size="is-small", v-model="isSearchIgnoreCase") Ignore Case
                                 b-checkbox(size="is-small", v-model="isSearchRegex", :type="hasErrorInRegex ? 'is-warning' : 'is-normal'") Regex
                                 b-checkbox(v-if="isSearchRegex", size="is-small", v-model="isSearchRegexGlobal") Global Regex
-                            dm-input(v-model="search", size="mini", autocomplete=false, name="", :status="hasErrorInRegex ? 'warning' : 'normal'")
+                            gb-input(v-model="search", size="mini", autocomplete=false, name="", :status="hasErrorInRegex ? 'warning' : 'normal'")
                         .rename__field.rename__field--replace
-                            label.dm-field-label.dm-field-input__label Replace &nbsp;
+                            label.gb-field-label.gb-field-input__label Replace &nbsp;
                                 small(v-if="isSearchRegex") (Use $1..$n for captured groups)
-                            dm-input(v-model="replace", size="mini", autocomplete=false, name="")
+                            gb-input(v-model="replace", size="mini", autocomplete=false, name="")
                     .rename__formRow.rename__formRow--reset
                         button.button.is-small.is-primary(@click="resetForm") Reset Form
             
@@ -41,7 +41,7 @@
                             th Original filename
                             th New filename
                             th Status
-                        tbody: tr(v-for="(wrapper, index) in processableItemWrappers", :class="wrapper.isIncluded ? '' : 'dialog--excluded'")
+                        tbody: tr(v-for="wrapper in processableItemWrappers", :class="wrapper.isIncluded ? '' : 'dialog--excluded'")
                             td: input(type="checkbox", v-model="wrapper.isIncluded", :disabled="isBusy", :id="wrapper.checkboxId")
                             td: label(:for="wrapper.checkboxId") {{ wrapper.oldFilename }}
                             td: label(:for="wrapper.checkboxId", :class="wrapper.canRename() ? '' : 'dialog--excluded'") {{ wrapper.newFilename }}

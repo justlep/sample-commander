@@ -2,7 +2,7 @@
     
     .filter__wrap 
         .filter__input(ref="filterWrapElem", :class="filter ? 'filter__input--filtered' : ''", title="Hotkey: Strg+F")
-            dm-input(v-model="filter", size="mini", value="bvla", autocomplete=false, name="filter", type="search", placeholder="Filter...")
+            gb-input(v-model="filter", size="mini", autocomplete=false, name="filter", type="search", placeholder="Filter...")
         
         button.button.is-small.is-primary.filter__resetBtn(v-if="filter", @click="filter = ''") Reset Filter
         

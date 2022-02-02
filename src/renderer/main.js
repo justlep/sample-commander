@@ -11,7 +11,7 @@ import 'typeface-cousine/index.css'
 import 'typeface-roboto/index.css'
 
 import Buefy from 'buefy'
-import VueDarkMode from 'vuedarkmode'
+import VueDarkMode from '@growthbunker/vuedarkmode'
 import Logger from '@/helpers/Logger'
 import Mousetrap from 'mousetrap'
 

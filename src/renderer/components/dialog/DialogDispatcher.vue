@@ -29,10 +29,10 @@
     import {
         HOTKEY_CONFIG, 
         HOTKEY_HELP,
-        CUSTOM_DIRS_MODE_FAVS,
-        CUSTOM_DIRS_MODE_RECENT_SOURCE,
-        CUSTOM_DIRS_MODE_RECENT_TARGET,
-        CUSTOM_DIRS_MODE_DEFAULT
+        CUSTOM_DIRS_TAB_VAL_FAVS,
+        CUSTOM_DIRS_TAB_VAL_RECENT_SOURCE,
+        CUSTOM_DIRS_TAB_VAL_RECENT_TARGET,
+        CUSTOM_DIRS_TAB_VAL_DEFAULT
     } from '@/constants';
     
     export default {
@@ -86,10 +86,10 @@
             this.$onGlobal('show-convert-dialog', ({fileItems}) => this.itemCollectionForConvert = ItemCollection.from(fileItems));
             this.$onGlobal('show-create-subdir-dialog', ({dirItem}) => this.parentDirItemWrapperForSubDir = new ItemWrapper(dirItem));
             this.$onGlobal('show-config-dialog', () => this.isConfigDialogVisible = true);
-            this.$onGlobal('show-favdirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_MODE_FAVS);
-            this.$onGlobal('show-recent-source-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_MODE_RECENT_SOURCE);
-            this.$onGlobal('show-recent-target-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_MODE_RECENT_TARGET);
-            this.$onGlobal('show-custom-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_MODE_DEFAULT);
+            this.$onGlobal('show-favdirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_TAB_VAL_FAVS);
+            this.$onGlobal('show-recent-source-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_TAB_VAL_RECENT_SOURCE);
+            this.$onGlobal('show-recent-target-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_TAB_VAL_RECENT_TARGET);
+            this.$onGlobal('show-custom-dirs-dialog', () => this.customDirsDialogMode = CUSTOM_DIRS_TAB_VAL_DEFAULT);
             this.$onGlobal('show-help-dialog', () => this.isHelpDialogVisible = true);
             this.$mousetrap.bind(HOTKEY_CONFIG, this.showConfigDialog);
             this.$mousetrap.bind(HOTKEY_HELP, this.showHelp);

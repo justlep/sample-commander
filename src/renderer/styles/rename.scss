@@ -23,17 +23,19 @@
             line-height: 11px;
         }
 
-        .dm-field-input__container {
+        .gb-field-input__container {
             height: auto !important;
+            padding-bottom: 2px  !important;
 
-            input {
+            input[type="text"] {
                 height: auto !important;
-                line-height: 1.8rem;
-                font-size: 1rem;
+                font-size: 12px;
+                line-height: 18px !important;
+                padding: 0 5px 0 7px;
             }
         }
 
-        .dm-field-label--uppercase {
+        .gb-field-label--uppercase {
             text-transform: unset;
         }
 
@@ -63,6 +65,10 @@
         margin-left: 10px;
         white-space: nowrap;
         width: auto;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
 
         &:first-child {
             margin-left: 0;
@@ -73,7 +79,7 @@
             flex-shrink: 1;
             flex-grow: 1;
 
-            .dm-field-input__field {
+            .gb-field-input__field {
                 width: 80px !important;
                 min-width: 0 !important;
             }

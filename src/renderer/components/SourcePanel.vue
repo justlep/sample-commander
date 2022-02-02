@@ -20,11 +20,11 @@
                 .mainPanel__message(v-if="isSourceFileLimitExceeded"): b-tag(type="is-danger", closable, attached, @close="isSourceFileLimitExceeded = false") Stopped after limit of {{ sourceFileLimit }} files
                 a.mainPanel__message(role="button", v-if="isSourceLoading", @click="abortLoading")
                     br
-                    dm-spinner(color="blue", size="medium")
+                    gb-spinner(color="blue", size="medium")
                     span Click to abort loading
                 a.mainPanel__message(role="button", v-if="concurrentDuplicateChecks", @click="abortDuplicateCheck")
                     br
-                    dm-spinner(color="blue", size="medium")
+                    gb-spinner(color="blue", size="medium")
                     span Checking for duplicates.. <br>Click to abort 
                 FileList(v-show="filteredFileItems.length", :fileItems="filteredFileItems", :rect-selector="rectSelector")
     

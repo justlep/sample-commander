@@ -9,11 +9,11 @@
                     | Help
 
                 .customDirs__tabs
-                    dm-tabs(name="foo", v-model="selectedModeId", :tabs="TAB_MODES", size="small")
+                    gb-tabs(name="foo", v-model="selectedTabValue", :tabs="TABS", size="small")
                     
             section.modal-card-body
                 .dialog__box
-                    .help__block(v-if="selectedTabMode.isShortcuts")
+                    .help__block(v-if="selectedTab.isShortcuts")
                         .help__content: table.help__table: tbody
                             tr
                                 td [Shift] + Mousewheel
@@ -37,13 +37,13 @@
 
                         .help_footnote * [Shift] / [Ctrl] + Mousewheel can be combined for changing the horizontal and vertical layout of the Source Panel simultaneously     
                         
-                    .help__block.help__block--systeminfo(v-if="selectedTabMode.isSystemInfo")
+                    .help__block.help__block--systeminfo(v-if="selectedTab.isSystemInfo")
                         table.help__table.help__table--systemInfo 
                             tbody: tr(v-for="info in $options.systemInfo") 
                                 td {{ info.name }}
                                 td {{ info.value }}
                         
-                    .help__block.help__block--about(v-if="selectedTabMode.isAbout")
+                    .help__block.help__block--about(v-if="selectedTab.isAbout")
                         p. 
                             Sample Commander is free, open-source software licensed under the 
                             <a role="button" @click="selectLicenseTab">GNU General Public License v3</a>,<br> 
@@ -78,10 +78,10 @@
                             Sample Commander also uses a couple of JavaScript modules and libraries provided under free licenses.<br>
                             More details on the project page. 
                         
-                    .help__block(v-if="selectedTabMode.isLicense")
+                    .help__block(v-if="selectedTab.isLicense")
                         GPL3License
                         
-                    .help__block.help__block--faq(v-if="selectedTabMode.isFaq")
+                    .help__block.help__block--faq(v-if="selectedTab.isFaq")
                         p  Most questions may already be answered on the Github page:<br>
                             a(target="_blank", :href="REPO_URL") {{ REPO_URL }}
                         
@@ -113,12 +113,12 @@
     import { HOTKEY_DESCRIPTIONS, REPO_URL, CHANGELOG_URL, RELEASES_URL, COPYRIGHT, CONTACT_EMAIL } from '@/constants'
     import { getSystemInfo } from '@/helpers/systemInfo'
 
-    const TAB_MODES = [
-        {id: 'help-about', name: 'About Sample Commander', isAbout: true},
-        {id: 'help-shortcuts', name: 'Mouse & Keyboard', isShortcuts: true},
-        {id: 'help-faq', name: 'Questions & Answers', isFaq: true},
-        {id: 'help-license', name: 'License', isLicense: true},
-        {id: 'help-systeminfo', name: 'System Info', isSystemInfo: true}
+    const TABS = [
+        {value: 'help-about', label: 'About Sample Commander', isAbout: true},
+        {value: 'help-shortcuts', label: 'Mouse & Keyboard', isShortcuts: true},
+        {value: 'help-faq', label: 'Questions & Answers', isFaq: true},
+        {value: 'help-license', label: 'License', isLicense: true},
+        {value: 'help-systeminfo', label: 'System Info', isSystemInfo: true}
     ];
     
     export default {
@@ -126,7 +126,7 @@
             value: Boolean
         },
         data: () => ({
-            selectedModeId: TAB_MODES[0].id
+            selectedTabValue: TABS[0].value
         }),
         computed: {
             ...sync([
@@ -134,11 +134,10 @@
                 'config/targetPath',
                 'config/lastSourcePaths',
                 'config/lastTargetPaths',
-                'config/favDirs',
-                'lastCustomDirsMode'
+                'config/favDirs'
             ]),
-            selectedTabMode() {
-                return TAB_MODES.find(mode => mode.id === this.selectedModeId);
+            selectedTab() {
+                return TABS.find(mode => mode.value === this.selectedTabValue);
             }
         },
         methods: {
@@ -146,14 +145,14 @@
                 this.$emit('input', null);
             },
             selectLicenseTab() {
-                this.selectedModeId = TAB_MODES.find(m => m.isLicense).id;
+                this.selectedTabValue = TABS.find(m => m.isLicense).value;
             },
             gotoSystemInfo() {
-                this.selectedModeId = TAB_MODES.find(m => m.isSystemInfo).id;
+                this.selectedTabValue = TABS.find(m => m.isSystemInfo).value;
             }
         },
         beforeCreate() {
-            this.TAB_MODES = TAB_MODES;
+            this.TABS = TABS;
             this.$options.systemInfo = getSystemInfo();
         },
         created() {

@@ -117,10 +117,10 @@ export const KEY_CODES = {
 export const FFMPEG_EXECUTABLE_FILENAME = IS_WINDOWS ? 'ffmpeg.exe' : 'ffmpeg'; 
 export const FFPROBE_EXECUTABLE_FILENAME = IS_WINDOWS ? 'ffprobe.exe' : 'ffprobe';
 
-export const CUSTOM_DIRS_MODE_FAVS = 'favs';
-export const CUSTOM_DIRS_MODE_RECENT_SOURCE = 'recentSource';
-export const CUSTOM_DIRS_MODE_RECENT_TARGET = 'recentTarget';
-export const CUSTOM_DIRS_MODE_DEFAULT = 'asPrevious';
+export const CUSTOM_DIRS_TAB_VAL_FAVS = 'favs';
+export const CUSTOM_DIRS_TAB_VAL_RECENT_SOURCE = 'recentSource';
+export const CUSTOM_DIRS_TAB_VAL_RECENT_TARGET = 'recentTarget';
+export const CUSTOM_DIRS_TAB_VAL_DEFAULT = 'asPrevious';
 
 export const LINEAR_SPECTROGRAM_DIR_INFO_FILE_CONTENT = `Sample Commander temporary spectrogram folder.\r
 Any file of the pattern *.SPX.png in this folder can be safely deleted.\r

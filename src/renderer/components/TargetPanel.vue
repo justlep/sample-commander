@@ -13,7 +13,7 @@
                 .mainPanel__message(v-if="isTargetDirLimitedExceeded"): b-tag(type="is-danger", closable, attached, @close="isTargetDirLimitedExceeded = false") Stopped after limit of {{ targetDirLimit }} directories 
                 a.mainPanel__message(role="button", v-if="isTargetLoading", @click="abortLoading")
                     br
-                    dm-spinner(color="blue", size="medium")
+                    gb-spinner(color="blue", size="medium")
                     span Click to abort loading
                  
                 DirList(v-if="isTargetLoaded", :dirItems="dirItems", v-model="targetPath",

@@ -6,7 +6,7 @@
             header.modal-card-head
                 p.modal-card-title Convert {{ relativeTotalString }} to
                 .customDirs__tabs
-                    dm-tabs(name="fooConvert", v-model="formatId", :tabs="FORMATS", size="small")
+                    gb-tabs(name="fooConvert", v-model="selectedFormatValue", :tabs="FORMATS", size="small")
             section.modal-card-body
                 b-tag(type="is-danger", attached, v-if="!ffmpegExecutablePath") Conversion requires FFmpeg to be configured first  
                 .dialog__box(v-if="format.isMp3")
@@ -30,7 +30,7 @@
                             th Original file
                             th Converted file
                             th Status
-                        tbody: tr(v-for="(wrapper, index) in processableItemWrappers", :class="(wrapper.isIncluded && wrapper.canRename()) ? '' : 'dialog--excluded'")
+                        tbody: tr(v-for="wrapper in processableItemWrappers", :class="(wrapper.isIncluded && wrapper.canRename()) ? '' : 'dialog--excluded'")
                             td: input(type="checkbox", v-model="wrapper.isIncluded", :disabled="isBusy", :id="wrapper.checkboxId")
                             td: label(:for="wrapper.checkboxId") {{ wrapper.oldFilename }}
                             td: label(:for="wrapper.checkboxId", :class="wrapper.canRename() ? '' : 'dialog--excluded'") {{ wrapper.newFilename }}
@@ -56,9 +56,9 @@
     import {execFile} from "child_process"
 
     const FORMATS = [
-        {id: 'MP3_CBR', name: 'MP3 (CBR)', ext: '.mp3', isMp3: true, isCbr: true, isConfigurable: true},
-        {id: 'MP3_VBR', name: 'MP3 (VBR)', ext: '.mp3', isMp3: true, isVbr: true, isConfigurable: true},
-        {id: 'WAV', name: 'Wave Format', ext: '.wav', isWav: true, isConfigurable: false}
+        {value: 'MP3_CBR', label: 'MP3 (CBR)', ext: '.mp3', isMp3: true, isCbr: true, isConfigurable: true},
+        {value: 'MP3_VBR', label: 'MP3 (VBR)', ext: '.mp3', isMp3: true, isVbr: true, isConfigurable: true},
+        {value: 'WAV', label: 'Wave Format', ext: '.wav', isWav: true, isConfigurable: false}
     ];
     
     const CONVERSION_PROCESS_KEY = '__CONV_PROCESS__';
@@ -73,7 +73,7 @@
             /** @type {RenamableProcessableItemWrapper[]} */
             processableItemWrappers: [],
             refreshWhenDone: true,
-            formatId: FORMATS.find(f => f.isMp3).id,
+            selectedFormatValue: FORMATS.find(f => f.isMp3).value,
             mp3Bitrate: 256,
             mp3VbrQuality: 0,
             isMp3BitrateAddedToFilename: true
@@ -86,7 +86,7 @@
                 return this.processableItemWrappers.length;
             },
             format() {
-                return FORMATS.find(f => f.id === this.formatId);
+                return FORMATS.find(f => f.value === this.selectedFormatValue);
             },
             totalConvertableItems() {
                 if (this.isStarted) {
@@ -190,7 +190,7 @@
                             if (err) {
                                 reject( nodeUtil.format('Failed to convert %s. Error is:\n%s', sourcePath, stderr) );
                             } else {
-                                this.$log.dev('Converted file "%s" -> "%s"', sourcePath);
+                                this.$log.dev('Converted file "%s" -> "%s"', sourcePath, targetPath);
                                 resolve(targetPath);
                             }
                         });
