@@ -115,7 +115,6 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babili-webpack-plugin": "^0.1.2",
     "bulma-slider": "^2.0.5",
-    "cfonts": "^2.10.0",
     "chai": "^4.3.6",
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.5.1",
