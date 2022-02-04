@@ -15,12 +15,14 @@ if (process.env.BUILD_TARGET === 'clean') {
 const packOrExit = (config, processName) => new Promise(resolve => {
     config.mode = 'production';
     webpack(config, (err, stats) => {
-        const statsString = stats?.toString({
-            chunks: false,
+        if (!stats) {
+            return resolve('');
+        }
+        const statsString = stats.toString({
+            chunks: false, 
             colors: true
         });
-
-        let errorMsg = err ? (err.stack || err) : stats.hasErrors() ? `    ${statsString.replace(/\r?\n/g, '\n    ')}` : null;
+        const errorMsg = err ? (err.stack || err) : stats.hasErrors() ? `    ${statsString.replace(/\r?\n/g, '\n    ')}` : null;
         if (errorMsg) {
             console.log(`\n${chalk.bgRed.white('ERROR')} failed to build ${processName}`);
             console.error(`\n${errorMsg}\n`);
