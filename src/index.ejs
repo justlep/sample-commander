@@ -9,28 +9,8 @@
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
       </script>
     <% } %>
-    <style>
-      .bodyspinner:after {
-        content: '';
-        display: block;
-        position: fixed;
-        z-index: 9999;
-        left: calc(50vw - 70px);
-        top: calc(50vh - 70px);
-        border: 10px solid #222c3c;
-        border-top: 10px solid #57789a;
-        border-radius: 50%;
-        width: 140px;
-        height: 140px;
-        animation: bodyspin 1.7s linear infinite;
-      }
-      @keyframes bodyspin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
   </head>
-  <body class="bodyspinner" style="background:#111" onload="0 && document.body.classList.remove('bodyspinner')">
+  <body>
     <div id="app"></div>
     <!-- Set `__static` path to static files in production -->
     <% if (!require('process').browser) { %>
@@ -38,6 +18,7 @@
         if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
       </script>
     <% } %>
+
     <!-- webpack builds are automatically injected -->
   </body>
 </html>
