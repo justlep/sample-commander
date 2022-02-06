@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta4",
+  "version": "2.2.2-beta5",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -102,7 +102,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
-    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
     "@babel/runtime": "^7.17.0",
