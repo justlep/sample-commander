@@ -22,7 +22,7 @@ const {VueLoaderPlugin} = require('vue-loader');
 let whiteListedModules = ['vue'];
 
 let rendererConfig = {
-    devtool: '#cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     entry: {
         renderer: path.join(__dirname, '../src/renderer/main.js')
     },
@@ -38,7 +38,7 @@ let rendererConfig = {
                 use: {
                     loader: 'eslint-loader',
                     options: {
-                        formatter: require('eslint-friendly-formatter')
+                        formatter: 'stylish'
                     }
                 }
             },
