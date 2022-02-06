@@ -160,7 +160,7 @@
                 // prevent erratic behavior of [Shift]+Click afterwards
                 this._lastSelectedItem = null; 
                 // prevent Ctrl+Mousewheel conflicts with Ctrl+rect-select 
-                this.isMousewheelResizingDisabled = newStatus.isActive;
+                this.isMousewheelResizingDisabled = !!newStatus.isActive;
             }
         },
         methods: {
