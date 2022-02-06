@@ -4,7 +4,7 @@
     "test": {
       "presets": [
         ["@babel/env", {
-          "targets": { "node": 8 }
+          "targets": { "node": 12 }
         }]
       ],
       "plugins": ["istanbul"]
@@ -12,21 +12,21 @@
     "main": {
       "presets": [
         ["@babel/env", {
-          "targets": { "node": 8 }
+          "targets": { "node": 12 }
         }]
       ]
     },
     "renderer": {
       "presets": [
         ["@babel/env", {
-          "targets": { "node": 8 }
+          "targets": { "node": 12 }
         }]
       ]
     },
     "web": {
       "presets": [
         ["@babel/env", {
-          "targets": { "node": 8 }
+          "targets": { "node": 12 }
         }]
       ]
     }

@@ -6,7 +6,6 @@ const path = require('path');
 const {dependencies, version} = require('../package.json');
 const webpack = require('webpack');
 
-const BabiliWebpackPlugin = require('babili-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -175,7 +174,7 @@ if (process.env.NODE_ENV === 'production') {
     rendererConfig.devtool = '';
 
     rendererConfig.plugins.push(
-        new BabiliWebpackPlugin(),
+        // kicked BabiliWebpackPlugin here. might replace it w/ terser-webpack-plugin later
         new CopyWebpackPlugin({
             patterns: [
                 {

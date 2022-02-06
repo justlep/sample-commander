@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta3",
+  "version": "2.2.2-beta4",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -113,7 +113,6 @@
     "babel-jest": "^27.4.6",
     "babel-loader": "^8.2.3",
     "babel-plugin-istanbul": "^6.1.1",
-    "babili-webpack-plugin": "^0.1.2",
     "bulma-slider": "^2.0.5",
     "chai": "^4.3.6",
     "chalk": "^4.1.2",
