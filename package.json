@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta2",
+  "version": "2.2.2-beta3",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -117,7 +117,7 @@
     "bulma-slider": "^2.0.5",
     "chai": "^4.3.6",
     "chalk": "^4.1.2",
-    "copy-webpack-plugin": "^4.5.1",
+    "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^5.1.6",
     "css-loader": "^2.1.1",
     "del": "^3.0.0",
