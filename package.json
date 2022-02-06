@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta",
+  "version": "2.2.2-beta2",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -135,7 +135,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^4.5.2",
     "inject-loader": "^4.0.1",
     "jest": "^27.4.7",
     "mini-css-extract-plugin": "0.4.0",
