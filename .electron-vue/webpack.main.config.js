@@ -4,9 +4,11 @@ process.env.BABEL_ENV = 'main';
 
 const path = require('path');
 const {dependencies} = require('../package.json');
-const webpack = require('webpack');
+const {getDefinePluginForNodeEnvProduction, getDefinePluginFor__static} = require('./webpack-define-plugin-helper.js');
 
-let mainConfig = {
+const IS_ENV_PRODUCTION = process.env.NODE_ENV === 'production';
+
+const mainConfig = {
     entry: {
         main: path.join(__dirname, '../src/main/index.js')
     },
@@ -39,8 +41,11 @@ let mainConfig = {
         ]
     },
     node: {
-        __dirname: process.env.NODE_ENV !== 'production',
-        __filename: process.env.NODE_ENV !== 'production'
+        __dirname: !IS_ENV_PRODUCTION,
+        __filename: !IS_ENV_PRODUCTION
+    },
+    optimization: {
+        noEmitOnErrors: true
     },
     output: {
         filename: '[name].js',
@@ -48,35 +53,17 @@ let mainConfig = {
         path: path.join(__dirname, '../dist/electron')
     },
     plugins: [
-        new webpack.NoEmitOnErrorsPlugin()
+        ...(IS_ENV_PRODUCTION ? [
+            // kicked BabiliWebpackPlugin here. might replace it w/ terser-webpack-plugin later
+            getDefinePluginForNodeEnvProduction()
+        ] : [
+            getDefinePluginFor__static()
+        ])
     ],
     resolve: {
         extensions: ['.js', '.json', '.node']
     },
     target: 'electron-main'
 };
-
-/**
- * Adjust mainConfig for development settings
- */
-if (process.env.NODE_ENV !== 'production') {
-    mainConfig.plugins.push(
-        new webpack.DefinePlugin({
-            '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
-        })
-    )
-}
-
-/**
- * Adjust mainConfig for production settings
- */
-if (process.env.NODE_ENV === 'production') {
-    mainConfig.plugins.push(
-        // kicked BabiliWebpackPlugin here. might replace it w/ terser-webpack-plugin later
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
-        })
-    )
-}
 
 module.exports = mainConfig;

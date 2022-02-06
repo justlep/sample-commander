@@ -5,11 +5,13 @@ process.env.BABEL_ENV = 'renderer';
 const path = require('path');
 const {dependencies, version} = require('../package.json');
 const webpack = require('webpack');
-
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {VueLoaderPlugin} = require('vue-loader');
+const {getDefinePluginForNodeEnvProduction, getDefinePluginFor__static} = require('./webpack-define-plugin-helper.js');
+
+const IS_ENV_PRODUCTION = process.env.NODE_ENV === 'production';
 
 /**
  * List of node_modules to include in webpack bundle
@@ -18,10 +20,10 @@ const {VueLoaderPlugin} = require('vue-loader');
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue'];
+const whiteListedModules = ['vue'];
 
-let rendererConfig = {
-    devtool: 'eval-cheap-module-source-map',
+const rendererConfig = {
+    devtool: IS_ENV_PRODUCTION ? undefined : 'eval-cheap-module-source-map',
     entry: {
         renderer: path.join(__dirname, '../src/renderer/main.js')
     },
@@ -75,7 +77,7 @@ let rendererConfig = {
                 use: {
                     loader: 'vue-loader',
                     options: {
-                        extractCSS: process.env.NODE_ENV === 'production',
+                        extractCSS: IS_ENV_PRODUCTION,
                         loaders: {
                             sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
                             scss: 'vue-style-loader!css-loader!sass-loader',
@@ -88,7 +90,7 @@ let rendererConfig = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 use: {
                     loader: 'url-loader',
-                    query: {
+                    options: {
                         limit: 10000,
                         name: 'imgs/[name]--[folder].[ext]'
                     }
@@ -106,7 +108,7 @@ let rendererConfig = {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 use: {
                     loader: 'url-loader',
-                    query: {
+                    options: {
                         limit: 10000,
                         name: 'fonts/[name]--[folder].[ext]'
                     }
@@ -119,8 +121,11 @@ let rendererConfig = {
         ]
     },
     node: {
-        __dirname: process.env.NODE_ENV !== 'production',
-        __filename: process.env.NODE_ENV !== 'production'
+        __dirname: !IS_ENV_PRODUCTION,
+        __filename: !IS_ENV_PRODUCTION
+    },
+    optimization: {
+        noEmitOnErrors: true
     },
     plugins: [
         new VueLoaderPlugin(),
@@ -134,12 +139,26 @@ let rendererConfig = {
                 removeAttributeQuotes: true,
                 removeComments: true
             },
-            nodeModules: process.env.NODE_ENV !== 'production'
-                ? path.resolve(__dirname, '../node_modules')
-                : false
+            nodeModules: IS_ENV_PRODUCTION ? false : path.resolve(__dirname, '../node_modules')
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        ...(IS_ENV_PRODUCTION ? [
+            // TODO kicked BabiliWebpackPlugin here. Maybe replace it w/ terser-webpack-plugin later
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: path.join(__dirname, '../static'),
+                        to: path.join(__dirname, '../dist/electron/static'),
+                        globOptions: {
+                            ignore: ['.*']
+                        }
+                    }
+                ]
+            }),
+            getDefinePluginForNodeEnvProduction()
+        ] : [
+            getDefinePluginFor__static()
+        ])
     ],
     output: {
         filename: '[name].js',
@@ -155,44 +174,5 @@ let rendererConfig = {
     },
     target: 'electron-renderer'
 };
-
-/**
- * Adjust rendererConfig for development settings
- */
-if (process.env.NODE_ENV !== 'production') {
-    rendererConfig.plugins.push(
-        new webpack.DefinePlugin({
-            '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
-        })
-    )
-}
-
-/**
- * Adjust rendererConfig for production settings
- */
-if (process.env.NODE_ENV === 'production') {
-    rendererConfig.devtool = '';
-
-    rendererConfig.plugins.push(
-        // kicked BabiliWebpackPlugin here. might replace it w/ terser-webpack-plugin later
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.join(__dirname, '../static'),
-                    to: path.join(__dirname, '../dist/electron/static'),
-                    globOptions: {
-                        ignore: ['.*']
-                    }
-                }
-            ]
-        }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true
-        })
-    )
-}
 
 module.exports = rendererConfig;
