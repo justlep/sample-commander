@@ -6,12 +6,12 @@
         .toolbar__groupLabel.toolbar__groupLabel--intensity
             a(role="button", title="Increase the contrast of spectrograms (spectrogram files remain untouched)",
                 @click="isIntensitySliderVisible = !isIntensitySliderVisible", @contextmenu="resetIntensity")
-                span.fa.fa-adjust &nbsp; 
+                span.icon--contrast &nbsp; 
                 | Spectrogram Intensity:
 
         input.slider(v-if="spectrogramSize && isIntensitySliderVisible", v-model.number="spectrogramIntensity",
                      @contextmenu="resetIntensity", type="range", min="100", max="200", step="1", style="margin-right: 10px")
-        // - b-tooltip(v-if="spectrogramSize && isIntensitySliderVisible", label="asd", multilined, position="is-right"): em.fa.fa-info-circle
+        // - b-tooltip(v-if="spectrogramSize && isIntensitySliderVisible", label="asd", multilined, position="is-right"): em.icon--info
 
         .toolbar__groupLabel(v-if="spectrogramSize && !isIntensitySliderVisible", style="padding-left: 0; margin-left: -5px")
             a(role="button", @click="isIntensitySliderVisible = !isIntensitySliderVisible", @contextmenu="resetIntensity"). 

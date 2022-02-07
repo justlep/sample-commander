@@ -1,6 +1,6 @@
 <template lang="pug">
     
-    span.favDirIcon.fa.fa-star(:class="cssClass", :title="tooltip", @click.stop="toggleFav")
+    span.favDirIcon.icon--star(:class="cssClass", :title="tooltip", @click.stop="toggleFav")
     
 </template>
     

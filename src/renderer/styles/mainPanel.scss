@@ -24,8 +24,7 @@
 		color: $color-light-gray;
 		font-size: 13px;
 
-		&.far,
-		&.fa {
+        &[class*="icon--"] {
 			font-size: 13px;
 			line-height: 27px;
 		}

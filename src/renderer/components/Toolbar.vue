@@ -12,17 +12,17 @@
             
         .toolbar__group
             .toolbar__groupLabel: a(role="button", @click="$emitGlobal('show-custom-dirs-dialog')")
-                span.fa.fa-folder
+                span.icon--folder-full
                 | &nbsp; Folders
                 span.toolbar__infoInBrackets(v-if="totalFavDirs")
-                    span.fa.fa-star(style="opacity: 0.7")
+                    span.icon--star(style="opacity: 0.7")
                     |  {{ totalFavDirs }}
               
         .toolbar__groupPlaceholder
             
         .toolbar__group.toolbar__group--settingsTop
             a(role="button", @click="$emitGlobal('show-config-dialog')")
-                span.fa.fa-cog &nbsp;
+                span.icon--config &nbsp;
                 | Settings 
     
 </template>

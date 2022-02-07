@@ -2,11 +2,11 @@
     
     .mainPanel
         .mainPanel__header
-            a.mainPanel__button.fa.fa-redo(role="button", @click.stop="reload")
+            a.mainPanel__button.icon--redo(role="button", @click.stop="reload")
             .mainPanel__path(@click="selectTargetPath", @contextmenu="$emitGlobal('show-target-contextmenu')")
                 FavDirIcon(:path="targetPath")
                 | {{ targetPath }}
-            a.mainPanel__button.fa.fa-minus(role="button", @click.stop="showTargetPanel = false", :title="TOGGLER_TOOLTIP")
+            a.mainPanel__button.icon--close(role="button", @click.stop="showTargetPanel = false", :title="TOGGLER_TOOLTIP")
         .mainPanel__content
             .mainPanel__scrollable.mainPanel__scrollable--target
                 .mainPanel__message(v-if="error"): b-tag(type="is-danger", closable, attached, @close="error = ''") {{ error }}

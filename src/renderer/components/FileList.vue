@@ -8,7 +8,7 @@
                         :data-itemid="fileItem.id",
                         :class="{'file__item--playing': playedFileItemId === fileItem.id, 'file__item--selected': _isFileItemSelected(fileItem)}")
                 span.file__filename {{ fileItem.filename }}
-                a.file__extDrag.fa.fa-external-link-alt(draggable=true, title="Drag to external application or click to show in Explorer", rel="external")
+                a.file__extDrag.icon--extern(draggable=true, title="Drag to external application or click to show in Explorer", rel="external")
                 .file__meta
                     div
                         span.file__size {{ fileItem.formattedFilesize }}

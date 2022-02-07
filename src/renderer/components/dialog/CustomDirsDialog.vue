@@ -5,8 +5,8 @@
         .modal-card
             header.modal-card-head
                 p.modal-card-title(style="text-align:left")
-                    span.fa.fa-folder &nbsp; 
-                    | Folders
+                    span.icon--folder-full 
+                    |  Folders
                 
                 .customDirs__tabs
                     gb-tabs(name="foo", v-model="selectedTabValue", :tabs="TABS", size="small")
@@ -21,7 +21,7 @@
                             td
                                 a.customDirs__link(@contextmenu="showContextMenu(path)", @click="selectPathOrShowOptions(path)") {{ path }}
                             td.dialog__tableButtons.dialog__tableButtons--brackets.customDirs__buttons
-                                a(role="button", @click="removeFromList(path)", title="Remove from list"): span.fa.fa-window-close
+                                a(role="button", @click="removeFromList(path)", title="Remove from list"): span.icon--cancel
                                 a(role="button", @click="sourcePath = path", :class="path === sourcePath ? 'customDirs--activeDir' : ''") Source
                                     
                                 a(role="button", @click="targetPath = path", :class="path === targetPath ? 'customDirs--activeDir' : ''") Target 
@@ -36,10 +36,13 @@
                                 
             footer.modal-card-foot
                 .dialog__buttons.dialog__buttons--spread
-                    .field: b-checkbox(v-model="isRemoveEverywhereEnabled", type="is-info is-small") Removing includes all 3 lists  
+                    .field: b-checkbox(v-model="isRemoveEverywhereEnabled", type="is-info is-small") 
+                        | Make [
+                        i.icon--cancel
+                        | ] remove folders from all 3 lists  
                     span
                         button.button.is-danger(@click="clearList")
-                            span.customDirs__clearBtnIcon.fa.fa-window-close
+                            span.customDirs__clearBtnIcon.icon--trash
                             | &nbsp;Clear List
                         button.button.is-primary(@click="close") Close
 

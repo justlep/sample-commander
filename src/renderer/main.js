@@ -12,7 +12,6 @@ import VueDarkMode from '@growthbunker/vuedarkmode'
 import Logger from '@/helpers/Logger'
 import Mousetrap from 'mousetrap'
 
-import '@fortawesome/fontawesome-free/css/all.css'
 //import 'buefy/dist/buefy.css'
 import '@/styles/app.scss'
 import 'bulma-slider/dist/css/bulma-slider.min.css'

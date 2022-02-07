@@ -5,8 +5,8 @@
         .modal-card
             header.modal-card-head
                 p.modal-card-title(style="text-align:right")
-                    span.fa.fa-question-circle &nbsp;
-                    | Help
+                    span.icon--help
+                    |  Help
 
                 .customDirs__tabs
                     gb-tabs(name="foo", v-model="selectedTabValue", :tabs="TABS", size="small")

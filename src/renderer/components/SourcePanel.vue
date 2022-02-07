@@ -2,17 +2,17 @@
     
     .mainPanel(:class="isFiltered ? 'mainPanel--filtered' : ''")
         .mainPanel__header
-            a.mainPanel__button.fa.fa-redo(role="button", @click.stop="onReloadClick", title="Refresh. Use [Shift]+click to flush caches") 
-            a.mainPanel__button.fa-folder(role="button", @click.stop="recurseSource = !recurseSource", 
+            a.mainPanel__button.icon--redo(role="button", @click.stop="onReloadClick", title="Refresh. Use [Shift]+click to flush caches") 
+            a.mainPanel__button(role="button", @click.stop="recurseSource = !recurseSource", 
                                 :title="`Subfolders are ${recurseSource ? 'INCLUDED' : 'EXCLUDED'}`", 
-                                :class="recurseSource ? 'fa' : 'far'") 
+                                :class="recurseSource ? 'icon--folder-deep' : 'icon--folder-flat'") 
             .mainPanel__path(@click="selectSourcePath", @contextmenu="$emitGlobal('show-source-contextmenu')", :title="tooltip") 
                 FavDirIcon(:path="sourcePath")
                 | {{ sourcePath }}
-            a.mainPanel__button.fa(role="button", @click.stop="toggleTargetPanel", 
-                                   :class="showTargetPanel ? 'fa-chevron-right' : 'fa-chevron-left'",
+            a.mainPanel__button(role="button", @click.stop="toggleTargetPanel", 
+                                   :class="showTargetPanel ? 'icon--right' : 'icon--left'",
                                    :title="targetTogglerTooltip")
-            //- alternative arrows for above -> 'fa-arrow-right' : 'fa-arrow-left'
+            
         .mainPanel__content
             .mainPanel__scrollable.mainPanel__scrollable--source(ref="scrollContainerElem", @mousedown="onMouseDown", data-rect-select)
                 .mainPanel__message(v-if="error"): b-tag(type="is-danger", closable, attached, @close="error = ''") {{ error }}

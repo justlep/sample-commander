@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta8",
+  "version": "2.2.2-beta10",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -27,6 +27,7 @@
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "dev": "node .electron-vue/dev-runner.js",
+    "importFontelloStyles": "node .electron-vue/importFontelloStyles.js",
     "lint": "eslint --ext .js,.vue --format stylish --plugin log-filenames src",
     "lint:fix": "eslint --ext .js,.vue --format stylish --fix src",
     "pack": "npm run pack:main && npm run pack:renderer",
@@ -37,7 +38,7 @@
   "build": {
     "productName": "Sample Commander",
     "appId": "net.justlep.samplecommander",
-    "copyright": "Copyright © 2019 Lennart Pegel",
+    "copyright": "Copyright © 2015-2022 Lennart Pegel",
     "directories": {
       "output": "build"
     },
@@ -84,7 +85,6 @@
     }
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
     "async": "^3.2.3",
     "buefy": "^0.9.0",
     "electron-store": "^8.0.1",
@@ -136,6 +136,7 @@
     "mini-css-extract-plugin": "0.4.0",
     "node-loader": "^0.6.0",
     "node-sass": "^6.0.1",
+    "node-stream-zip": "^1.15.0",
     "pug": "~3.0.1",
     "pug-plain-loader": "^1.1.0",
     "sass-loader": "^10.2.1",

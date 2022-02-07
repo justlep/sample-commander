@@ -5,8 +5,8 @@
         .modal-card
             header.modal-card-head
                 p.modal-card-title(style="text-align:right")
-                    span.fa.fa-cog &nbsp;
-                    | Settings
+                    span.icon--config
+                    |  Settings
             section.modal-card-body
                 .dialog__box
                     table.dialog__table.configDialog__table: tbody
@@ -14,7 +14,7 @@
                             td Auto-disable spectrograms when <br>selecting a new source folder
                             td
                                 b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="true") Yes
-                                    b-tooltip(label="(Recommended) Prevents you from accidentally generating spectrogram files in folders you only wanted to have a quick glance at", multilined, position="is-right"): em.fa.fa-info-circle
+                                    b-tooltip(label="(Recommended) Prevents you from accidentally generating spectrogram files in folders you only wanted to have a quick glance at", multilined, position="is-right"): em.icon--info
                                 b-radio.radio--spacy(v-model="disableSpectrogramsOnDirChange", size="is-default", type="is-info", :native-value="false") No
                             td
                         tr
@@ -22,25 +22,25 @@
                             td
                                 b-radio.radio--spacy(v-model="minMousewheelSourceItemWidth", size="is-default", type="is-info", :native-value="0") Yes 
                                 b-radio.radio--spacy(v-model="minMousewheelSourceItemWidth", size="is-default", type="is-info", :native-value="1") No, keep raster at minimum item width
-                                    b-tooltip(label="(Recommended) Keeps the view 'nicely organized' all times, especially when using combined Shift+Ctrl+Mousewheel", multilined, position="is-bottom"): em.fa.fa-info-circle
+                                    b-tooltip(label="(Recommended) Keeps the view 'nicely organized' all times, especially when using combined Shift+Ctrl+Mousewheel", multilined, position="is-bottom"): em.icon--info
                             td
                         tr
                             td [Ctrl]+Mousewheel can disable spectrograms
                             td
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="true") Yes 
                                 b-radio.radio--spacy(v-model="canMousewheelCloseSpectrograms", size="is-default", type="is-info", :native-value="false") No, keep spectrograms enabled at minimum height
-                                    b-tooltip(:label="`Prevent Ctrl+mousewheel from closing spectrograms, instead the minimum size will be ${SPECTROGRAM_SIZE_STEPPING} pixels`", multilined, position="is-top"): em.fa.fa-info-circle
+                                    b-tooltip(:label="`Prevent Ctrl+mousewheel from closing spectrograms, instead the minimum size will be ${SPECTROGRAM_SIZE_STEPPING} pixels`", multilined, position="is-top"): em.icon--info
                             td
                         tr
                             td Vertical space between files
-                                b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.icon--info
                             td
                                 input.slider(v-model.number="sourceItemVSpace", type="range", min="0", max="20", step="1")
                                 span.configDialog__limitValue {{ sourceItemVSpace ? (sourceItemVSpace + ' px') : 'default' }}
                             td
                         tr
                             td Limit Source files
-                                b-tooltip(label="Limits the number of files to be loaded in the source panel. Shall prevent excessive memory/disk load when accidentally choosing the 'wrong' folder (e.g. root directory)", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="Limits the number of files to be loaded in the source panel. Shall prevent excessive memory/disk load when accidentally choosing the 'wrong' folder (e.g. root directory)", multilined, position="is-right"): em.icon--info
                             td
                                 //- | {{ sourceFileLimit }}
                                 input.slider.configDialog--longSlider(v-model.number="sourceFileLimit", type="range", min="0", max="2000", step="1")
@@ -48,7 +48,7 @@
                             td
                         tr
                             td Limit Target folders 
-                                b-tooltip(label="Limits the number of folders listed in the target panel. Shall prevent excessive memory/disk load when accidentally choosing the 'wrong' folder (e.g. root directory)", multilined, position="is-top"): em.fa.fa-info-circle
+                                b-tooltip(label="Limits the number of folders listed in the target panel. Shall prevent excessive memory/disk load when accidentally choosing the 'wrong' folder (e.g. root directory)", multilined, position="is-top"): em.icon--info
                             td
                                 //- | {{ targetDirLimit }}
                                 input.slider.configDialog--longSlider(v-model.number="targetDirLimit", type="range", min="0", max="1000", step="10")
@@ -68,7 +68,7 @@
                         
                         tr
                             td: a(role="button", @click="openFfmpegPageInBrowser") FFmpeg executables* 
-                                b-tooltip(label="* Required for both determining sample rate, duration etc. and for generating spectrograms. FFmpeg is free, open source software, downloadable at http://ffmpeg.org/download.html. Sample Commander was tested with ffmpeg v4.1.1", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="* Required for both determining sample rate, duration etc. and for generating spectrograms. FFmpeg is free, open source software, downloadable at http://ffmpeg.org/download.html. Sample Commander was tested with ffmpeg v4.1.1", multilined, position="is-right"): em.icon--info
                             td: ul
                                 li {{ ffmpegExecutablePath || 'ffmpeg executable not configured' }}
                                 li {{ ffprobeExecutablePath || 'ffprobe executable not configured' }}
@@ -76,13 +76,13 @@
                                 button.button.is-small(@click="$emitGlobal('show-ffmpeg-config-dialog')") Select...
                         tr
                             td: a(role="button", @click="openInBrowser('https://www.audacityteam.org/')") Audio Editor
-                                b-tooltip(label="Your preferred audio editor installed on your computer, like RX or Audacity. If defined, this editor can be opened via context menus of audio files (right-click).", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="Your preferred audio editor installed on your computer, like RX or Audacity. If defined, this editor can be opened via context menus of audio files (right-click).", multilined, position="is-right"): em.icon--info
                             td {{ editorExecutablePath || 'not configured' }}
                             td
                                 button.button.is-small(@click="$emitGlobal('show-editor-config-dialog')") Select...
                         tr
                             td: a(role="button", @click="openInBrowser('https://www.ghisler.com/')") File Manager
-                                b-tooltip(label="An additional file manager like the unsurpassed Total Commander. If set, it can be opened via context menu on any file or folder (right-click).", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="An additional file manager like the unsurpassed Total Commander. If set, it can be opened via context menu on any file or folder (right-click).", multilined, position="is-right"): em.icon--info
                             td {{ fileManagerExecutablePath || 'not configured' }}
                             td
                                 button.button.is-small(@click="$emitGlobal('show-filemanager-config-dialog')") Select...
@@ -99,21 +99,21 @@
                             td
                         tr
                             td Parallel Metadata jobs
-                                b-tooltip(:label="`The maximum number of files concurrently analysed for duration, sample rate etc. Generally, values between the number of physical and logical CPU cores should work fine. Recommended on this PC: ${ RECOMMENDED_PARALLEL_METADATA_JOBS }+`", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(:label="`The maximum number of files concurrently analysed for duration, sample rate etc. Generally, values between the number of physical and logical CPU cores should work fine. Recommended on this PC: ${ RECOMMENDED_PARALLEL_METADATA_JOBS }+`", multilined, position="is-right"): em.icon--info
                             td
                                 input.slider(v-model.number="metadataConcurrency", type="range", min="1", :max="TOTAL_LOGICAL_OR_PHYSICAL_CORES + 2", step="1")
                                 span.configDialog__limitValue {{ metadataConcurrency }}
                             td
                         tr
                             td Parallel Spectrogram jobs
-                                b-tooltip(:label="`The maximum number of spectrograms being processed in parallel. Best keep slightly below the number of physical CPU cores. Recommended on this PC: ${ RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS }`", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(:label="`The maximum number of spectrograms being processed in parallel. Best keep slightly below the number of physical CPU cores. Recommended on this PC: ${ RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS }`", multilined, position="is-right"): em.icon--info
                             td
                                 input.slider(v-model.number="spectrogramConcurrency", type="range", min="1", :max="8", step="1")
                                 span.configDialog__limitValue {{ spectrogramConcurrency }}  
                             td
                         tr
                             td Skip Spectrogram processing<br>for Files above...
-                                b-tooltip(label="The bigger/longer an audio file, the longer it takes to process its spectrogram. Use these limits to skip processing spectrograms for huge/long files altogether.", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="The bigger/longer an audio file, the longer it takes to process its spectrogram. Use these limits to skip processing spectrograms for huge/long files altogether.", multilined, position="is-right"): em.icon--info
                             td
                                 div
                                     input.slider.configDialog--longSlider(v-model.number="spectrogramSourceFileSizeLimitInMb", type="range", min="0", max="2000", step="10")
@@ -125,12 +125,12 @@
                             td
                         tr
                             td Temporary spectrograms folder
-                                b-tooltip(label="Folder for temporary files during spectrogram processing. Recommended: some folder on the fastest drive in your PC", multilined, position="is-right"): em.fa.fa-info-circle
+                                b-tooltip(label="Folder for temporary files during spectrogram processing. Recommended: some folder on the fastest drive in your PC", multilined, position="is-right"): em.icon--info
                             td 
                                 div(v-if="linearSpectrogramDir")
                                     a(role="button", @click="gotoLinearSpectrogramDir") 
-                                        span.fa.fa-external-link-alt &nbsp;
-                                        | {{ linearSpectrogramDir }}
+                                        span.icon--extern
+                                        |  {{ linearSpectrogramDir }}
                                 span(v-else) 
                                     p None selected. Temporary files will be written to the audio files' folders.
                                     p This is <b>NOT recommended</b> as this setting will be slow on SD cards and <br>may shorten their lifetime.
@@ -145,14 +145,14 @@
                             td
                                 b-radio.radio--spacy(v-model="loadInfoOfSmallFilesFirst", size="is-default", type="is-info", :native-value="false") As listed
                                 b-radio.radio--spacy(v-model="loadInfoOfSmallFilesFirst", size="is-default", type="is-info", :native-value="true") Small files first
-                                    b-tooltip(label="(NOT recommended) Processing small files' spectrograms first may cause the file list to be behave \"jumpy\" during spectrogram processing", multilined, position="is-top"): em.fa.fa-info-circle
+                                    b-tooltip(label="(NOT recommended) Processing small files' spectrograms first may cause the file list to be behave \"jumpy\" during spectrogram processing", multilined, position="is-top"): em.icon--info
                             td
     
 
             footer.modal-card-foot
                 .dialog__buttons.dialog__buttons--spread
                     a.configDialog__configFileLink(role="button", @click="gotoConfigFile", :title="configFilePath") 
-                        span.fa.fa-external-link-alt 
+                        span.icon--extern 
                         | &nbsp;Configuration File
                     button.button.is-primary.is-light(@click="close") Close
     

@@ -15,8 +15,8 @@
 
         .toolbar__group
             a(role="button", @click="$emitGlobal('show-help-dialog')")
-                span.fa.fa-question-circle &nbsp;
-                | Help 
+                span.icon--help
+                |  Help 
 
 
 </template>
