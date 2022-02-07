@@ -7,9 +7,6 @@ import VueCancellationTokens from '@/plugins/VueCancellationTokens'
 import VueElectronContextMenu from '@/plugins/VueElectronContextMenu'
 import { GLOBAL_EVENTS } from './constants'
 
-import 'typeface-cousine/index.css'
-import 'typeface-roboto/index.css'
-
 import Buefy from 'buefy'
 import VueDarkMode from '@growthbunker/vuedarkmode'
 import Logger from '@/helpers/Logger'
