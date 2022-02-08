@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.2.2-beta10",
+  "version": "2.2.2-beta12",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "async": "^3.2.3",
-    "buefy": "^0.9.0",
+    "buefy": "^0.9.14",
     "electron-store": "^8.0.1",
     "electron-window-state": "^5.0.3",
     "lodash": "^4.17.21",

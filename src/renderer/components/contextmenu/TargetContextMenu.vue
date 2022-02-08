@@ -38,8 +38,8 @@
                     menu.append(new MenuItem({type: 'separator'}));
 
                     menu.append(new MenuItem({
-                        label: `Directory Limit (${this.targetDirLimit})`,
-                        click: () => this.showDirectoryLimitDialog()
+                        label: `Folder Limit (${this.targetDirLimit})`,
+                        click: () => this.showFolderLimitDialog()
                     }));
 
                     menu.append(new MenuItem({type: 'separator'}));
@@ -55,8 +55,8 @@
                     }));
                 });
             },
-            showDirectoryLimitDialog() {
-                this.$emitGlobal('show-maxdirs-config-dialog');
+            showFolderLimitDialog() {
+                this.$emitGlobal('show-folder-limit-dialog');
             }
         },
         created() {

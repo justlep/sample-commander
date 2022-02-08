@@ -150,7 +150,7 @@
                     } 
                 } catch (err) {
                     // nothing
-                    console.warn('failed to show path %s', pathToOpen);
+                    this.$log.warn('failed to show path %s', pathToOpen);
                 }
             });
             

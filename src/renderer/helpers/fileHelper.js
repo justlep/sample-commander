@@ -63,7 +63,7 @@ async function _assertPathExists(targetPath, expectFile) {
         // not ok
     }
     if (!isOk) {
-        throw 'Given path is not a ' + (expectFile ? 'file' : 'directory');
+        throw 'Given path is not a ' + (expectFile ? 'file' : 'folder');
     }
     return fullPath;
 }

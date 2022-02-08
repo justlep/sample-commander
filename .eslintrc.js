@@ -22,7 +22,7 @@ module.exports = {
     ],
     'rules': {
         'no-unused-vars': 1,
-        'no-console': ['warn', { allow: ['warn', 'error'] }],
+        'no-console': 2,
         'comma-dangle': ['error'],
         // allow paren-less arrow functions
         'arrow-parens': 0,

@@ -1,4 +1,5 @@
 import { IS_WINDOWS } from '@/constants'
+import Logger from '@/helpers/Logger.js';
 const { dialog, getCurrentWindow } = require('electron').remote;
 
 /**
@@ -6,7 +7,7 @@ const { dialog, getCurrentWindow } = require('electron').remote;
  * @param {string} [preselectedPath] 
  * @return {Promise<any>}
  */
-export async function selectSingleDirectory({title = 'Select directory', preselectedPath = undefined}) {
+export async function selectSingleFolder({title = 'Select folder', preselectedPath = undefined}) {
     try {
         // https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowopendialogbrowserwindow-options
         let {canceled, filePaths} = await dialog.showOpenDialog(getCurrentWindow(), {
@@ -18,9 +19,9 @@ export async function selectSingleDirectory({title = 'Select directory', presele
             return filePaths[0];
         }
     } catch (err) {
-        console.warn(err);
+        Logger.warn(err);
     }
-    throw 'No directory selected';
+    throw 'No folder selected';
 }
 
 /**
@@ -44,7 +45,7 @@ export async function selectSingleFile({title = 'Select file', executable = fals
             return filePaths[0];
         }
     } catch (err) {
-        console.warn(err);
+        Logger.warn(err);
     }
     throw 'No file selected'
 }

@@ -34,7 +34,7 @@
 
 <script>
     import { get, sync } from 'vuex-pathify'
-    import {selectSingleDirectory} from '@/helpers/dialogHelper'
+    import {selectSingleFolder} from '@/helpers/dialogHelper'
     import FileList from './FileList'
     import FileItem from '@/model/FileItem'
     import FileInfoLoader from './FileInfoLoader'
@@ -130,7 +130,7 @@
                 return null;
             },
             targetTogglerTooltip() {
-                return TARGET_TOGGLER_TOOLTIP_PREFIX + (this.showTargetPanel ? 'Maximize Source panel (hiding Target panel)' : 'Restore Target panel');
+                return TARGET_TOGGLER_TOOLTIP_PREFIX + (this.showTargetPanel ? 'Hide Target panel' : 'Restore Target panel');
             }
         },
         watch: {
@@ -195,12 +195,12 @@
                 }
             },
             selectSourcePath() {
-                selectSingleDirectory({
-                        title: 'Select source directory',
+                selectSingleFolder({
+                        title: 'Select source folder',
                         preselectedPath: this.sourcePath 
                     })
                     .then(path => this.sourcePath = path)
-                    .catch(err => this.$log.error('Failed to select sourcePath: ', err));
+                    .catch(err => this.$log.warn('Failed to select sourcePath: ', err));
             },
             abortLoading() {
                 this.$cancelCancellationToken(LOADER_CANCELLATION_TOKEN_FACTORY_NAME);

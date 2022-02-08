@@ -10,7 +10,10 @@
         .mainPanel__content
             .mainPanel__scrollable.mainPanel__scrollable--target
                 .mainPanel__message(v-if="error"): b-tag(type="is-danger", closable, attached, @close="error = ''") {{ error }}
-                .mainPanel__message(v-if="isTargetDirLimitedExceeded"): b-tag(type="is-danger", closable, attached, @close="isTargetDirLimitedExceeded = false") Stopped after limit of {{ targetDirLimit }} directories 
+                .mainPanel__message(v-if="isTargetDirLimitedExceeded")
+                    b-tag(type="is-danger", closable, attached, @close="isTargetDirLimitedExceeded = false") 
+                        a(role="button", @click="$emitGlobal('show-folder-limit-dialog')") 
+                        span Stopped after limit of {{ targetDirLimit }} folders 
                 a.mainPanel__message(role="button", v-if="isTargetLoading", @click="abortLoading")
                     br
                     gb-spinner(color="blue", size="medium")
@@ -27,7 +30,7 @@
     import { sync, get } from 'vuex-pathify'
     import DirItem from '@/model/DirItem'
     import DirList from './DirList'
-    import {selectSingleDirectory} from '@/helpers/dialogHelper'
+    import {selectSingleFolder} from '@/helpers/dialogHelper'
     import FavDirIcon from './FavDirIcon'
     import {TARGET_TOGGLER_TOOLTIP_PREFIX} from '@/constants'
 
@@ -66,12 +69,12 @@
                 this.$cancelCancellationToken(CANCEL_TOKEN_FACTORY_NAME);
             },
             selectTargetPath() {
-                selectSingleDirectory({
-                        title: 'Select target directory',
+                selectSingleFolder({
+                        title: 'Select target folder',
                         preselectedPath: this.targetPath
                     })
                     .then(path => this.targetPath = path)
-                    .catch(err => this.$log.error('Failed to select targetPath: ', err));
+                    .catch(err => this.$log.warn('Failed to select targetPath: ', err));
             },
             async reload() {
                 if (this.isTargetLoading) {

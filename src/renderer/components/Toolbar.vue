@@ -32,7 +32,7 @@
     import nodePath from 'path'
     import { mapGetters } from 'vuex'
     import { sync } from 'vuex-pathify'
-    import { selectSingleDirectory, selectSingleFile } from '@/helpers/dialogHelper'
+    import { selectSingleFolder, selectSingleFile } from '@/helpers/dialogHelper'
     import { assertFileIsExecutable } from '@/helpers/fileHelper'
     import { FFMPEG_EXECUTABLE_FILENAME, FFPROBE_EXECUTABLE_FILENAME, 
              MAX_SOURCE_ITEM_WIDTH, MAX_SPECTROGRAM_SIZE, SPECTROGRAM_SIZE_STEPPING } from '@/constants'
@@ -136,7 +136,7 @@
                 let currentExePath = this.ffmpegExecutablePath || this.ffprobeExecutablePath,
                     currentFfmpegDir = currentExePath ? nodePath.resolve(currentExePath, '..') : undefined;
                 
-                selectSingleDirectory({title: 'Please select the FFmpeg folder', preselectedPath: currentFfmpegDir})
+                selectSingleFolder({title: 'Please select the FFmpeg folder', preselectedPath: currentFfmpegDir})
                     .then(directory => {
                         return Promise.all(
                             [FFMPEG_EXECUTABLE_FILENAME, FFPROBE_EXECUTABLE_FILENAME].map(async exeName => new Promise(async (resolve, reject) => {
@@ -172,10 +172,10 @@
                         })
                     });
             },
-            configureTargetDirLimit() {
+            configureTargetFolderLimit() {
                 this.$buefy.dialog.prompt({
-                    title: 'Directory Limit',
-                    message: 'Select the maximum number of directories loaded in the target panel:',
+                    title: 'Folder Limit',
+                    message: 'Select the maximum number of folders loaded in the target panel:',
                     inputAttrs: {
                         type: 'number',
                         value: this.targetDirLimit,
@@ -238,7 +238,7 @@
             this.$onGlobal('show-ffmpeg-config-dialog', () => this.configureFfmpeg());
             this.$onGlobal('show-editor-config-dialog', () => this.configureEditor());
             this.$onGlobal('show-filemanager-config-dialog', () => this.configureFileManager());
-            this.$onGlobal('show-maxdirs-config-dialog', () => this.configureTargetDirLimit());
+            this.$onGlobal('show-folder-limit-dialog', () => this.configureTargetFolderLimit());
         },
         mounted() {
             Vue.nextTick(() => this.checkFfmpegConfigured());

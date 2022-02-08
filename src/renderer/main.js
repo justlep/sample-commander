@@ -7,10 +7,12 @@ import VueCancellationTokens from '@/plugins/VueCancellationTokens'
 import VueElectronContextMenu from '@/plugins/VueElectronContextMenu'
 import { GLOBAL_EVENTS } from './constants'
 
-import Buefy from 'buefy'
 import VueDarkMode from '@growthbunker/vuedarkmode'
 import Logger from '@/helpers/Logger'
 import Mousetrap from 'mousetrap'
+
+import {Tag, Radio, Input, Tooltip, Checkbox, Field, Snackbar, Toast, Dialog} from 'buefy/src/components'
+/*   */[Tag, Radio, Input, Tooltip, Checkbox, Field, Snackbar, Toast, Dialog].forEach(c => Vue.use(c));
 
 //import 'buefy/dist/buefy.css'
 import '@/styles/app.scss'
@@ -41,7 +43,6 @@ Vue.prototype.$mousetrap.stopCallback = function(e, element, combo) {
  */
 Vue.prototype.$isModalDialogVisible = () => !!document.querySelector('.modal.is-active');
 
-Vue.use(Buefy);
 Vue.use(VueDarkMode);
 
 Vue.use(VueGlobalEvents, { events: GLOBAL_EVENTS });

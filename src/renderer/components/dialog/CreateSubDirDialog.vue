@@ -4,7 +4,7 @@
         .modal-background(@click="cancel")
         .modal-card
             header.modal-card-head
-                p.modal-card-title Create Subdirectory
+                p.modal-card-title Create subfolder
             section.modal-card-body
                 .dialog__box
                     b-field(label="Directory name", :message="error || message", :type="error ? 'is-danger' : ''")
@@ -67,7 +67,7 @@
                     shouldClose = true;
                 } catch (err) {
                     this.$log.warn(err);
-                    this.error = 'Could not create subdirectory';
+                    this.error = 'Could not create subfolder';
                 }
                 this.isBusy = false;
                 if (shouldClose) {

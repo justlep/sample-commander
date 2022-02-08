@@ -71,7 +71,7 @@ export const GLOBAL_EVENTS = [
     'show-editor-config-dialog',
     'show-filemanager-config-dialog',
     'show-config-dialog',
-    'show-maxdirs-config-dialog',
+    'show-folder-limit-dialog',
     'clear-electron-cache',
     'spectrograms-deleted',
     'close-dialog-requested',

@@ -33,7 +33,7 @@
                     menu.append(new MenuItem({type: 'separator'}));
 
                     menu.append(new MenuItem({
-                        label: 'Create subdirectory...',
+                        label: 'Create subfolder...',
                         click: () => this.$emitGlobal('show-create-subdir-dialog', {dirItem})
                     }));
 

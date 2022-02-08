@@ -54,7 +54,7 @@
                                 input.slider.configDialog--longSlider(v-model.number="targetDirLimit", type="range", min="0", max="1000", step="10")
                                 span.configDialog__limitValue {{ targetDirLimit || 'no limit' }}
                             td
-                                button.button.is-small(@click="$emitGlobal('show-maxdirs-config-dialog')") Edit...
+                                button.button.is-small(@click="$emitGlobal('show-folder-limit-dialog')") Edit...
                         tr
                             td Double-clicked Target folders load in...
                             td
@@ -160,7 +160,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import { selectSingleDirectory } from '@/helpers/dialogHelper'
+    import { selectSingleFolder } from '@/helpers/dialogHelper'
     import nodeFs from 'fs' 
     import nodePath from 'path'
     import { sync } from 'vuex-pathify'
@@ -222,7 +222,7 @@
                 this.$electron.shell.openExternal(url);
             },
             configureLinearSpectrogramDir() {
-                selectSingleDirectory({title: 'Please folder for temporary spectrogram files', preselectedPath: this.linearSpectrogramDir})
+                selectSingleFolder({title: 'Please folder for temporary spectrogram files', preselectedPath: this.linearSpectrogramDir})
                     .then(selectedPath => selectedPath && new Promise((resolve, reject) => {
                         let testFile = nodePath.join(selectedPath, '.sample-commander-info.txt'),
                             testFileContent = LINEAR_SPECTROGRAM_DIR_INFO_FILE_CONTENT + new Date().toLocaleString();
