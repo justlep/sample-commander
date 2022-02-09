@@ -33,8 +33,8 @@ zip.on('ready', () => {
         /,[^;u]+?url\('[^']+?'\) format\('truetype'\)/gm
     ];
     
-    const CSS_FILE_PATH = findFileInZip('fontello.css', zip);
-    const WOFF2_FILE_PATH = findFileInZip('fontello.woff2', zip);
+    const CSS_FILE_PATH = findFileInZip('fontello.css');
+    const WOFF2_FILE_PATH = findFileInZip('fontello.woff2');
     
     Promise.all([
         new Promise((resolve, reject) => {
