@@ -40,10 +40,10 @@
             a(@click.prevent="mute", title="Mute", role="button")
                 +svgIconConditional("muted ? '#def-unmuted' : '#def-muted'")
             div(style="display:flex") 
-                a(@click.prevent="showVolume = !showVolume", title="Volume", role="button")
+                a(@click.prevent="isVolumeVisible = !isVolumeVisible", title="Volume", role="button")
                     +svgIcon('vol')
                 transition(name="fade")
-                    input.slider.player__vol(v-if="showVolume", v-model.lazy.number="volume", type="range", min="0", max="100")
+                    input.slider.player__vol(v-if="isVolumeVisible", v-model.number="volume", type="range", min="0", max="100")
         audio(:loop="innerLoop", :autoplay="autoplay", ref="audioElem", :src="file || ''", preload="metadata", style="display: none;")
 
 </template>
@@ -78,7 +78,7 @@
             loaded: false,
             playing: false,
             previousVolume: 35,
-            showVolume: false,
+            isVolumeVisible: false,
             volume: 100,
             isDownloadEnabled: false
         }),
@@ -111,8 +111,16 @@
                 this.$refs.audioElem.pause();
             },
             volume(/* value */) {
-                this.showVolume = false;
                 this.$refs.audioElem.volume = this.volume / 100;
+                this._shouldAutoCloseAfter = Date.now() + 1200;
+                if (!this._autoClosingTimer) {
+                    this._autoClosingTimer = setInterval(() => {
+                        if (Date.now() >= this._shouldAutoCloseAfter) {
+                            this._autoClosingTimer = void clearInterval(this._autoClosingTimer);
+                            this.isVolumeVisible = false;
+                        }
+                    }, 405);
+                }
             },
             autoplay(isAutoplayEnabled) {
                 if (!isAutoplayEnabled) {

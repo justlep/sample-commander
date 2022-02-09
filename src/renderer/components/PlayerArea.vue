@@ -5,8 +5,8 @@
                     @player-reports-position-in-percent="seekPercentage = $event",
                     @toggle-autoplay="autoplay = !autoplay")
         b.player__filename(:class="{'player__filename--nonempty': !!this.filePath}", @click="$emitGlobal('focus-played-file')",
-                           @contextmenu="$emitGlobal('show-file-contextmenu', playedFileItem)").
-            {{ displayedFilename }}
+                           @contextmenu="$emitGlobal('show-file-contextmenu', playedFileItem)")
+            | {{ displayedFilename }}
     
 </template>
 
