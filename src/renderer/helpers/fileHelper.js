@@ -1,16 +1,16 @@
-import path from 'path'
-const promisify = require('util').promisify;
-const fs = require('fs');
+const path = require('path')
+const {promisify} = require('util')
+const fs = require('fs')
 
 // const glob = require('glob');
 // const readFile = promisify(fs.readFile);
 // const writeFile = promisify(fs.writeFile);
-export const copyFile = promisify(fs.copyFile);
-export const mkdir = promisify(fs.mkdir);
-export const unlink = promisify(fs.unlink);
-export const stat = promisify(fs.stat);
-export const rename = promisify(fs.rename);
-export const access = promisify(fs.access);
+export const copyFile = promisify(fs.copyFile)
+export const mkdir = promisify(fs.mkdir)
+export const unlink = promisify(fs.unlink)
+export const stat = promisify(fs.stat)
+export const rename = promisify(fs.rename)
+export const access = promisify(fs.access)
 
 export const COPYFILE_NO_OVERWRITE_FLAG = fs.constants.COPYFILE_EXCL;
 
