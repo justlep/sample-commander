@@ -17,8 +17,7 @@
                         | &nbsp;|&nbsp;
                         span.file__duration(v-if="showDuration") {{ fileItem.metadata.duration || '?' }}
                     span.file__mtime(v-if="showMTime") {{ fileItem.formattedMTime }}
-                .spectro(v-if="spectrogramSize && fileItem.spectrogram", 
-                         :style="{backgroundImage:getSpectrogramCssBgImgUrl(fileItem)}")
+                .spectro(v-if="spectrogramSize && fileItem.spectrogram", v-spectro-bg="fileItem.spectrogram")
                     .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
                     .spectro__clickzone
         
@@ -43,12 +42,18 @@
     import ItemCollection from '@/helpers/ItemCollection'
     import {RectSelector, RectSelectableItem} from '@/helpers/RectSelector'
     import { scrollToElement } from '@/helpers/scrollHelper'
+    import Vue from 'vue';
     
     const SPECTROGRAM_CLICKZONE_CLASS = 'spectro__clickzone';
     const SOURCE_ITEM_CSS_WIDTH_BY_INDEX = ['auto', '24%', '32%', '48%', '100%'];
     
     // TODO make configurable; toolbar / config dialog ?
     const isPlayingSpectroFullsizeEnabled = false;
+    
+    /** Custom binding setting the given value (= raw spectrogram path) as the bound element's background image */
+    Vue.directive('spectro-bg', (el, {value}) => {
+        el.style.backgroundImage = value ? `url('file:///${value.replace(/[\\]/g, '/').replace(/'/g,'\\\'')}')` : 'none' 
+    });
     
     export default {
         props: {
@@ -394,10 +399,6 @@
                     delete this._selectedIdsMap[item.id];
                     this.selectionChangeFlag++;
                 }
-            },
-            getSpectrogramCssBgImgUrl(item) {
-                let path = item.spectrogram;
-                return path ? `url('file:///${path.replace(/[\\]/g, '/').replace(/'/g,'\\\'')}')` : 'none';
             },
             onKeyUp(e) {
                 if (e.charCode || e.target.tagName === 'INPUT') {
