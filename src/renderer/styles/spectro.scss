@@ -1,6 +1,6 @@
 
 .spectro {
-	height: 100px;
+	height: var(--spectro-height, 50px);
 	width: 100%;
 	background: transparent none 0 0 no-repeat;
 	background-clip: content-box;
@@ -9,6 +9,10 @@
 	margin-bottom: 3px;
 	overflow: hidden;
 
+    .file__item--playing & {
+        height: var(--spectro-height-playing, var(--spectro-height));
+    }
+    
 	&__progress {
 		height: 100%;
 		width: 100%;

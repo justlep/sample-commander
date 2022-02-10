@@ -36,7 +36,7 @@
                                 b-tooltip(label="Lets you change the displayed vertical distance between files, e.g. in order to facilitate drawing selection boxes", multilined, position="is-right"): em.icon--info
                             td
                                 input.slider(v-model.number="sourceItemVSpace", type="range", min="0", max="20", step="1")
-                                span.configDialog__limitValue {{ sourceItemVSpace ? (sourceItemVSpace + ' px') : 'default' }}
+                                span.configDialog__limitValue {{ sourceItemVSpace }}px
                             td
                         tr
                             td Limit Source files
@@ -165,7 +165,8 @@
     import nodePath from 'path'
     import { sync } from 'vuex-pathify'
     import { 
-        FFMPEG_PAGE_URL, SPECTROGRAM_SIZE_STEPPING,
+        FFMPEG_PAGE_URL, 
+        SPECTROGRAM_SIZE_STEPPING,
         RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS,
         RECOMMENDED_PARALLEL_METADATA_JOBS,
         TOTAL_LOGICAL_OR_PHYSICAL_CORES,

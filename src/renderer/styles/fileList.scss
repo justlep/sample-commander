@@ -56,7 +56,9 @@ $item-background-hover: #888;
 		border-radius: 3px;
 		cursor: pointer;
 		position: relative;
-
+        width: var(--file-item-width, auto);
+        margin-bottom: var(--file-item-vspace) !important;
+        
 		.file__list--wMax &:hover,
 		&:hover {
 			border-color: darken($item-color, 10%);
@@ -69,25 +71,15 @@ $item-background-hover: #888;
 		.file__list--w0 & {
 			flex-grow: unset;
 		}
-		.file__list--w1 & {
-			width: 24%;
-		}
-		.file__list--w2 & {
-			width: 32%;
-		}
-		.file__list--w3 & {
-			width: 48%;
-		}
 		.file__list--wNonMax & {
-			margin: 0 10px 8px 0;
+			margin: 0 10px auto 0;
 			padding: 5px $item-side-padding;
 			display: flex;
 			flex-wrap: wrap;
 		}
 		.file__list--wMax & {
 			padding: 4px $item-side-padding 3px;
-			margin: 0 9px 1px 0;
-			width: 100%;
+			margin: 0 9px auto 0;
 			border-bottom-color: darken($defaultGray, 8%);
 			position: relative;
 
@@ -96,14 +88,9 @@ $item-background-hover: #888;
 			}
 		}
 
-		// see ConfigDialog.vue for range
-		@for $i from 1 through 20 {
-			.file__list--vspace#{$i} & {
-				margin-bottom: #{$i}px !important;
-			}
-		}
-
 		&--playing {
+            width: var(--file-item-width-playing, var(--file-item-width)) !important;
+            
 			.file__filename {
 				color: $color-played-list-item;
 			}

@@ -1,7 +1,9 @@
 <template lang="pug">
     
     div
-        ul.file__list(:class="cssListClass", @click="onListClicked", @contextmenu="onListRightclicked", @dragstart="onDragStart", @dragend="onDragEnd", data-rect-select, ref="fileListElem")
+        ul.file__list(:class="cssListClass", @click="onListClicked", @contextmenu="onListRightclicked", 
+                        @dragstart="onDragStart", @dragend="onDragEnd", data-rect-select, ref="fileListElem",
+                        :style="{...sourceItemCssVars, ...playingItemCssVars}")
             li.file__item(v-for="fileItem in fileItems",
                         draggable=true,
                         :title="fileItem.path"
@@ -16,7 +18,7 @@
                         span.file__duration(v-if="showDuration") {{ fileItem.metadata.duration || '?' }}
                     span.file__mtime(v-if="showMTime") {{ fileItem.formattedMTime }}
                 .spectro(v-if="spectrogramSize && fileItem.spectrogram", 
-                         :style="{backgroundImage:getSpectrogramCssBgImgUrl(fileItem), height: spectrogramSize + 'px'}")
+                         :style="{backgroundImage:getSpectrogramCssBgImgUrl(fileItem)}")
                     .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
                     .spectro__clickzone
         
@@ -43,6 +45,10 @@
     import { scrollToElement } from '@/helpers/scrollHelper'
     
     const SPECTROGRAM_CLICKZONE_CLASS = 'spectro__clickzone';
+    const SOURCE_ITEM_CSS_WIDTH_BY_INDEX = ['auto', '24%', '32%', '48%', '100%'];
+    
+    // TODO make configurable; toolbar / config dialog ?
+    const isPlayingSpectroFullsizeEnabled = false;
     
     export default {
         props: {
@@ -70,11 +76,23 @@
                 'player/seekPercentage',
                 'isMousewheelResizingDisabled'
             ]),
-            cssListClass: function(/* state */) {
-                let w = this.sourceItemWidth,
-                    vspaceClass = 'file__list--vspace' + this.sourceItemVSpace;
-                
-                return `file__list--w${w} file__list--w${w === MAX_SOURCE_ITEM_WIDTH ? 'Max' : 'NonMax'} ${vspaceClass}`;
+            cssListClass(/* state */) {
+                let w = this.sourceItemWidth;
+                return `file__list--w${w} file__list--w${w === MAX_SOURCE_ITEM_WIDTH ? 'Max' : 'NonMax'}`;
+            },
+            sourceItemCssVars() {
+                return {
+                    '--spectro-height': this.spectrogramSize + 'px',
+                    '--file-item-vspace': (this.sourceItemVSpace || 0) + 'px', // 50??? whats the default?
+                    '--file-item-width': SOURCE_ITEM_CSS_WIDTH_BY_INDEX[this.sourceItemWidth]
+                }
+            },
+            playingItemCssVars() {
+                // allows for displaying the currently played item's spectrogram in full width and max height 
+                return isPlayingSpectroFullsizeEnabled && this.spectrogramSize ? {
+                    '--spectro-height-playing': '250px',
+                    '--file-item-width-playing': '100%'
+                } : {};
             },
             totalSelected() {
                 return this.selectionChangeFlag && Object.keys(this._selectedIdsMap).length;
