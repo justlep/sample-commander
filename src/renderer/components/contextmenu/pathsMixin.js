@@ -1,6 +1,5 @@
-import { sync } from 'vuex-pathify'
-import {remote} from 'electron'
-const {Menu, MenuItem} = remote;
+import {sync} from 'vuex-pathify'
+import {Menu, MenuItem} from '@electron/remote'
 
 /**
  * Provides "Recent Folder" menu item functionality.   

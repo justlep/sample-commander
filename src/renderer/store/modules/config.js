@@ -1,4 +1,3 @@
-import {remote} from 'electron'
 import Store from 'electron-store'
 import {make} from 'vuex-pathify'
 import Logger from '@/helpers/Logger'
@@ -9,6 +8,7 @@ import {
     LINEAR_SPECTROGRAM_DIR_INFO_FILE_CONTENT,
     RECOMMENDED_PARALLEL_METADATA_JOBS, 
     RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS } from '@/constants'
+import {getCurrentWindow} from '@electron/remote';
 
 const _electronStore = new Store();
 
@@ -29,7 +29,7 @@ try {
     } catch (creationError) {
         Logger.error(creationError);
         alert('ERROR: Failed to create temporary folder ' + DEFAULT_LINEAR_SPECTROGRAM_DIR);
-        remote.getCurrentWindow().close();
+        getCurrentWindow().close();
     }
 }
 

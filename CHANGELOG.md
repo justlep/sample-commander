@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
+## [2.3.0] - TBA
+* faster program start
+* reduced installer size
+* security updates
+
 ## [2.2.0] - 4<sup>th</sup> March 2021
 * security update (upgraded from Electron 7 to 9)
 * faster folders listings

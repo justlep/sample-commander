@@ -1,10 +1,9 @@
 import { mapGetters } from 'vuex'
 import { get } from 'vuex-pathify'
-import { remote } from 'electron'
+import { MenuItem } from '@electron/remote'
 import { SYSTEM_FILEMANAGER_NAME } from '@/constants'
 
 const nodeSpawn = require('child_process').spawn;
-const {MenuItem} = remote;
 
 export default {
     computed: {

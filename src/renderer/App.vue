@@ -33,7 +33,8 @@
 </template>
 
 <script>
-    import {ipcRenderer, remote, shell} from 'electron'
+    import {ipcRenderer, shell} from 'electron'
+    import {getCurrentWindow} from '@electron/remote'
     import SourceContextMenu from './components/contextmenu/SourceContextMenu'
     import TargetContextMenu from './components/contextmenu/TargetContextMenu'
     import FileContextMenu from './components/contextmenu/FileContextMenu'
@@ -124,7 +125,7 @@
             
             // TODO this won't fix the image cache
             this.$onGlobal('clear-electron-cache', () => {
-                let win = remote.getCurrentWindow();
+                let win = getCurrentWindow();
                 win.webContents.session.clearCache(() => {
                     this.$log.dev('Electron session cache cleared');
                     //alert('cache cleared');

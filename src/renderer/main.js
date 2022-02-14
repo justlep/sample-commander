@@ -1,16 +1,15 @@
 import Vue from 'vue'
 
 import store from './store'
+import App from './App'
 import VueGlobalEvents from '@/plugins/VueGlobalEvents'
 import VueAsserts from '@/plugins/VueAsserts'
 import VueCancellationTokens from '@/plugins/VueCancellationTokens'
 import VueElectronContextMenu from '@/plugins/VueElectronContextMenu'
 import { GLOBAL_EVENTS } from './constants'
-
 import VueDarkMode from '@growthbunker/vuedarkmode'
 import Logger from '@/helpers/Logger'
 import Mousetrap from 'mousetrap'
-
 import {Tag, Radio, Input, Tooltip, Checkbox, Field, Snackbar, Toast, Dialog} from 'buefy/src/components'
 /*   */[Tag, Radio, Input, Tooltip, Checkbox, Field, Snackbar, Toast, Dialog].forEach(c => Vue.use(c));
 
@@ -50,9 +49,6 @@ Vue.use(VueAsserts);
 Vue.use(VueCancellationTokens);
 Vue.use(VueElectronContextMenu);
 
-import App from './App'
-
-/* eslint-disable no-new */
 new Vue({
     components: { 
         App

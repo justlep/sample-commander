@@ -74,7 +74,7 @@
                 this.sourceItemWidth = (currentSize && currentSize < MAX_SOURCE_ITEM_WIDTH) ? MAX_SOURCE_ITEM_WIDTH : 1;
             },
             configureEditor() {
-                selectSingleFile({title: 'Please select your Audio Editor\'s executable', executable: true})
+                selectSingleFile({title: 'Please select your Audio Editor\'s executable', executable: true, preselectedFilePath: this.editorExecutablePath})
                     .then(uncheckedFilePath => {
                         return assertFileIsExecutable(uncheckedFilePath);
                     })
@@ -95,7 +95,7 @@
                     });
             },            
             configureFileManager() {
-                selectSingleFile({title: 'Please select your File Manager\'s executable', executable: true})
+                selectSingleFile({title: 'Please select your File Manager\'s executable', executable: true, preselectedFilePath: this.fileManagerExecutablePath})
                     .then(uncheckedFilePath => {
                         return assertFileIsExecutable(uncheckedFilePath);
                     })

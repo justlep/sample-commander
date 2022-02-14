@@ -3,10 +3,10 @@
 <script>
     import FileItem from '@/model/FileItem'
     import {sync, get} from 'vuex-pathify'
-    import {remote} from 'electron'
     import path from 'path'
     import fileManagerMixin from './fileManagerMixin'
     import { SYSTEM_FILEMANAGER_NAME, ARROW_SOURCE, ARROW_TARGET } from '@/constants'
+    import {shell} from '@electron/remote';
     
     const nodeSpawn = require('child_process').spawn;
 
@@ -68,7 +68,7 @@
 
                     menu.append(new MenuItem({
                         label: 'Open with Default Application',
-                        click: () => remote.shell.openPath(fileItem.path)
+                        click: () => shell.openPath(fileItem.path)
                     }));
 
                     if (fileItem.isAudioFile) {

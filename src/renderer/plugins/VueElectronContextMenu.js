@@ -1,4 +1,4 @@
-import {remote} from 'electron';
+import {getCurrentWindow, Menu, MenuItem} from '@electron/remote';
 
 /**
  * Adds global $electronContextMenu method to Vue's prototype,
@@ -31,7 +31,6 @@ import {remote} from 'electron';
 
 export default {
     install(Vue) {
-        const {Menu, MenuItem} = remote;
 
         /**
          * @param {VueElectronContextMenu_callback} fn
@@ -41,7 +40,7 @@ export default {
 
             fn(menu, Menu, MenuItem);
 
-            menu.popup({window: remote.getCurrentWindow()});
+            menu.popup({window: getCurrentWindow()});
         }
     }
 }

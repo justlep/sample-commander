@@ -1,6 +1,7 @@
-import { IS_WINDOWS } from '@/constants'
+import { IS_WINDOWS } from '@/constants';
 import Logger from '@/helpers/Logger.js';
-const { dialog, getCurrentWindow } = require('electron').remote;
+const path = require('path');
+const { getCurrentWindow, dialog } = require('@electron/remote');
 
 /**
  * @param {string} [title]
@@ -33,11 +34,20 @@ export async function selectSingleFolder({title = 'Select folder', preselectedPa
  *          {name: 'xml', extensions: ['xml'] }
  *       ]
  */
-export async function selectSingleFile({title = 'Select file', executable = false}) {
+export async function selectSingleFile({title = 'Select file', executable = false, preselectedFilePath}) {
+    let defaultPath;
+    if (preselectedFilePath) {
+        try {
+            defaultPath = path.dirname(preselectedFilePath) || undefined;
+        } catch {
+            // so what
+        }
+    }
     try {
         // https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowopendialogbrowserwindow-options
         let {filePaths, canceled} = await dialog.showOpenDialog(getCurrentWindow(), {
             title,
+            defaultPath,
             filters: (executable && IS_WINDOWS) ? [{name: 'executables', extensions: ['exe', 'bat', 'cmd']}] : undefined,
             properties: ['openFile']
         });
