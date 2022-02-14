@@ -93,7 +93,7 @@
     "@electron/remote": "^2.0.4",
     "@growthbunker/vuedarkmode": "^0.5.56",
     "@types/jest": "^27.4.0",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "async": "^3.2.3",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.4.6",
