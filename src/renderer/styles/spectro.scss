@@ -13,6 +13,10 @@
         height: var(--spectro-height-playing, var(--spectro-height));
     }
     
+    &, &__progress {
+        filter: saturate(var(--spectro-intensity, 100%)) brightness(var(--spectro-intensity, 100%));
+    }
+    
 	&__progress {
 		height: 100%;
 		width: 100%;

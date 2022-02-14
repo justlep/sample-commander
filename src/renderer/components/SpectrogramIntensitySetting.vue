@@ -1,8 +1,6 @@
 <template lang="pug">
 
-    .toolbar__group(v-if="spectrogramSize")
-        div(style="display:none", v-html="spectrogramStyleHtml")
-            
+    .toolbar__group(v-if="spectrogramSize", @wheel.prevent="changeByWheel")
         .toolbar__groupLabel.toolbar__groupLabel--intensity
             a(role="button", title="Increase the contrast of spectrograms (spectrogram files remain untouched)",
                 @click="isIntensitySliderVisible = !isIntensitySliderVisible", @contextmenu="resetIntensity")
@@ -10,18 +8,20 @@
                 | Spectrogram Intensity:
 
         input.slider(v-if="spectrogramSize && isIntensitySliderVisible", v-model.number="spectrogramIntensity",
-                     @contextmenu="resetIntensity", type="range", min="100", max="200", step="1", style="margin-right: 10px")
+                     @contextmenu="resetIntensity", type="range", :min="MIN_INTENSITY", :max="MAX_INTENSITY", step="1", style="margin-right: 10px")
         // - b-tooltip(v-if="spectrogramSize && isIntensitySliderVisible", label="asd", multilined, position="is-right"): em.icon--info
 
         .toolbar__groupLabel(v-if="spectrogramSize && !isIntensitySliderVisible", style="padding-left: 0; margin-left: -5px")
             a(role="button", @click="isIntensitySliderVisible = !isIntensitySliderVisible", @contextmenu="resetIntensity"). 
-                {{ spectrogramIntensity === 100 ? 'normal' : `+${spectrogramIntensity - 100}%`}}
+                {{ spectrogramIntensity === MIN_INTENSITY ? 'normal' : `+${spectrogramIntensity - MIN_INTENSITY}%`}}
 
 </template>
 
-
 <script>
     import { sync } from 'vuex-pathify'
+    
+    const MIN_INTENSITY = 100;
+    const MAX_INTENSITY = 200;
     
     export default {
         data: () => ({
@@ -31,17 +31,21 @@
             ...sync([
                 'spectrogramSize',
                 'config/spectrogramIntensity'
-            ]),
-            spectrogramStyleHtml() {
-                let intensity = this.spectrogramIntensity;
-                return (intensity !== 100) ? `<style type="text/css">.spectro, .spectro__progress {filter: saturate(${this.spectrogramIntensity}%) brightness(${this.spectrogramIntensity}%)})</style>` : '';
-            }
+            ])
         },
         methods: {
             resetIntensity() {
                 this.isIntensitySliderVisible = false;
                 this.spectrogramIntensity = 100;
+            },
+            changeByWheel(e) {
+                e.preventDefault();
+                let diff = e.deltaY < 0 ? 5 : -5;
+                this.spectrogramIntensity = Math.max(MIN_INTENSITY, Math.min(MAX_INTENSITY, this.spectrogramIntensity + diff));
             }
+        },
+        created() {
+            Object.assign(this, {MIN_INTENSITY, MAX_INTENSITY});    
         }
     }
     

@@ -1,6 +1,6 @@
 <template lang="pug">
     
-    div
+    div(:style="{'--spectro-intensity': spectrogramIntensity + '%'}")
         ul.file__list(:class="cssListClass", @click="onListClicked", @contextmenu="onListRightclicked", 
                         @dragstart="onDragStart", @dragend="onDragEnd", data-rect-select, ref="fileListElem",
                         :style="{...sourceItemCssVars, ...playingItemCssVars}")
@@ -73,7 +73,8 @@
                 'config/sourceItemWidth',
                 'config/sourceItemVSpace',
                 'player/playedFileItemId',
-                'player/playedFileItem'
+                'player/playedFileItem',
+                'config/spectrogramIntensity'
             ]),
             ...sync([
                 'draggedFileItemCollection',
