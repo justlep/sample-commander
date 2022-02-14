@@ -1,11 +1,11 @@
 <template lang="pug">
     
     .toolbar__wrap
-        .toolbar__group.js--wheelItemWidth
+        .toolbar__group(@wheel="e => onSpectroHeightOrWidthWheel(false, e)")
             .toolbar__groupLabel: a(role="button", @click="toggleSourceItemWidth") File Width:
             input.slider(v-model.number="sourceItemWidth", type="range", min="0", :max="MAX_SOURCE_ITEM_WIDTH", step="1")
 
-        .toolbar__group.js--wheelSpectroHeight
+        .toolbar__group(@wheel="e => onSpectroHeightOrWidthWheel(true, e)")
             .toolbar__groupLabel: a(role="button", @click="spectrogramSize = spectrogramSize ? 0 : 2 * SPECTROGRAM_SIZE_STEPPING") Spectrogram Height: 
             input.slider(v-model.number="spectrogramSize", type="range", min="0", :max="MAX_SPECTROGRAM_SIZE", :step="SPECTROGRAM_SIZE_STEPPING")
             span(v-if="!spectrogramSize") &nbsp; OFF
@@ -36,6 +36,8 @@
     import { assertFileIsExecutable } from '@/helpers/fileHelper'
     import { FFMPEG_EXECUTABLE_FILENAME, FFPROBE_EXECUTABLE_FILENAME, 
              MAX_SOURCE_ITEM_WIDTH, MAX_SPECTROGRAM_SIZE, SPECTROGRAM_SIZE_STEPPING } from '@/constants'
+    
+    const NOP = () => {};
     
     export default {
         data: () => ({
@@ -199,13 +201,22 @@
             decItemWidth() {
                 this.sourceItemWidth = Math.max(this.sourceItemWidth - 1, 0);
             },
+            onSpectroHeightOrWidthWheel(isHeight, e) {
+                e.preventDefault();
+                this.onMousewheel({
+                    preventDefault: NOP,
+                    deltaY: e.deltaY,
+                    ctrlKey: isHeight,
+                    shiftKey: !isHeight
+                });
+            },
             onMousewheel(e) {
                 if (this.isMousewheelResizingDisabled) {
                     return;
                 }
                 
-                let forSpectroSize = e.ctrlKey || !!e.target.closest('.js--wheelSpectroHeight'),
-                    forItemWidth = !forSpectroSize && (e.shiftKey || !!e.target.closest('.js--wheelItemWidth')); 
+                let forSpectroSize = e.ctrlKey,
+                    forItemWidth = e.shiftKey; 
                 
                 if (forSpectroSize || forItemWidth) {
                     e.preventDefault();
