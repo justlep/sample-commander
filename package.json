@@ -1,6 +1,6 @@
 {
   "name": "sample-commander",
-  "version": "2.3.0-beta2",
+  "version": "2.3.0",
   "description": "A spectrogram-assisted file browser & player for audio recordings",
   "author": "Lennart Pegel <SAMPLECOMMANDER@JUSTLEP.NET>",
   "license": "GPL-3.0",
