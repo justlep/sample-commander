@@ -9,19 +9,23 @@
                     gb-tabs(name="fooConvert", v-model="selectedFormatValue", :tabs="FORMATS", size="small")
             section.modal-card-body
                 b-tag(type="is-danger", attached, v-if="!ffmpegExecutablePath") Conversion requires FFmpeg to be configured first  
-                .dialog__box(v-if="format.isMp3")
+                .dialog__box(v-if="format.hasBitrates")
                     p(v-if="format.isVbr")
                         | VBR Quality: &nbsp;
                         input.slider(v-model.number="mp3VbrQuality", type="range", min="0", max="9", step="1")
                         | &nbsp; {{ mp3VbrQuality }} {{ mp3VbrQuality === 0 ? '(Best)' : mp3VbrQuality === 9 ? '(Worst)' : '' }}
                     p(v-else)
                         | Bitrate: &nbsp;
-                        input.slider(v-model.number="mp3Bitrate", type="range", min="64", max="320", step="32")
-                        | &nbsp; {{ mp3Bitrate }} kbit
+                        input.slider(v-model.number="bitrate", type="range", min="64", max="320", step="32")
+                        | &nbsp; {{ bitrate }} kbit
+                    p(v-if="format.isAac")
+                        b-checkbox(size="is-small", v-model="useFraunhoferAac") 
+                            | Use Fraunhofer 'libfdk_aac' AAC Encoder &nbsp;
+                            b-tooltip(label="Requires ffmpeg binaries compiled with the 'libfdk_aac' codec"): i.icon--info
                     p
-                        b-checkbox(size="is-small", v-model="isMp3BitrateAddedToFilename") Include bitrate info in filename
+                        b-checkbox(size="is-small", v-model="shouldAddBitrateToFilename") Include bitrate info in filename
 
-                br(v-if="format.isMp3")
+                br(v-if="format.hasBitrates")
 
                 .dialog__box
                     table.dialog__table.dialog__table--hoverLines
@@ -47,7 +51,7 @@
 </template>
 
 <script>
-    import { get } from 'vuex-pathify'
+    import {get, sync} from 'vuex-pathify'
     import nodePath from 'path'
     import nodeUtil from 'util'
     import {pathExists} from '@/helpers/fileHelper'
@@ -56,10 +60,13 @@
     import {execFile} from "child_process"
 
     const FORMATS = [
-        {value: 'MP3_CBR', label: 'MP3 (CBR)', ext: '.mp3', isMp3: true, isCbr: true, isConfigurable: true},
-        {value: 'MP3_VBR', label: 'MP3 (VBR)', ext: '.mp3', isMp3: true, isVbr: true, isConfigurable: true},
-        {value: 'WAV', label: 'Wave Format', ext: '.wav', isWav: true, isConfigurable: false}
+        {value: 'MP3_CBR', label: 'MP3 (CBR)', ext: '.mp3', isMp3: true, isCbr: true, hasBitrates: true},
+        {value: 'MP3_VBR', label: 'MP3 (VBR)', ext: '.mp3', isMp3: true, isVbr: true, hasBitrates: true},
+        {value: 'AAC', label: 'AAC', ext: '.aac', isAac: true, hasBitrates: true},
+        {value: 'WAV', label: 'Wave Format', ext: '.wav', isWav: true, hasBitrates: false, isConfigurable: false}
     ];
+    
+    let lastSelectedFormatValue;
     
     const CONVERSION_PROCESS_KEY = '__CONV_PROCESS__';
     
@@ -73,14 +80,17 @@
             /** @type {RenamableProcessableItemWrapper[]} */
             processableItemWrappers: [],
             refreshWhenDone: true,
-            selectedFormatValue: FORMATS.find(f => f.isMp3).value,
-            mp3Bitrate: 256,
+            selectedFormatValue: lastSelectedFormatValue || FORMATS.find(f => f.isMp3).value,
+            bitrate: 256,
             mp3VbrQuality: 0,
-            isMp3BitrateAddedToFilename: true
+            shouldAddBitrateToFilename: true
         }),
         computed: {
             ...get('config', [
                 'ffmpegExecutablePath'
+            ]),
+            ...sync([
+                'config/useFraunhoferAac'
             ]),
             totalFiles() {
                 return this.processableItemWrappers.length;
@@ -93,25 +103,25 @@
                     return this.$options.lastTotalConvertableItems;
                 }
                 
-                let {format, mp3VbrQuality, mp3Bitrate} = this;
+                let {format, mp3VbrQuality, bitrate} = this;
                 
-                this.$options.finalSetting = {format, mp3Bitrate, mp3VbrQuality};
+                this.$options.finalSetting = {format, bitrate, mp3VbrQuality};
                 
                 let totalConvertable = 0,
                     newExt = this.format.ext,
-                    isFormatConfigurable = format.isConfigurable,
-                    mp3BitrateInfoSuffix = (!format.isMp3 || !this.isMp3BitrateAddedToFilename) ? '' :
-                                           format.isVbr ? `_VBR-Q${mp3VbrQuality}` : `_${mp3Bitrate}k_CBR`;
+                    bitrateInfoSuffix = (!format.hasBitrates || !this.shouldAddBitrateToFilename) ? '' :
+                                          format.isAac ? `_${bitrate}k` :
+                                          format.isVbr ? `_VBR-Q${mp3VbrQuality}` : `_${bitrate}k_CBR`;
 
                 this.processableItemWrappers.forEach(processableWrapper => {
                     let isInTargetFormatAlready = (newExt === processableWrapper.oldExt.toLowerCase());
                     
-                    if (!processableWrapper.isIncluded || (isInTargetFormatAlready && !isFormatConfigurable)) {
+                    if (!processableWrapper.isIncluded || (isInTargetFormatAlready && !format.hasBitrates)) {
                         processableWrapper.newFilename = '';
                         return;
                     }
 
-                    let newBasename = processableWrapper.oldBasename + mp3BitrateInfoSuffix,
+                    let newBasename = processableWrapper.oldBasename + bitrateInfoSuffix,
                         newFilename = newBasename + newExt;
                     
                     if (newFilename.toLocaleLowerCase() === processableWrapper.oldFilename.toLowerCase()) {
@@ -165,7 +175,7 @@
              * @returns {Promise<any>}
              */
             convertFile(sourcePath, targetPath) {
-                let {format, mp3Bitrate, mp3VbrQuality} = this.$options.finalSetting,
+                let {format, bitrate, mp3VbrQuality} = this.$options.finalSetting,
                     ffmpegArgs = ['-hide_banner', '-i', sourcePath]; 
                 
                 if (format.isMp3) {
@@ -176,8 +186,11 @@
                     if (format.isVbr) {
                         ffmpegArgs.push('-q:a', mp3VbrQuality);
                     } else {
-                        ffmpegArgs.push('-b:a', mp3Bitrate + 'k');
+                        ffmpegArgs.push('-b:a', bitrate + 'k');
                     }
+                } else if (format.isAac) {
+                    const codec = this.useFraunhoferAac ? 'libfdk_aac' : 'aac';
+                    ffmpegArgs.push('-vn', '-acodec', codec, '-b:a', bitrate + 'k');
                 }
                 
                 ffmpegArgs.push(targetPath);
@@ -255,6 +268,8 @@
                 }
             },
             close() {
+                lastSelectedFormatValue = this.selectedFormatValue;
+                
                 if (this.isBusy) {
                     this.cancellationToken.cancel();
                     this.killCurrentConversionProcess();

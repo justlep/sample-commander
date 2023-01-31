@@ -47,3 +47,9 @@ label.radio {
 .b-tooltip:after {
 	font-size: 12px;
 }
+
+body button.is-small {
+    height: auto !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}

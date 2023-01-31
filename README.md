@@ -22,7 +22,9 @@
     - **Copy or move files by dragging** files from the Source Panel into Target Panel folders
     - **Drag** audio files from the Source Panel **directly into external applications** (e.g. your DAW)
 - **Rename multiple files at once** using **patterns, counters, search/replace** (incl. regular expressions)
-- **Convert to MP3 or Wave** (MP3 in CBR or VBR)
+- **Convert to MP3, AAC\* or Wave** (MP3 in CBR or VBR)
+  - \*AAC conversion via ffmpeg's native or Fraunhofer "libfdk_aac" codec
+  - `libfdk_aac` is normally not included; you need a special ffmpeg build like [this](https://www.reddit.com/user/VeritablePornocopium/comments/okw130/ffmpeg_with_libfdk_aac_for_windows_x64/)
 - Helpful **context menus per right-click**, allowing e.g. to
     - show any file/folder in **Windows Explorer**
     - show any file/folder in your **preferred file manager**\*\*  (like [Total Commander](https://www.ghisler.com/) ❤)
@@ -97,7 +99,7 @@ npm run lint
 
 ## License
 
-Copyright © 2019 Lennart Pegel
+Copyright © 2019-2023 Lennart Pegel
 
 Sample Commander is licensed under the [GNU General Public License v3](./LICENSE).
 

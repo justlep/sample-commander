@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to Sample Commander will be documented in this file.
 
+## [2.3.1] - 31<sup>st</sup> January 2023
+* fixed external links
+* support aac, m4a
+* added AAC conversion using ffmpeg native or libfdk_aac (Fraunhofer) codec
+
 ## [2.3.0] - 29<sup>th</sup> March 2022
 * faster program start
 * reduced installer size

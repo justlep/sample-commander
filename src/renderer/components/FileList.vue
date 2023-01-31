@@ -18,7 +18,7 @@
                         span.file__duration(v-if="showDuration") {{ fileItem.metadata.duration || '?' }}
                     span.file__mtime(v-if="showMTime") {{ fileItem.formattedMTime }}
                 .spectro(v-if="spectrogramSize && fileItem.spectrogram", v-spectro-bg="fileItem.spectrogram")
-                    .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: 'translate(' + (seekPercentage - 100) + '%, 0)'}")
+                    .spectro__progress(v-if="playedFileItem && playedFileItem.id === fileItem.id", :style="{transform: `translateX(${seekPercentage - 100}%)`}")
                     .spectro__clickzone
         
         .file__selectionSummary(v-if="selectionSummary")

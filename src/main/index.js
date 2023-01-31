@@ -89,8 +89,8 @@ function createMainWindow() {
         mainWindow.close();
     });
 
-    mainWindow.webContents.setWindowOpenHandler(function(e, url) {
-        setImmediate(() => shell.openExternal(url, {activate: true}).catch(err => console.log(err))); // eslint-disable-line
+    mainWindow.webContents.setWindowOpenHandler(({url}) => {
+        setImmediate(() => shell.openExternal(url, {activate: true}).catch(err => console.log(err))); // eslint-disable-line no-console
         return {action: 'deny'};
     });
 

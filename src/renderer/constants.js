@@ -9,7 +9,7 @@ export const TOTAL_LOGICAL_OR_PHYSICAL_CORES = nodeOs.cpus().length;
 export const RECOMMENDED_PARALLEL_METADATA_JOBS = Math.min(6, Math.ceil(TOTAL_LOGICAL_OR_PHYSICAL_CORES / 2) + 1);
 export const RECOMMENDED_PARALLEL_SPECTROGRAM_JOBS = Math.min(4, Math.ceil(TOTAL_LOGICAL_OR_PHYSICAL_CORES / 2) - 1);
 
-export const AUDIO_FILE_EXTENSIONS_REGEX = /\.(wav|mp3|ogg|webm|weba|flac)$/i;
+export const AUDIO_FILE_EXTENSIONS_REGEX = /\.(wav|mp3|ogg|aac|webm|m4a|weba|flac)$/i;
 
 /**
  * This is only the URL of the page. 
@@ -131,4 +131,4 @@ export const CHANGELOG_URL = 'https://github.com/justlep/sample-commander/blob/m
 export const RELEASES_URL = 'https://github.com/justlep/sample-commander/releases';
 export const CONTACT_EMAIL = 'SAMPLECOMMANDER@JUSTLEP.NET';
 
-export const COPYRIGHT = '© 2015 - 2022 Lennart Pegel';
+export const COPYRIGHT = '© 2015 - 2023 Lennart Pegel';

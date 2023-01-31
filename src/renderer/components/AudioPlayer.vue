@@ -30,7 +30,7 @@
             .player__progress(v-show="loaded", @click="seekByClick", ref="progressElem", @contextmenu.prevent="togglePlay")
                 .player__time {{ currentTime }}
                 .player__time {{ durationTime }}
-                .player__seeker(:style="{ transform: 'translate(' + (this.percentComplete - 100) + '%, 0)'}")
+                .player__seeker(:style="{ transform: `translateX(${this.percentComplete - 100}%)`}")
             div(v-if="isDownloadEnabled"): a(@click.prevent="download", role="button")
                 +svgIcon('download')
             a(@click.prevent="innerLoop = !innerLoop", role="button")
@@ -333,7 +333,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            transform: translate(-100%, 0);
+            transform: translateX(-100%);
             transition: transform 0.2s;
             
             .player--playing & {

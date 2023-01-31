@@ -71,7 +71,8 @@ const DEFAULT_STATE = {
     favDirs: [],
     duplicateCheckQuickMode: true,
     linearSpectrogramDir: DEFAULT_LINEAR_SPECTROGRAM_DIR,
-    doubleClickTargetSetsSource: true
+    doubleClickTargetSetsSource: true,
+    useFraunhoferAac: false
 };
 
 const STATE_KEYS = Object.keys(DEFAULT_STATE).sort();

@@ -88,7 +88,8 @@ $modal-card-foot-border-top: none; // 1px solid red;
 }
 
 body input[type=range].slider {
-
+    vertical-align: middle;
+    
 	&::-webkit-slider-runnable-track {
 		height: 11px !important;
 		background-color: lighten($default-link-color, 30%);
