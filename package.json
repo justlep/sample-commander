@@ -130,7 +130,7 @@
     "mousetrap": "^1.6.5",
     "move-file": "^1.2.0",
     "node-loader": "^0.6.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^8.0.0",
     "node-stream-zip": "^1.15.0",
     "pug": "~3.0.1",
     "pug-plain-loader": "^1.1.0",
